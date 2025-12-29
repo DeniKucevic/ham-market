@@ -1,6 +1,5 @@
 "use client";
 
-import { COUNTRIES } from "@/constants/countries";
 import { createClient } from "@/lib/supabase/client";
 import { UpdateProfileSchema } from "@/schemas/profile";
 import { Database } from "@/types/database";
@@ -8,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ZodError } from "zod";
+import { CountrySelect } from "./country-select";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
@@ -285,25 +285,13 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div>
-            <label
-              htmlFor="location_country"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              {t("country")} *
-            </label>
-            <select
-              id="location_country"
+            <CountrySelect
               value={locationCountry}
-              onChange={(e) => setLocationCountry(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-            >
-              <option value="">{t("selectCountry")}</option>
-              {COUNTRIES.map((country) => (
-                <option key={country.code} value={country.code}>
-                  {country.flag} {country.name}
-                </option>
-              ))}
-            </select>
+              onChange={setLocationCountry}
+              locale={locale}
+              label={`${t("country")} *`}
+              placeholder={t("selectCountry")}
+            />
             <p className="mt-1 text-xs text-yellow-600 dark:text-yellow-400">
               ⚠️ {t("requiredForListings")}
             </p>

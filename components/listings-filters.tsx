@@ -1,6 +1,7 @@
 "use client";
 
-import { COUNTRIES } from "@/constants/countries";
+import { getCountries } from "@/lib/countries";
+import { CountrySelect } from "./country-select";
 
 interface Props {
   searchQuery: string;
@@ -15,11 +16,10 @@ interface Props {
   onMaxPriceChange: (price: string) => void;
   country: string;
   onCountryChange: (country: string) => void;
-  city: string;
-  onCityChange: (city: string) => void;
   sortBy: string;
   onSortChange: (sort: string) => void;
   onClearFilters: () => void;
+  locale: string;
 }
 
 const CATEGORIES = [
@@ -51,26 +51,7 @@ const CONDITIONS = [
   { value: "parts_repair", label: "For Parts/Repair" },
 ];
 
-const POPULAR_COUNTRIES = [
-  "Serbia",
-  "Croatia",
-  "Bosnia and Herzegovina",
-  "Slovenia",
-  "North Macedonia",
-  "Montenegro",
-  "Germany",
-  "Austria",
-  "Italy",
-  "Hungary",
-  "Romania",
-  "Bulgaria",
-  "Greece",
-  "Poland",
-];
-
 export function ListingsFilters({
-  searchQuery,
-  onSearchChange,
   selectedCategory,
   onCategoryChange,
   selectedCondition,
@@ -81,11 +62,10 @@ export function ListingsFilters({
   onMaxPriceChange,
   country,
   onCountryChange,
-  city,
-  onCityChange,
   sortBy,
   onSortChange,
   onClearFilters,
+  locale,
 }: Props) {
   const toggleCondition = (condition: string) => {
     if (selectedCondition.includes(condition)) {
@@ -100,11 +80,142 @@ export function ListingsFilters({
     selectedCondition.length > 0 ||
     minPrice !== "" ||
     maxPrice !== "" ||
-    country !== "" ||
-    city !== "";
+    country !== "";
+
+  // Get readable labels
+  const getCategoryLabel = (value: string) =>
+    CATEGORIES.find((c) => c.value === value)?.label || value;
+
+  const getConditionLabel = (value: string) =>
+    CONDITIONS.find((c) => c.value === value)?.label || value;
+
+  const getCountryLabel = (code: string) => {
+    const countries = getCountries(locale);
+    return countries.find((c) => c.code === code)?.nameTranslated || code;
+  };
 
   return (
     <div className="space-y-6">
+      {/* Active Filters */}
+      {hasActiveFilters && (
+        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
+          <div className="mb-2 flex items-center justify-between">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-white">
+              Active Filters
+            </h3>
+            <button
+              onClick={onClearFilters}
+              className="text-xs font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400"
+            >
+              Clear All
+            </button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {selectedCategory && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                {getCategoryLabel(selectedCategory)}
+                <button
+                  onClick={() => onCategoryChange("")}
+                  className="hover:text-blue-600 dark:hover:text-blue-100"
+                >
+                  <svg
+                    className="h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </span>
+            )}
+
+            {selectedCondition.map((condition) => (
+              <span
+                key={condition}
+                className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+              >
+                {getConditionLabel(condition)}
+                <button
+                  onClick={() => toggleCondition(condition)}
+                  className="hover:text-blue-600 dark:hover:text-blue-100"
+                >
+                  <svg
+                    className="h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </span>
+            ))}
+
+            {(minPrice || maxPrice) && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                Price: {minPrice || "0"} - {maxPrice || "∞"}
+                <button
+                  onClick={() => {
+                    onMinPriceChange("");
+                    onMaxPriceChange("");
+                  }}
+                  className="hover:text-blue-600 dark:hover:text-blue-100"
+                >
+                  <svg
+                    className="h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </span>
+            )}
+
+            {country && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                {getCountryLabel(country)}
+                <button
+                  onClick={() => onCountryChange("")}
+                  className="hover:text-blue-600 dark:hover:text-blue-100"
+                >
+                  <svg
+                    className="h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Sort By */}
       <div>
         <label
@@ -126,63 +237,14 @@ export function ListingsFilters({
         </select>
       </div>
 
-      {/* Search */}
-      <div>
-        <label
-          htmlFor="search"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          Search
-        </label>
-        <input
-          type="text"
-          id="search"
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search by title, manufacturer, model..."
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
-
       {/* Location Filters */}
-      <div>
-        <label
-          htmlFor="country"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          Country
-        </label>
-        <select
-          id="country"
-          value={country}
-          onChange={(e) => onCountryChange(e.target.value)}
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        >
-          <option value="">All Countries</option>
-          {COUNTRIES.map((c) => (
-            <option key={c.code} value={c.code}>
-              {c.flag} {c.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label
-          htmlFor="city"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          City (Optional)
-        </label>
-        <input
-          type="text"
-          id="city"
-          placeholder="Belgrade, Zagreb..."
-          value={city}
-          onChange={(e) => onCityChange(e.target.value)}
-          className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-        />
-      </div>
+      <CountrySelect
+        value={country}
+        onChange={onCountryChange}
+        locale={locale}
+        label="Country"
+        placeholder="All Countries"
+      />
 
       {/* Category */}
       <div>
@@ -250,16 +312,6 @@ export function ListingsFilters({
           />
         </div>
       </div>
-
-      {/* Clear Filters */}
-      {hasActiveFilters && (
-        <button
-          onClick={onClearFilters}
-          className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-        >
-          Clear Filters
-        </button>
-      )}
     </div>
   );
 }

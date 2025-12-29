@@ -23,20 +23,22 @@ export function HeroSearch({ initialQuery = "" }: Props) {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      router.push(`/?search=${encodeURIComponent(query.trim())}`);
+      router.push(`/?search=${encodeURIComponent(query.trim())}`, {
+        scroll: false,
+      });
     } else {
-      router.push("/");
+      router.push("/", { scroll: false });
     }
   };
 
   const handleClear = () => {
     setQuery("");
-    router.push("/");
+    router.push("/", { scroll: false });
   };
 
   const handlePopularClick = (term: string) => {
     setQuery(term);
-    router.push(`/?search=${encodeURIComponent(term)}`);
+    router.push(`/?search=${encodeURIComponent(term)}`, { scroll: false });
   };
 
   return (
@@ -107,19 +109,46 @@ export function HeroSearch({ initialQuery = "" }: Props) {
             </div>
           </form>
 
-          {/* Popular Searches */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            <span className="text-sm text-blue-200">Popular:</span>
-            {POPULAR_SEARCHES.map((term) => (
-              <button
-                key={term}
-                onClick={() => handlePopularClick(term)}
-                className="rounded-full bg-blue-700 px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-600 dark:bg-blue-900 dark:hover:bg-blue-800"
-              >
-                {term}
-              </button>
-            ))}
-          </div>
+          {/* Show active search or popular searches */}
+          {query ? (
+            <div className="mt-6">
+              <div className="inline-flex items-center gap-2 rounded-full bg-blue-700 px-4 py-2 dark:bg-blue-900">
+                <span className="text-sm text-blue-100">Searching for:</span>
+                <span className="font-medium text-white">{query}</span>
+                <button
+                  onClick={handleClear}
+                  className="ml-1 text-blue-200 hover:text-white"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+              <span className="text-sm text-blue-200">Popular:</span>
+              {POPULAR_SEARCHES.map((term) => (
+                <button
+                  key={term}
+                  onClick={() => handlePopularClick(term)}
+                  className="rounded-full bg-blue-700 px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-600 dark:bg-blue-900 dark:hover:bg-blue-800"
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -9,7 +9,8 @@ import { useLocalStorage } from "@/hooks/use-local-storage";
 import type { BrowseListing } from "@/types/listing";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 
 interface Props {
   listings: BrowseListing[];
@@ -17,6 +18,12 @@ interface Props {
   totalPages: number;
   totalCount: number;
   initialSearchQuery?: string;
+  initialCategory?: string;
+  initialConditions?: string[];
+  initialMinPrice?: string;
+  initialMaxPrice?: string;
+  initialCountry?: string;
+  initialSort?: string;
   locale: string;
 }
 
@@ -26,117 +33,72 @@ export function BrowseListingsClient({
   totalPages,
   totalCount,
   initialSearchQuery = "",
+  initialCategory = "",
+  initialConditions = [],
+  initialMinPrice = "",
+  initialMaxPrice = "",
+  initialCountry = "",
+  initialSort = "newest",
   locale,
 }: Props) {
   const t = useTranslations("browse");
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   const [viewMode, setViewMode, viewMounted] = useLocalStorage<"grid" | "list">(
     "listings-view-mode",
     "grid"
   );
-  // Filter states
+
+  // Filter states - controlled by URL params
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedCondition, setSelectedCondition] = useState<string[]>([]);
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [sortBy, setSortBy] = useState("newest");
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedCondition, setSelectedCondition] =
+    useState<string[]>(initialConditions);
+  const [minPrice, setMinPrice] = useState(initialMinPrice);
+  const [maxPrice, setMaxPrice] = useState(initialMaxPrice);
+  const [sortBy, setSortBy] = useState(initialSort);
+  const [country, setCountry] = useState(initialCountry);
 
-  const filteredAndSortedListings = useMemo(() => {
-    const result = listings.filter((listing) => {
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        const matchesSearch =
-          listing.title.toLowerCase().includes(query) ||
-          listing.description?.toLowerCase().includes(query) ||
-          listing.manufacturer?.toLowerCase().includes(query) ||
-          listing.model?.toLowerCase().includes(query);
+  // Update URL with filter params
+  const updateFilters = (newParams?: {
+    search?: string;
+    category?: string;
+    condition?: string[];
+    minPrice?: string;
+    maxPrice?: string;
+    country?: string;
+    sort?: string;
+  }) => {
+    const params = new URLSearchParams();
 
-        if (!matchesSearch) return false;
-      }
+    const search =
+      newParams?.search !== undefined ? newParams.search : searchQuery;
+    const cat =
+      newParams?.category !== undefined ? newParams.category : selectedCategory;
+    const cond =
+      newParams?.condition !== undefined
+        ? newParams.condition
+        : selectedCondition;
+    const minP =
+      newParams?.minPrice !== undefined ? newParams.minPrice : minPrice;
+    const maxP =
+      newParams?.maxPrice !== undefined ? newParams.maxPrice : maxPrice;
+    const ctry = newParams?.country !== undefined ? newParams.country : country;
+    const sort = newParams?.sort !== undefined ? newParams.sort : sortBy;
 
-      // Category filter
-      if (selectedCategory && listing.category !== selectedCategory) {
-        return false;
-      }
+    if (search) params.set("search", search);
+    if (cat) params.set("category", cat);
+    if (cond.length > 0) params.set("condition", cond.join(","));
+    if (minP) params.set("min_price", minP);
+    if (maxP) params.set("max_price", maxP);
+    if (ctry) params.set("country", ctry);
+    if (sort !== "newest") params.set("sort", sort);
 
-      // Condition filter
-      if (
-        selectedCondition.length > 0 &&
-        !selectedCondition.includes(listing.condition)
-      ) {
-        return false;
-      }
-
-      // Price filter
-      const price = listing.price;
-      if (minPrice && price < parseFloat(minPrice)) {
-        return false;
-      }
-      if (maxPrice && price > parseFloat(maxPrice)) {
-        return false;
-      }
-
-      // Location filters
-      if (country) {
-        const listingCountry =
-          listing.profiles?.location_country?.toLowerCase() || "";
-        const filterCountry = country.toLowerCase();
-        if (!listingCountry.includes(filterCountry)) {
-          return false;
-        }
-      }
-
-      if (city) {
-        const listingCity =
-          listing.profiles?.location_city?.toLowerCase() || "";
-        const filterCity = city.toLowerCase();
-        if (!listingCity.includes(filterCity)) {
-          return false;
-        }
-      }
-
-      return true;
+    startTransition(() => {
+      router.push(`/${locale}?${params.toString()}`, { scroll: false });
     });
-
-    // Sort
-    switch (sortBy) {
-      case "newest":
-        result.sort(
-          (a, b) =>
-            new Date(b.created_at || 0).getTime() -
-            new Date(a.created_at || 0).getTime()
-        );
-        break;
-      case "oldest":
-        result.sort(
-          (a, b) =>
-            new Date(a.created_at || 0).getTime() -
-            new Date(b.created_at || 0).getTime()
-        );
-        break;
-      case "price_low":
-        result.sort((a, b) => a.price - b.price);
-        break;
-      case "price_high":
-        result.sort((a, b) => b.price - a.price);
-        break;
-    }
-
-    return result;
-  }, [
-    listings,
-    searchQuery,
-    selectedCategory,
-    selectedCondition,
-    minPrice,
-    maxPrice,
-    sortBy,
-    country,
-    city,
-  ]);
+  };
 
   const clearFilters = () => {
     setSearchQuery("");
@@ -146,27 +108,11 @@ export function BrowseListingsClient({
     setMaxPrice("");
     setSortBy("newest");
     setCountry("");
-    setCity("");
-  };
 
-  if (!listings || listings.length === 0) {
-    return (
-      <div className="rounded-lg border-2 border-dashed border-gray-300 p-12 text-center dark:border-gray-600">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {t("noListingsYet")}
-        </h3>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
-          {t("beTheFirst")}
-        </p>
-        <Link
-          href={`/${locale}/listings/new`}
-          className="mt-4 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500"
-        >
-          {t("createListing")}
-        </Link>
-      </div>
-    );
-  }
+    startTransition(() => {
+      router.push(`/${locale}`, { scroll: false });
+    });
+  };
 
   return (
     <div className="grid gap-6 lg:grid-cols-4">
@@ -178,22 +124,42 @@ export function BrowseListingsClient({
           </h2>
           <ListingsFilters
             searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
+            onSearchChange={(value) => {
+              setSearchQuery(value);
+              updateFilters({ search: value });
+            }}
             selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
+            onCategoryChange={(value) => {
+              setSelectedCategory(value);
+              updateFilters({ category: value });
+            }}
             selectedCondition={selectedCondition}
-            onConditionChange={setSelectedCondition}
+            onConditionChange={(value) => {
+              setSelectedCondition(value);
+              updateFilters({ condition: value });
+            }}
             minPrice={minPrice}
             maxPrice={maxPrice}
-            onMinPriceChange={setMinPrice}
-            onMaxPriceChange={setMaxPrice}
+            onMinPriceChange={(value) => {
+              setMinPrice(value);
+              updateFilters({ minPrice: value });
+            }}
+            onMaxPriceChange={(value) => {
+              setMaxPrice(value);
+              updateFilters({ maxPrice: value });
+            }}
             country={country}
-            onCountryChange={setCountry}
-            city={city}
-            onCityChange={setCity}
+            onCountryChange={(value) => {
+              setCountry(value);
+              updateFilters({ country: value });
+            }}
             sortBy={sortBy}
-            onSortChange={setSortBy}
+            onSortChange={(value) => {
+              setSortBy(value);
+              updateFilters({ sort: value });
+            }}
             onClearFilters={clearFilters}
+            locale={locale}
           />
         </div>
       </aside>
@@ -203,47 +169,51 @@ export function BrowseListingsClient({
         {/* Header with view toggle */}
         <div className="mb-6 flex items-center justify-between">
           <p className="text-gray-600 dark:text-gray-400">
-            {t("showing")} {filteredAndSortedListings.length} {t("of")}{" "}
-            {totalCount} {t("listings")}
+            {t("showing")} {listings.length} {t("of")} {totalCount}{" "}
+            {t("listings")}
           </p>
           {viewMounted && (
             <ViewToggle value={viewMode} onChange={setViewMode} />
-          )}{" "}
+          )}
         </div>
 
         {/* No results */}
-        {filteredAndSortedListings.length === 0 && (
+        {(!listings || listings.length === 0) && (
           <div className="rounded-lg border-2 border-dashed border-gray-300 p-12 text-center dark:border-gray-600">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t("noListingsFound")}
+              {totalCount === 0 ? t("noListingsYet") : t("noListingsFound")}
             </h3>
             <p className="mt-2 text-gray-600 dark:text-gray-400">
-              {t("tryAdjusting")}
+              {totalCount === 0 ? t("beTheFirst") : t("tryAdjusting")}
             </p>
+            {totalCount === 0 && (
+              <Link
+                href={`/${locale}/listings/new`}
+                className="mt-4 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500"
+              >
+                {t("createListing")}
+              </Link>
+            )}
           </div>
         )}
 
         {/* Grid View */}
-        {viewMounted &&
-          filteredAndSortedListings.length > 0 &&
-          viewMode === "grid" && (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-              {filteredAndSortedListings.map((listing) => (
-                <ListingGridCard key={listing.id} listing={listing} />
-              ))}
-            </div>
-          )}
+        {viewMounted && listings.length > 0 && viewMode === "grid" && (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+            {listings.map((listing) => (
+              <ListingGridCard key={listing.id} listing={listing} />
+            ))}
+          </div>
+        )}
 
         {/* List View */}
-        {viewMounted &&
-          filteredAndSortedListings.length > 0 &&
-          viewMode === "list" && (
-            <div className="space-y-4">
-              {filteredAndSortedListings.map((listing) => (
-                <ListingListCard key={listing.id} listing={listing} />
-              ))}
-            </div>
-          )}
+        {viewMounted && listings.length > 0 && viewMode === "list" && (
+          <div className="space-y-4">
+            {listings.map((listing) => (
+              <ListingListCard key={listing.id} listing={listing} />
+            ))}
+          </div>
+        )}
 
         {/* Pagination */}
         <div className="mt-8">
