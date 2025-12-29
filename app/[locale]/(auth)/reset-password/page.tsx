@@ -15,21 +15,39 @@ function ResetPasswordForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [sessionReady, setSessionReady] = useState(false);
 
   // Exchange the code for a session on mount
   useEffect(() => {
     const code = searchParams.get("code");
     if (code) {
       const supabase = createClient();
-      supabase.auth.exchangeCodeForSession(code).catch((err) => {
-        console.error("Code exchange error:", err);
-        setError("Invalid or expired reset link");
-      });
+      supabase.auth
+        .exchangeCodeForSession(code)
+        .then(({ error }) => {
+          if (error) {
+            setError("Invalid or expired reset link");
+          } else {
+            setSessionReady(true);
+          }
+        })
+        .catch((err) => {
+          console.error("Code exchange error:", err);
+          setError("Invalid or expired reset link");
+        });
+    } else {
+      setError("No reset code provided");
     }
   }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!sessionReady) {
+      setError("Session not ready, please wait...");
+      return;
+    }
+
     setError(null);
     setLoading(true);
 
@@ -52,6 +70,16 @@ function ResetPasswordForm() {
       setLoading(false);
     }
   };
+
+  if (!sessionReady && !error) {
+    return (
+      <div className="mt-8 text-center">
+        <p className="text-gray-600 dark:text-gray-400">
+          Verifying reset link...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="mt-8 space-y-6">
@@ -83,7 +111,7 @@ function ResetPasswordForm() {
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || !sessionReady}
         className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 disabled:opacity-50"
       >
         {loading ? t("saving") : t("resetPassword")}
@@ -108,7 +136,7 @@ export default function ResetPasswordPage() {
           </h2>
         </div>
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div className="text-center">Loading...</div>}>
           <ResetPasswordForm />
         </Suspense>
       </div>
