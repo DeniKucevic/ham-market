@@ -47,10 +47,8 @@ export function PublicProfileClient({
   listings,
   isLoggedIn,
   isOwnProfile,
-  locale,
 }: Props) {
   const t = useTranslations("profile");
-  const tCommon = useTranslations("common");
 
   const [viewMode, setViewMode, viewMounted] = useLocalStorage<ViewMode>(
     "listings-view-mode",
@@ -148,7 +146,7 @@ export function PublicProfileClient({
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Profile Header - OSTAJE ISTO */}
+      {/* Profile Header */}
       <div className="mb-8 rounded-lg bg-white p-8 shadow dark:bg-gray-800">
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -480,7 +478,7 @@ export function PublicProfileClient({
         </div>
       )}
 
-      {listings.length > 0 && viewMode === "grid" && (
+      {viewMounted && listings.length > 0 && viewMode === "grid" && (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {listings.map((listing) => (
             <ListingGridCard key={listing.id} listing={listing} />
@@ -488,7 +486,7 @@ export function PublicProfileClient({
         </div>
       )}
 
-      {listings.length > 0 && viewMode === "list" && (
+      {viewMounted && listings.length > 0 && viewMode === "list" && (
         <div className="space-y-4">
           {listings.map((listing) => (
             <ListingListCard key={listing.id} listing={listing} />

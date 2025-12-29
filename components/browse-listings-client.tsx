@@ -5,6 +5,7 @@ import { ListingListCard } from "@/components/listing-list-card";
 import { ListingsFilters } from "@/components/listings-filters";
 import { Pagination } from "@/components/pagination";
 import { ViewToggle } from "@/components/view-toggle";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import type { BrowseListing } from "@/types/listing";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -29,8 +30,10 @@ export function BrowseListingsClient({
 }: Props) {
   const t = useTranslations("browse");
 
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-
+  const [viewMode, setViewMode, viewMounted] = useLocalStorage<"grid" | "list">(
+    "listings-view-mode",
+    "grid"
+  );
   // Filter states
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -203,7 +206,9 @@ export function BrowseListingsClient({
             {t("showing")} {filteredAndSortedListings.length} {t("of")}{" "}
             {totalCount} {t("listings")}
           </p>
-          <ViewToggle value={viewMode} onChange={setViewMode} />
+          {viewMounted && (
+            <ViewToggle value={viewMode} onChange={setViewMode} />
+          )}{" "}
         </div>
 
         {/* No results */}
@@ -219,22 +224,26 @@ export function BrowseListingsClient({
         )}
 
         {/* Grid View */}
-        {filteredAndSortedListings.length > 0 && viewMode === "grid" && (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            {filteredAndSortedListings.map((listing) => (
-              <ListingGridCard key={listing.id} listing={listing} />
-            ))}
-          </div>
-        )}
+        {viewMounted &&
+          filteredAndSortedListings.length > 0 &&
+          viewMode === "grid" && (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+              {filteredAndSortedListings.map((listing) => (
+                <ListingGridCard key={listing.id} listing={listing} />
+              ))}
+            </div>
+          )}
 
         {/* List View */}
-        {filteredAndSortedListings.length > 0 && viewMode === "list" && (
-          <div className="space-y-4">
-            {filteredAndSortedListings.map((listing) => (
-              <ListingListCard key={listing.id} listing={listing} />
-            ))}
-          </div>
-        )}
+        {viewMounted &&
+          filteredAndSortedListings.length > 0 &&
+          viewMode === "list" && (
+            <div className="space-y-4">
+              {filteredAndSortedListings.map((listing) => (
+                <ListingListCard key={listing.id} listing={listing} />
+              ))}
+            </div>
+          )}
 
         {/* Pagination */}
         <div className="mt-8">

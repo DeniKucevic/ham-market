@@ -123,7 +123,7 @@ export function Navbar({ user, profile, locale }: Props) {
                           {t("settings")}
                         </Link>
                         <hr className="my-1 border-gray-200 dark:border-gray-700" />
-                        <form action="/auth/signout" method="post">
+                        <form action={`/${locale}/signout`} method="post">
                           <button
                             type="submit"
                             className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"

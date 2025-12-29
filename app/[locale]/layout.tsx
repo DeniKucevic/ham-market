@@ -40,14 +40,10 @@ export default async function LocaleLayout({
   const messages = (await import(`../../messages/${locale}.json`)).default;
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Providers messages={messages} locale={locale}>
-          {children}
-        </Providers>
-      </body>
-    </html>
+    <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <Providers messages={messages} locale={locale}>
+        {children}
+      </Providers>
+    </div>
   );
 }
