@@ -124,6 +124,9 @@
     "sendingResetLink": "Sending reset link...",
     "resetLinkSent": "If an account with that email exists, a reset link has been sent.",
     "checkEmailForReset": "Please check your email for the password reset link.",
+    "resetPassword": "Reset Password",
+    "newPassword": "New Password",
+    "saving": "Saving...",
     "errors": {
       "validation": "Validation error",
       "generic": "Something went wrong"

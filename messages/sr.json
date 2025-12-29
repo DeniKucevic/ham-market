@@ -124,6 +124,9 @@
     "sendingResetLink": "Saljem link za reset lozinke...",
     "resetLinkSent": "Ako nalog sa tim email-om postoji, link za reset lozinke je poslat.",
     "checkEmailForReset": "Molimo proverite email za link za reset lozinke.",
+    "resetPassword": "Resetuj lozinku",
+    "newPassword": "Nova lozinka",
+    "saving": "Čuvanje...",
     "errors": {
       "validation": "Greška u validaciji",
       "generic": "Nešto nije u redu"
