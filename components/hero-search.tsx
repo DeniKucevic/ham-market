@@ -29,6 +29,11 @@ export function HeroSearch({ initialQuery = "" }: Props) {
     }
   };
 
+  const handleClear = () => {
+    setQuery("");
+    router.push("/");
+  };
+
   const handlePopularClick = (term: string) => {
     setQuery(term);
     router.push(`/?search=${encodeURIComponent(term)}`);
@@ -69,8 +74,29 @@ export function HeroSearch({ initialQuery = "" }: Props) {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search for radios, antennas, accessories..."
-                  className="block w-full rounded-lg border-0 py-4 pl-12 pr-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500"
+                  className="block w-full rounded-lg border-0 py-4 pl-12 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500"
                 />
+                {query && (
+                  <button
+                    type="button"
+                    onClick={handleClear}
+                    className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
               <button
                 type="submit"
