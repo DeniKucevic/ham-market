@@ -4,6 +4,7 @@ import { ListingGridCard } from "@/components/listing-grid-card";
 import { ListingListCard } from "@/components/listing-list-card";
 import { RespondToRatingModal } from "@/components/respond-to-rating-modal";
 import { ViewMode, ViewToggle } from "@/components/view-toggle";
+import { getCountryFlag, getCountryName } from "@/constants/countries";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { getDisplayName } from "@/lib/display-name";
 import { createClient } from "@/lib/supabase/client";
@@ -156,8 +157,9 @@ export function PublicProfileClient({
 
             {profile.location_country && (
               <p className="mt-2 text-gray-600 dark:text-gray-400">
-                📍 {profile.location_city ? `${profile.location_city}, ` : ""}
-                {profile.location_country}
+                {getCountryFlag(profile.location_country)}{" "}
+                {profile.location_city ? `${profile.location_city}, ` : ""}
+                {getCountryName(profile.location_country)}
               </p>
             )}
 
