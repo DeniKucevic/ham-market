@@ -9,8 +9,12 @@ const intlMiddleware = createIntlMiddleware({
   localePrefix: "always",
 });
 
-// CHANGE: Rename function to 'proxy' and use 'export default'
 export default async function proxy(request: NextRequest) {
+  // Skip intl middleware for API routes
+  if (request.nextUrl.pathname.startsWith("/api/")) {
+    return await updateSession(request);
+  }
+
   const intlResponse = intlMiddleware(request);
 
   // If next-intl is handling a redirect, return it immediately
@@ -24,6 +28,6 @@ export default async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

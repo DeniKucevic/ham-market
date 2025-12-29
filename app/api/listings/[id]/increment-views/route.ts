@@ -8,17 +8,13 @@ export async function POST(
   const { id } = await params;
   const supabase = await createClient();
 
-  const { data: listing } = await supabase
-    .from("listings")
-    .select("views")
-    .eq("id", id)
-    .single();
+  const { error } = await supabase.rpc("increment_listing_views", {
+    listing_id: id,
+  });
 
-  if (listing) {
-    await supabase
-      .from("listings")
-      .update({ views: (listing.views || 0) + 1 })
-      .eq("id", id);
+  if (error) {
+    console.error("Error incrementing views:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   return NextResponse.json({ success: true });
