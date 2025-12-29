@@ -86,7 +86,6 @@ export default async function ListingDetailPage({ params }: Props) {
   const t = await getTranslations("listingDetail");
   const supabase = await createClient();
 
-  // Optional auth - može i bez login-a
   const {
     data: { user },
   } = await supabase.auth.getUser();
