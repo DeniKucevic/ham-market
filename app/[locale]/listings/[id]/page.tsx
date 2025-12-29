@@ -9,9 +9,73 @@ import { getCountryFlag, getCountryName } from "@/constants/countries";
 import { getDisplayName } from "@/lib/display-name";
 import { createClient } from "@/lib/supabase/server";
 import { formatPrice } from "@/utils/currency";
+import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id, locale } = await params;
+  const supabase = await createClient();
+
+  const { data: listing } = await supabase
+    .from("listings")
+    .select(
+      `
+      title, 
+      description, 
+      images, 
+      price, 
+      currency,
+      manufacturer,
+      model
+    `
+    )
+    .eq("id", id)
+    .single();
+
+  if (!listing) {
+    return {
+      title: "Listing Not Found - HAM Marketplace",
+    };
+  }
+
+  // Build image URL
+  const imageUrl = listing.images?.[0]
+    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/listings/${listing.images[0]}`
+    : null;
+
+  // Build a good title
+  const title =
+    listing.manufacturer && listing.model
+      ? `${listing.manufacturer} ${listing.model} - ${listing.title}`
+      : listing.title;
+
+  // Build description
+  const description =
+    listing.description?.substring(0, 160) ||
+    `${title} available for ${listing.price} ${
+      listing.currency || "EUR"
+    } on HAM Marketplace`;
+
+  return {
+    title: `${title} | HAM Marketplace`,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      images: imageUrl ? [imageUrl] : [],
+      type: "website",
+      locale: locale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: imageUrl ? [imageUrl] : [],
+    },
+  };
+}
 
 interface Props {
   params: Promise<{ id: string; locale: string }>;
