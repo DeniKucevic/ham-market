@@ -3,8 +3,10 @@
 "use client";
 
 import { getDisplayName } from "@/lib/display-name";
+import { createClient } from "@/lib/supabase/client";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
@@ -23,7 +25,16 @@ interface Props {
 
 export function Navbar({ user, profile, locale }: Props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const router = useRouter();
   const t = useTranslations("nav");
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push(`/${locale}`);
+    router.refresh();
+  };
+
   return (
     <nav className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -123,14 +134,14 @@ export function Navbar({ user, profile, locale }: Props) {
                           {t("settings")}
                         </Link>
                         <hr className="my-1 border-gray-200 dark:border-gray-700" />
-                        <form action={`/${locale}/signout`} method="post">
-                          <button
-                            type="submit"
-                            className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-                          >
-                            {t("signOut")}
-                          </button>
-                        </form>
+
+                        <button
+                          onClick={handleSignOut}
+                          type="button"
+                          className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                        >
+                          {t("signOut")}
+                        </button>
                       </div>
                     </>
                   )}
