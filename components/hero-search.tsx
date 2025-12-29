@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   initialQuery?: string;
@@ -19,6 +19,16 @@ const POPULAR_SEARCHES = [
 export function HeroSearch({ initialQuery = "" }: Props) {
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,8 +52,25 @@ export function HeroSearch({ initialQuery = "" }: Props) {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950">
+      {/* Parallax Background Image */}
+      <div
+        className="absolute opacity-40 bg-cover bg-center transition-transform duration-75"
+        style={{
+          backgroundImage: "url('/images/ham-hero-bg.png')",
+          transform: `translateY(${scrollY * 0.5}px) scale(1.2)`,
+          inset: "-20%",
+        }}
+      />
+      ƒ{/* Black overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/40" />
+      {/* Content */}
+      <div
+        className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 transition-opacity duration-300"
+        style={{
+          opacity: Math.max(1 - scrollY / 400, 0),
+        }}
+      >
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
             HAM Radio Marketplace
