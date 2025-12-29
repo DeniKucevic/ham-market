@@ -115,6 +115,15 @@
     "signUp": "Registruj se",
     "noAccount": "Nemaš nalog?",
     "haveAccount": "Već imaš nalog?",
+    "checkYourEmail": "Proverite svoj email",
+    "confirmationEmailSent": "Poslali smo vam link za potvrdu. Molimo proverite svoj email i kliknite na link da aktivirate nalog.",
+    "forgotPassword": "Zaboravljena lozinka?",
+    "resetPasswordTitle": "Resetovanje lozinke",
+    "sendResetLink": "Posalji link za reset lozinke",
+    "backToSignIn": "Nazad na prijavu",
+    "sendingResetLink": "Saljem link za reset lozinke...",
+    "resetLinkSent": "Ako nalog sa tim email-om postoji, link za reset lozinke je poslat.",
+    "checkEmailForReset": "Molimo proverite email za link za reset lozinke.",
     "errors": {
       "validation": "Greška u validaciji",
       "generic": "Nešto nije u redu"
@@ -186,7 +195,11 @@
     "bioPlaceholder": "Reci drugima nešto o sebi i tvom iskustvu sa radioamatersstvom...",
     "characters": "karaktera",
     "saving": "Čuvanje...",
-    "saveChanges": "Sačuvaj izmene"
+    "saveChanges": "Sačuvaj izmene",
+    "changePassword": "Promeni lozinku",
+    "newPassword": "Nova lozinka",
+    "passwordHelp": "Lozinka mora imati najmanje 6 karaktera",
+    "passwordPlaceholder": "Unesi novu lozinku"
   },
   "browse": {
     "noListingsYet": "Još nema oglasa",

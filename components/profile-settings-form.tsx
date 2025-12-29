@@ -44,6 +44,9 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
       const formData = new FormData(e.currentTarget);
       const supabase = createClient();
 
+      // Get new password if provided
+      const newPassword = formData.get("new_password") as string;
+
       const profileData = {
         display_name: formData.get("display_name") as string,
         callsign: (formData.get("callsign") as string) || undefined,
@@ -76,8 +79,22 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
 
       if (dbError) throw dbError;
 
+      if (newPassword && newPassword.trim().length > 0) {
+        const { error: passwordError } = await supabase.auth.updateUser({
+          password: newPassword,
+        });
+
+        if (passwordError) throw passwordError;
+      }
+
       setSuccess(true);
       router.refresh();
+
+      const form = e.currentTarget;
+      const passwordInput = form.querySelector(
+        '[name="new_password"]'
+      ) as HTMLInputElement;
+      if (passwordInput) passwordInput.value = "";
 
       // Hide success message after 3 seconds
       setTimeout(() => setSuccess(false), 3000);
@@ -340,6 +357,27 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
         <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
           {profile?.bio?.length || 0}/500 {t("characters")}
         </p>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+          {t("changePassword")}
+        </h3>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {t("newPassword")}
+          </label>
+          <input
+            type="password"
+            name="new_password"
+            className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+            placeholder={t("newPasswordPlaceholder")}
+          />
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            {t("passwordHelp")}
+          </p>
+        </div>
       </div>
 
       {/* Submit */}

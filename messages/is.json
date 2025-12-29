@@ -115,6 +115,15 @@
     "signUp": "Nýskrá",
     "noAccount": "Ertu ekki með reikning?",
     "haveAccount": "Ertu nú þegar með reikning?",
+    "checkYourEmail": "Check your email",
+    "confirmationEmailSent": "We sent you a confirmation link. Please check your email and click the link to activate your account.",
+    "forgotPassword": "Forgot your password?",
+    "resetPasswordTitle": "Reset your password",
+    "sendResetLink": "Send Reset Link",
+    "backToSignIn": "Back to Sign In",
+    "sendingResetLink": "Sending reset link...",
+    "resetLinkSent": "If an account with that email exists, a reset link has been sent.",
+    "checkEmailForReset": "Please check your email for the password reset link.",
     "errors": {
       "validation": "Villuleit villa",
       "generic": "Eitthvað fór úrskeiðis"
@@ -186,7 +195,11 @@
     "bioPlaceholder": "Segðu öðrum frá þér og reynslu þinni af útvarpsáhugamennsku...",
     "characters": "stafir",
     "saving": "Vistar...",
-    "saveChanges": "Vista breytingar"
+    "saveChanges": "Vista breytingar",
+    "changePassword": "Breyta lykilorði",
+    "newPassword": "Nýtt lykilorð",
+    "passwordHelp": "Lykilorð verður að vera að minnsta kosti 6 stafir",
+    "newPasswordPlaceholder": "Sláðu inn nýtt lykilorð"
   },
   "browse": {
     "noListingsYet": "Engar auglýsingar enn",

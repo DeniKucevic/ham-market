@@ -115,6 +115,15 @@
     "signUp": "Sign up",
     "noAccount": "Don't have an account?",
     "haveAccount": "Already have an account?",
+    "checkYourEmail": "Check your email",
+    "confirmationEmailSent": "We sent you a confirmation link. Please check your email and click the link to activate your account.",
+    "forgotPassword": "Forgot your password?",
+    "resetPasswordTitle": "Reset your password",
+    "sendResetLink": "Send Reset Link",
+    "backToSignIn": "Back to Sign In",
+    "sendingResetLink": "Sending reset link...",
+    "resetLinkSent": "If an account with that email exists, a reset link has been sent.",
+    "checkEmailForReset": "Please check your email for the password reset link.",
     "errors": {
       "validation": "Validation error",
       "generic": "Something went wrong"
@@ -186,7 +195,11 @@
     "bioPlaceholder": "Tell others about yourself and your experience with amateur radio...",
     "characters": "characters",
     "saving": "Saving...",
-    "saveChanges": "Save Changes"
+    "saveChanges": "Save Changes",
+    "changePassword": "Change Password",
+    "newPassword": "New Password",
+    "passwordHelp": "Password must be at least 6 characters",
+    "newPasswordPlaceholder": "Enter new password"
   },
   "browse": {
     "noListingsYet": "No listings yet",
