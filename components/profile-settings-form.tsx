@@ -79,6 +79,7 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
 
       if (dbError) throw dbError;
 
+      // Update password if provided
       if (newPassword && newPassword.trim().length > 0) {
         const { error: passwordError } = await supabase.auth.updateUser({
           password: newPassword,
@@ -89,12 +90,6 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
 
       setSuccess(true);
       router.refresh();
-
-      const form = e.currentTarget;
-      const passwordInput = form.querySelector(
-        '[name="new_password"]'
-      ) as HTMLInputElement;
-      if (passwordInput) passwordInput.value = "";
 
       // Hide success message after 3 seconds
       setTimeout(() => setSuccess(false), 3000);
