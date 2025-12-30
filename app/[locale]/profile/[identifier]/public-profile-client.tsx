@@ -4,8 +4,8 @@ import { ListingGridCard } from "@/components/listing-grid-card";
 import { ListingListCard } from "@/components/listing-list-card";
 import { RespondToRatingModal } from "@/components/respond-to-rating-modal";
 import { ViewMode, ViewToggle } from "@/components/view-toggle";
-import { getCountryFlag, getCountryName } from "@/constants/countries";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { getCountries } from "@/lib/countries";
 import { getDisplayName } from "@/lib/display-name";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/database";
@@ -48,8 +48,13 @@ export function PublicProfileClient({
   listings,
   isLoggedIn,
   isOwnProfile,
+  locale,
 }: Props) {
   const t = useTranslations("profile");
+  const countries = getCountries(locale);
+  const userCountry = countries.find(
+    (c) => c.code === profile.location_country
+  );
 
   const [viewMode, setViewMode, viewMounted] = useLocalStorage<ViewMode>(
     "listings-view-mode",
@@ -138,11 +143,6 @@ export function PublicProfileClient({
     fetchRatings();
   }, [profile.id, ratingsPage, ratingFilter, sortBy]);
 
-  const handleRespondClick = (rating: Rating) => {
-    setSelectedRating(rating);
-    setRespondModalOpen(true);
-  };
-
   const totalPages = Math.ceil(totalRatings / RATINGS_PER_PAGE);
 
   return (
@@ -157,9 +157,9 @@ export function PublicProfileClient({
 
             {profile.location_country && (
               <p className="mt-2 text-gray-600 dark:text-gray-400">
-                {getCountryFlag(profile.location_country)}{" "}
+                {userCountry?.flag}{" "}
                 {profile.location_city ? `${profile.location_city}, ` : ""}
-                {getCountryName(profile.location_country)}
+                {userCountry?.nameTranslated}
               </p>
             )}
 

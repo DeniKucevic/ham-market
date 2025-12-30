@@ -1,4 +1,4 @@
-import { getCountryFlag, getCountryName } from "@/constants/countries";
+import { getCountries } from "@/lib/countries";
 import { getDisplayName } from "@/lib/display-name";
 import { BrowseListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
@@ -11,6 +11,11 @@ interface Props {
 }
 
 export function ListingListCard({ listing }: Props) {
+  const countries = getCountries("en");
+  const country = countries.find(
+    (c) => c.code === listing.profiles?.location_country
+  );
+
   return (
     <Link
       href={`/listings/${listing.id}`}
@@ -61,11 +66,11 @@ export function ListingListCard({ listing }: Props) {
                 />
               </svg>
               <span>
-                {getCountryFlag(listing.profiles.location_country)}{" "}
-                {listing.profiles.location_city
+                {country?.flag}{" "}
+                {listing.profiles?.location_city
                   ? `${listing.profiles.location_city}, `
                   : ""}
-                {getCountryName(listing.profiles.location_country)}
+                {country?.nameTranslated}
               </span>
             </div>
           )}

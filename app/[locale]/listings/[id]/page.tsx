@@ -5,7 +5,7 @@ import { ListingImageGallery } from "@/components/listing-image-gallery";
 import { Navbar } from "@/components/navbar";
 import { ReportListingButton } from "@/components/report-listing-button";
 import { ShareListingButton } from "@/components/share-listing-button";
-import { getCountryFlag, getCountryName } from "@/constants/countries";
+import { getCountries } from "@/lib/countries";
 import { getDisplayName } from "@/lib/display-name";
 import { createClient } from "@/lib/supabase/server";
 import { formatPrice } from "@/utils/currency";
@@ -122,6 +122,11 @@ export default async function ListingDetailPage({ params }: Props) {
   }
 
   const isOwner = user?.id === listing.user_id;
+
+  const countries = getCountries("en"); // or pass locale as prop
+  const country = countries.find(
+    (c) => c.code === listing.profiles?.location_country
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -428,11 +433,11 @@ export default async function ListingDetailPage({ params }: Props) {
                           />
                         </svg>
                         <span>
-                          {getCountryFlag(listing.profiles.location_country)}{" "}
-                          {listing.profiles.location_city
+                          {country?.flag}{" "}
+                          {listing.profiles?.location_city
                             ? `${listing.profiles.location_city}, `
                             : ""}
-                          {getCountryName(listing.profiles.location_country)}
+                          {country?.nameTranslated}{" "}
                         </span>
                       </div>
                     )}
