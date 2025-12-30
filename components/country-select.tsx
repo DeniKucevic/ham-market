@@ -1,12 +1,13 @@
 "use client";
 
 import { getCountries } from "@/lib/countries";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 interface Props {
   value: string;
   onChange: (value: string) => void;
-  locale: string; // Add locale prop
+  locale: string;
   label?: string;
   placeholder?: string;
 }
@@ -16,8 +17,9 @@ export function CountrySelect({
   onChange,
   locale,
   label,
-  placeholder = "Select country",
+  placeholder,
 }: Props) {
+  const t = useTranslations("countrySelect");
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,10 +30,9 @@ export function CountrySelect({
   const filteredCountries = countries.filter(
     (country) =>
       country.nameTranslated.toLowerCase().includes(search.toLowerCase()) ||
-      country.name.toLowerCase().includes(search.toLowerCase()) // Also search English name
+      country.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -49,7 +50,7 @@ export function CountrySelect({
   return (
     <div ref={containerRef} className="relative">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
           {label}
         </label>
       )}
@@ -65,7 +66,9 @@ export function CountrySelect({
             {selectedCountry.flag} {selectedCountry.nameTranslated}
           </span>
         ) : (
-          <span className="text-gray-400">{placeholder}</span>
+          <span className="text-gray-400">
+            {placeholder || t("allCountries")}
+          </span>
         )}
       </button>
 
@@ -73,12 +76,12 @@ export function CountrySelect({
       {isOpen && (
         <div className="absolute z-50 mt-1 w-full rounded-md border border-gray-300 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-700">
           {/* Search input */}
-          <div className="p-2 border-b border-gray-200 dark:border-gray-600">
+          <div className="border-b border-gray-200 p-2 dark:border-gray-600">
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search countries..."
+              placeholder={t("searchPlaceholder")}
               className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
               autoFocus
             />
@@ -96,7 +99,7 @@ export function CountrySelect({
               }}
               className="block w-full px-3 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
             >
-              All Countries
+              {t("allCountries")}
             </button>
 
             {filteredCountries.map((country) => (
@@ -118,7 +121,7 @@ export function CountrySelect({
 
             {filteredCountries.length === 0 && (
               <div className="px-3 py-2 text-sm text-gray-500">
-                No countries found
+                {t("noCountries")}
               </div>
             )}
           </div>

@@ -483,7 +483,11 @@ export function PublicProfileClient({
       {viewMounted && listings.length > 0 && viewMode === "grid" && (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {listings.map((listing) => (
-            <ListingGridCard key={listing.id} listing={listing} />
+            <ListingGridCard
+              key={listing.id}
+              listing={listing}
+              locale={locale}
+            />
           ))}
         </div>
       )}
@@ -491,7 +495,11 @@ export function PublicProfileClient({
       {viewMounted && listings.length > 0 && viewMode === "list" && (
         <div className="space-y-4">
           {listings.map((listing) => (
-            <ListingListCard key={listing.id} listing={listing} />
+            <ListingListCard
+              key={listing.id}
+              listing={listing}
+              locale={locale}
+            />
           ))}
         </div>
       )}

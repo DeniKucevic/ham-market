@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DeleteListingModal } from "./delete-listing-modal";
@@ -10,8 +11,8 @@ interface Props {
   listingTitle: string;
   images: string[];
   userId: string;
-  redirectPath?: string; // Optional - default to /my-listings
-  variant?: "default" | "inline"; // Style variant
+  redirectPath?: string;
+  variant?: "default" | "inline";
 }
 
 export function DeleteListingButton({
@@ -22,6 +23,7 @@ export function DeleteListingButton({
   redirectPath = "/my-listings",
   variant = "default",
 }: Props) {
+  const t = useTranslations("deleteButton");
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -69,7 +71,7 @@ export function DeleteListingButton({
   return (
     <>
       <button onClick={() => setModalOpen(true)} className={buttonClasses}>
-        Delete{variant === "default" ? " Listing" : ""}
+        {variant === "default" ? t("deleteListing") : t("delete")}
       </button>
 
       <DeleteListingModal

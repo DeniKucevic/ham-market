@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -21,6 +22,7 @@ export function RespondToRatingModal({
   raterName,
   ratingStars,
 }: Props) {
+  const t = useTranslations("respondToRating");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
@@ -44,13 +46,13 @@ export function RespondToRatingModal({
 
       if (error) throw error;
 
-      alert("Response added successfully!");
+      alert(t("successMessage"));
       setResponse("");
       onClose();
       router.refresh();
     } catch (error) {
       console.error("Response error:", error);
-      alert("Failed to add response. Please try again.");
+      alert(t("errorMessage"));
     } finally {
       setLoading(false);
     }
@@ -67,16 +69,15 @@ export function RespondToRatingModal({
         <div className="relative w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 shadow-xl transition-all dark:bg-gray-800">
           <div className="mb-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Respond to Review
+              {t("title")}
             </h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              From {raterName}
+              {t("from").replace("{name}", raterName)}
             </p>
           </div>
 
           {/* Show original rating */}
           <div className="mb-4 rounded-md bg-gray-50 p-4 dark:bg-gray-700">
-            {/* Stars */}
             <div className="flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <svg
@@ -92,7 +93,6 @@ export function RespondToRatingModal({
                 </svg>
               ))}
             </div>
-            {/* Comment */}
             {ratingComment && (
               <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
                 {ratingComment}
@@ -106,7 +106,7 @@ export function RespondToRatingModal({
                 htmlFor="response"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Your Response *
+                {t("responseRequired")}
               </label>
               <textarea
                 id="response"
@@ -116,10 +116,13 @@ export function RespondToRatingModal({
                 required
                 maxLength={500}
                 className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                placeholder="Thank you for your feedback..."
+                placeholder={t("responsePlaceholder")}
               />
               <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                {response.length}/500
+                {t("charactersCount").replace(
+                  "{count}",
+                  String(response.length)
+                )}
               </p>
             </div>
 
@@ -130,14 +133,14 @@ export function RespondToRatingModal({
                 disabled={loading}
                 className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 type="submit"
                 disabled={loading || !response.trim()}
                 className="flex-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
               >
-                {loading ? "Submitting..." : "Submit Response"}
+                {loading ? t("submitting") : t("submit")}
               </button>
             </div>
           </form>

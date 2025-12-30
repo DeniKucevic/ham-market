@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 interface Props {
@@ -25,18 +26,17 @@ export function AutocompleteInput({
   required = false,
   maxLength = 100,
 }: Props) {
+  const t = useTranslations("autocomplete");
   const [value, setValue] = useState(initialValue);
   const [isManuallyOpen, setIsManuallyOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Sync with parent value changes
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
 
-  // Derive filtered suggestions from value
   const filteredSuggestions = useMemo(() => {
     if (value.length >= 2) {
       return suggestions.filter((suggestion) =>
@@ -46,7 +46,6 @@ export function AutocompleteInput({
     return [];
   }, [value, suggestions]);
 
-  // Derive isOpen from filtered suggestions
   const isOpen =
     isManuallyOpen && filteredSuggestions.length > 0 && value.length >= 2;
 
@@ -134,7 +133,6 @@ export function AutocompleteInput({
         autoComplete="off"
       />
 
-      {/* Dropdown */}
       {isOpen && (
         <div
           ref={dropdownRef}
@@ -157,10 +155,9 @@ export function AutocompleteInput({
         </div>
       )}
 
-      {/* Helper text */}
       {value.length > 0 && value.length < 2 && (
         <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          Type at least 2 characters to see suggestions
+          {t("typeToSuggest")}
         </p>
       )}
     </div>

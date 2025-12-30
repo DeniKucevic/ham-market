@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -15,6 +17,8 @@ export function DeleteListingModal({
   loading,
   listingTitle,
 }: Props) {
+  const t = useTranslations("deleteModal");
+
   if (!isOpen) return null;
 
   return (
@@ -48,12 +52,12 @@ export function DeleteListingModal({
           {/* Content */}
           <div className="mt-4 text-center">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Delete Listing
+              {t("title")}
             </h3>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Are you sure you want to delete{" "}
-              <span className="font-medium">{listingTitle}</span>? This action
-              cannot be undone.
+              {t("confirmMessage")}{" "}
+              <span className="font-medium">{listingTitle}</span>?{" "}
+              {t("cannotUndo")}
             </p>
           </div>
 
@@ -65,7 +69,7 @@ export function DeleteListingModal({
               disabled={loading}
               className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
             >
-              Cancel
+              {t("cancel")}
             </button>
             <button
               type="button"
@@ -73,7 +77,7 @@ export function DeleteListingModal({
               disabled={loading}
               className="flex-1 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-500 disabled:opacity-50"
             >
-              {loading ? "Deleting..." : "Delete"}
+              {loading ? t("deleting") : t("delete")}
             </button>
           </div>
         </div>

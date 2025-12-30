@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -17,13 +18,22 @@ const POPULAR_SEARCHES = [
 ];
 
 export function HeroSearch({ initialQuery = "" }: Props) {
+  const t = useTranslations("heroSearch");
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -65,16 +75,18 @@ export function HeroSearch({ initialQuery = "" }: Props) {
           WebkitBackfaceVisibility: "hidden",
         }}
       />
-      ƒ{/* Black overlay */}
+
+      {/* Black overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/40" />
+
       {/* Content */}
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-            HAM Radio Marketplace
+            {t("title")}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-xl text-blue-100">
-            Buy and sell amateur radio equipment with fellow operators
+            {t("subtitle")}
           </p>
 
           {/* Search Bar */}
@@ -100,7 +112,7 @@ export function HeroSearch({ initialQuery = "" }: Props) {
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search for radios, antennas, accessories..."
+                  placeholder={t("searchPlaceholder")}
                   className="block w-full rounded-lg border-0 py-4 pl-12 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500"
                 />
                 {query && (
@@ -129,7 +141,7 @@ export function HeroSearch({ initialQuery = "" }: Props) {
                 type="submit"
                 className="rounded-lg bg-white px-8 py-4 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-600"
               >
-                Search
+                {t("searchButton")}
               </button>
             </div>
           </form>
@@ -138,7 +150,9 @@ export function HeroSearch({ initialQuery = "" }: Props) {
           {query ? (
             <div className="mt-6">
               <div className="inline-flex items-center gap-2 rounded-full bg-blue-700 px-4 py-2 dark:bg-blue-900">
-                <span className="text-sm text-blue-100">Searching for:</span>
+                <span className="text-sm text-blue-100">
+                  {t("searchingFor")}
+                </span>
                 <span className="font-medium text-white">{query}</span>
                 <button
                   onClick={handleClear}
@@ -162,7 +176,7 @@ export function HeroSearch({ initialQuery = "" }: Props) {
             </div>
           ) : (
             <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-              <span className="text-sm text-blue-200">Popular:</span>
+              <span className="text-sm text-blue-200">{t("popular")}</span>
               {POPULAR_SEARCHES.map((term) => (
                 <button
                   key={term}

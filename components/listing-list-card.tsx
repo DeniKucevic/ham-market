@@ -8,10 +8,11 @@ import { LoadingLink } from "./loading-link";
 
 interface Props {
   listing: BrowseListing;
+  locale?: string;
 }
 
-export function ListingListCard({ listing }: Props) {
-  const countries = getCountries("en");
+export function ListingListCard({ listing, locale }: Props) {
+  const countries = getCountries(locale ?? "en");
   const country = countries.find(
     (c) => c.code === listing.profiles?.location_country
   );

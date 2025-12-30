@@ -1,6 +1,7 @@
 import { getRequestConfig } from "next-intl/server";
 
-export const locales = ["en", "sr", "sr-Cyrl", "bg", "is"] as const;
+export const locales = ["en", "sr", "sr-Cyrl", "bg", "is", "ro", "de"] as const;
+
 export type Locale = (typeof locales)[number];
 
 export const localeNames: Record<Locale, string> = {
@@ -9,6 +10,8 @@ export const localeNames: Record<Locale, string> = {
   "sr-Cyrl": "Српски",
   bg: "Български",
   is: "Íslenska",
+  ro: "Română",
+  de: "Deutsch",
 };
 
 export const localeFlags: Record<Locale, string> = {
@@ -17,6 +20,8 @@ export const localeFlags: Record<Locale, string> = {
   "sr-Cyrl": "🇷🇸",
   bg: "🇧🇬",
   is: "🇮🇸",
+  ro: "🇷🇴",
+  de: "🇩🇪",
 };
 
 export default getRequestConfig(async ({ locale }) => {

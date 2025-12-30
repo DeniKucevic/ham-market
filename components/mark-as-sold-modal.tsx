@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -23,6 +24,7 @@ export function MarkAsSoldModal({
   listingId,
   listingTitle,
 }: Props) {
+  const t = useTranslations("markAsSold");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -73,14 +75,12 @@ export function MarkAsSoldModal({
 
       if (error) throw error;
 
-      alert(
-        "Listing marked as sold! You and the buyer can now rate each other."
-      );
+      alert(t("successMessage"));
       onClose();
       router.refresh();
     } catch (error) {
       console.error("Mark as sold error:", error);
-      alert("Failed to mark as sold. Please try again.");
+      alert(t("errorMessage"));
     } finally {
       setLoading(false);
     }
@@ -97,7 +97,7 @@ export function MarkAsSoldModal({
         <div className="relative w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 shadow-xl transition-all dark:bg-gray-800">
           <div className="mb-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Mark as Sold
+              {t("title")}
             </h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
               {listingTitle}
@@ -110,14 +110,14 @@ export function MarkAsSoldModal({
                 htmlFor="buyer"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Who bought this item? *
+                {t("whoBought")}
               </label>
               <input
                 type="text"
                 id="buyer"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by callsign or name..."
+                placeholder={t("searchPlaceholder")}
                 className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               />
 
@@ -152,14 +152,14 @@ export function MarkAsSoldModal({
                 disabled={loading}
                 className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 type="submit"
                 disabled={loading || !selectedBuyer}
                 className="flex-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
               >
-                {loading ? "Marking..." : "Mark as Sold"}
+                {loading ? t("marking") : t("markAsSold")}
               </button>
             </div>
           </form>

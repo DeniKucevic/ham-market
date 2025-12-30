@@ -224,7 +224,11 @@ export function BrowseListingsClient({
           viewMode === "grid" && (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
               {listings.map((listing) => (
-                <ListingGridCard key={listing.id} listing={listing} />
+                <ListingGridCard
+                  key={listing.id}
+                  listing={listing}
+                  locale={locale}
+                />
               ))}
             </div>
           )}
@@ -236,7 +240,11 @@ export function BrowseListingsClient({
           viewMode === "list" && (
             <div className="space-y-4">
               {listings.map((listing) => (
-                <ListingListCard key={listing.id} listing={listing} />
+                <ListingListCard
+                  key={listing.id}
+                  listing={listing}
+                  locale={locale}
+                />
               ))}
             </div>
           )}

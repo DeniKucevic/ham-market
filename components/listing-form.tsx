@@ -5,45 +5,16 @@ import { compressImages, validateImageFile } from "@/lib/image-compression";
 import { createClient } from "@/lib/supabase/client";
 import { CreateListingSchema } from "@/schemas/listing";
 import { Database } from "@/types/database";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ZodError } from "zod";
 import { AutocompleteInput } from "./autocomplete-input";
 
-const CATEGORIES = [
-  { value: "transceiver_hf", label: "HF Transceiver" },
-  { value: "transceiver_vhf_uhf", label: "VHF/UHF Transceiver" },
-  { value: "transceiver_handheld", label: "Handheld Transceiver" },
-  { value: "antenna_hf", label: "HF Antenna" },
-  { value: "antenna_vhf_uhf", label: "VHF/UHF Antenna" },
-  { value: "antenna_accessories", label: "Antenna Accessories" },
-  { value: "power_supply", label: "Power Supply" },
-  { value: "amplifier", label: "Amplifier" },
-  { value: "tuner", label: "Antenna Tuner" },
-  { value: "rotator", label: "Rotator" },
-  { value: "swr_meter", label: "SWR Meter" },
-  { value: "digital_modes", label: "Digital Modes Equipment" },
-  { value: "microphone", label: "Microphone" },
-  { value: "cables_connectors", label: "Cables & Connectors" },
-  { value: "tools", label: "Tools" },
-  { value: "books_manuals", label: "Books & Manuals" },
-  { value: "other", label: "Other" },
-];
-
-const CONDITIONS = [
-  { value: "new", label: "New" },
-  { value: "excellent", label: "Excellent" },
-  { value: "good", label: "Good" },
-  { value: "fair", label: "Fair" },
-  { value: "parts_repair", label: "For Parts/Repair" },
-];
-
 const CURRENCIES = [
   { value: "EUR", label: "€ EUR" },
-  { value: "USD", label: "$ USD" },
-  { value: "GBP", label: "£ GBP" },
-  { value: "RSD", label: "дин RSD" },
+  { value: "RSD", label: "RSD / дин" },
 ];
 
 const FREQUENCY_BANDS = [
@@ -87,6 +58,8 @@ interface Props {
 }
 
 export function ListingForm({ userId, listing, locale }: Props) {
+  const t = useTranslations("listingForm");
+  const tFilters = useTranslations("filters");
   const router = useRouter();
   const isEditing = !!listing;
 
@@ -115,6 +88,34 @@ export function ListingForm({ userId, listing, locale }: Props) {
   );
   const [modelValue, setModelValue] = useState(listing?.model || "");
 
+  const CATEGORIES = [
+    { value: "transceiver_hf", label: tFilters("hfTransceiver") },
+    { value: "transceiver_vhf_uhf", label: tFilters("vhfUhfTransceiver") },
+    { value: "transceiver_handheld", label: tFilters("handheldTransceiver") },
+    { value: "antenna_hf", label: tFilters("hfAntenna") },
+    { value: "antenna_vhf_uhf", label: tFilters("vhfUhfAntenna") },
+    { value: "antenna_accessories", label: tFilters("antennaAccessories") },
+    { value: "power_supply", label: tFilters("powerSupply") },
+    { value: "amplifier", label: tFilters("amplifier") },
+    { value: "tuner", label: tFilters("antennaTuner") },
+    { value: "rotator", label: tFilters("rotator") },
+    { value: "swr_meter", label: tFilters("swrMeter") },
+    { value: "digital_modes", label: tFilters("digitalModes") },
+    { value: "microphone", label: tFilters("microphone") },
+    { value: "cables_connectors", label: tFilters("cablesConnectors") },
+    { value: "tools", label: tFilters("tools") },
+    { value: "books_manuals", label: tFilters("booksManuals") },
+    { value: "other", label: tFilters("other") },
+  ];
+
+  const CONDITIONS = [
+    { value: "new", label: tFilters("conditionNew") },
+    { value: "excellent", label: tFilters("conditionExcellent") },
+    { value: "good", label: tFilters("conditionGood") },
+    { value: "fair", label: tFilters("conditionFair") },
+    { value: "parts_repair", label: tFilters("conditionPartsRepair") },
+  ];
+
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
     setManufacturerValue("");
@@ -127,15 +128,14 @@ export function ListingForm({ userId, listing, locale }: Props) {
       existingImages.length + newImageFiles.length + files.length;
 
     if (totalImages > 10) {
-      setError("Maximum 10 images allowed");
+      setError(t("maxImagesError"));
       return;
     }
 
-    // Validate files
     for (const file of files) {
       const validation = validateImageFile(file);
       if (!validation.valid) {
-        setError(validation.error || "Invalid file");
+        setError(validation.error || t("invalidFileError"));
         return;
       }
     }
@@ -144,7 +144,6 @@ export function ListingForm({ userId, listing, locale }: Props) {
     setError(null);
 
     try {
-      // Compress images
       const compressedFiles = await compressImages(files, {
         maxSizeMB: 1,
         maxWidthOrHeight: 1920,
@@ -152,7 +151,6 @@ export function ListingForm({ userId, listing, locale }: Props) {
 
       setNewImageFiles((prev) => [...prev, ...compressedFiles]);
 
-      // Create previews
       compressedFiles.forEach((file) => {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -162,7 +160,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
       });
     } catch (err) {
       console.error("Image compression error:", err);
-      setError("Failed to process images. Please try again.");
+      setError(t("imageProcessError"));
     } finally {
       setCompressing(false);
     }
@@ -329,7 +327,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
       {isEditing && existingImages.length > 0 && (
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Current Images
+            {t("currentImages")}
           </label>
           <div className="mt-2 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
             {existingImages.map((image, index) => (
@@ -371,10 +369,11 @@ export function ListingForm({ userId, listing, locale }: Props) {
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           {isEditing
-            ? `Add More Images (Optional - max ${
-                10 - existingImages.length
-              } more)`
-            : "Images (Optional - max 10)"}
+            ? t("addMoreImages").replace(
+                "{count}",
+                String(10 - existingImages.length)
+              )
+            : t("imagesOptional")}
         </label>
         <div className="mt-2">
           <input
@@ -389,13 +388,12 @@ export function ListingForm({ userId, listing, locale }: Props) {
 
         {compressing && (
           <p className="mt-2 text-sm text-blue-600 dark:text-blue-400">
-            Compressing images... Please wait.
+            {t("compressing")}
           </p>
         )}
 
         <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          Upload up to 10 images (JPG, PNG, WebP). Images will be automatically
-          compressed. Max 10MB per file.
+          {t("imageHelp")}
         </p>
 
         {newImagePreviews.length > 0 && (
@@ -439,7 +437,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
           htmlFor="title"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Title *
+          {t("titleRequired")}
         </label>
         <input
           type="text"
@@ -450,7 +448,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
           maxLength={200}
           defaultValue={listing?.title}
           className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          placeholder="Yaesu FT-991A HF/VHF/UHF All Mode Transceiver"
+          placeholder={t("titlePlaceholder")}
         />
       </div>
 
@@ -460,7 +458,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
           htmlFor="description"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Description
+          {t("description")}
         </label>
         <textarea
           id="description"
@@ -469,7 +467,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
           maxLength={5000}
           defaultValue={listing?.description || ""}
           className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-          placeholder="Detailed description of the equipment, condition, included accessories, etc."
+          placeholder={t("descriptionPlaceholder")}
         />
       </div>
 
@@ -480,7 +478,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             htmlFor="category"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-            Category *
+            {t("categoryRequired")}
           </label>
           <select
             id="category"
@@ -490,7 +488,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             onChange={handleCategoryChange}
             className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">Select category</option>
+            <option value="">{t("selectCategory")}</option>
             {CATEGORIES.map((cat) => (
               <option key={cat.value} value={cat.value}>
                 {cat.label}
@@ -504,7 +502,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             htmlFor="condition"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-            Condition *
+            {t("conditionRequired")}
           </label>
           <select
             id="condition"
@@ -513,7 +511,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             defaultValue={listing?.condition}
             className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
-            <option value="">Select condition</option>
+            <option value="">{t("selectCondition")}</option>
             {CONDITIONS.map((cond) => (
               <option key={cond.value} value={cond.value}>
                 {cond.label}
@@ -530,7 +528,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             htmlFor="price"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-            Price *
+            {t("priceRequired")}
           </label>
           <input
             type="number"
@@ -541,7 +539,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             step="0.01"
             defaultValue={listing?.price}
             className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-            placeholder="1200.00"
+            placeholder={t("pricePlaceholder")}
           />
         </div>
 
@@ -550,7 +548,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             htmlFor="currency"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-            Currency *
+            {t("currencyRequired")}
           </label>
           <select
             id="currency"
@@ -573,8 +571,8 @@ export function ListingForm({ userId, listing, locale }: Props) {
         <AutocompleteInput
           id="manufacturer"
           name="manufacturer"
-          label="Manufacturer"
-          placeholder="Yaesu, Icom, Kenwood..."
+          label={t("manufacturer")}
+          placeholder={t("manufacturerPlaceholder")}
           suggestions={POPULAR_MANUFACTURERS}
           value={manufacturerValue}
           onChange={setManufacturerValue}
@@ -584,8 +582,8 @@ export function ListingForm({ userId, listing, locale }: Props) {
         <AutocompleteInput
           id="model"
           name="model"
-          label="Model"
-          placeholder="FT-991A, IC-7300..."
+          label={t("model")}
+          placeholder={t("modelPlaceholder")}
           suggestions={getFilteredModels()}
           value={modelValue}
           onChange={setModelValue}
@@ -600,7 +598,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             htmlFor="power_output"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-            Power Output (Watts)
+            {t("powerOutput")}
           </label>
           <input
             type="number"
@@ -609,7 +607,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             min="1"
             defaultValue={listing?.power_output || ""}
             className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-            placeholder="100"
+            placeholder={t("powerOutputPlaceholder")}
           />
         </div>
 
@@ -618,7 +616,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             htmlFor="year_manufactured"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-            Year Manufactured
+            {t("yearManufactured")}
           </label>
           <input
             type="number"
@@ -628,7 +626,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
             max={new Date().getFullYear()}
             defaultValue={listing?.year_manufactured || ""}
             className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-            placeholder="2020"
+            placeholder={t("yearPlaceholder")}
           />
         </div>
       </div>
@@ -636,7 +634,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
       {/* Frequency Bands */}
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Frequency Bands
+          {t("frequencyBands")}
         </label>
         <div className="mt-2 flex flex-wrap gap-2">
           {FREQUENCY_BANDS.map((band) => (
@@ -665,7 +663,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
       {/* Modes */}
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Modes
+          {t("modes")}
         </label>
         <div className="mt-2 flex flex-wrap gap-2">
           {MODES.map((mode) => (
@@ -698,7 +696,7 @@ export function ListingForm({ userId, listing, locale }: Props) {
           onClick={() => router.back()}
           className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
         >
-          Cancel
+          {t("cancel")}
         </button>
         <button
           type="submit"
@@ -707,13 +705,13 @@ export function ListingForm({ userId, listing, locale }: Props) {
         >
           {loading
             ? isEditing
-              ? "Updating..."
-              : "Creating..."
+              ? t("updating")
+              : t("creating")
             : compressing
-            ? "Compressing..."
+            ? t("compressingImages")
             : isEditing
-            ? "Update Listing"
-            : "Create Listing"}
+            ? t("updateListing")
+            : t("createListing")}
         </button>
       </div>
     </form>

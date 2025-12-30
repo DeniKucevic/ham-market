@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -19,6 +20,7 @@ export function RateUserModal({
   ratedUserId,
   ratedUserName,
 }: Props) {
+  const t = useTranslations("rateUser");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
@@ -40,7 +42,7 @@ export function RateUserModal({
       } = await supabase.auth.getUser();
 
       if (!user) {
-        alert("You must be signed in to rate");
+        alert(t("mustBeSignedIn"));
         return;
       }
 
@@ -54,7 +56,7 @@ export function RateUserModal({
 
       if (error) throw error;
 
-      alert("Rating submitted successfully!");
+      alert(t("successMessage"));
       onClose();
       router.refresh();
     } catch (error) {
@@ -66,9 +68,9 @@ export function RateUserModal({
         err.code === "23505";
 
       if (isDuplicateError(error)) {
-        alert("You have already rated this user for this listing.");
+        alert(t("alreadyRatedError"));
       } else {
-        alert("Failed to submit rating. Please try again.");
+        alert(t("errorMessage"));
       }
     } finally {
       setLoading(false);
@@ -86,7 +88,7 @@ export function RateUserModal({
         <div className="relative w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 shadow-xl transition-all dark:bg-gray-800">
           <div className="mb-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Rate {ratedUserName}
+              {t("title").replace("{name}", ratedUserName)}
             </h3>
           </div>
 
@@ -94,7 +96,7 @@ export function RateUserModal({
             {/* Star Rating */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Rating *
+                {t("ratingRequired")}
               </label>
               <div className="mt-2 flex gap-2">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -127,7 +129,7 @@ export function RateUserModal({
                 htmlFor="comment"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                Comment (Optional)
+                {t("commentLabel")}
               </label>
               <textarea
                 id="comment"
@@ -136,7 +138,7 @@ export function RateUserModal({
                 rows={4}
                 maxLength={500}
                 className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                placeholder="Share your experience..."
+                placeholder={t("commentPlaceholder")}
               />
             </div>
 
@@ -148,14 +150,14 @@ export function RateUserModal({
                 disabled={loading}
                 className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 type="submit"
                 disabled={loading || rating === 0}
                 className="flex-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500 disabled:opacity-50"
               >
-                {loading ? "Submitting..." : "Submit Rating"}
+                {loading ? t("submitting") : t("submit")}
               </button>
             </div>
           </form>

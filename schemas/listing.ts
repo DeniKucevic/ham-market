@@ -37,7 +37,7 @@ export const ListingStatus = z.enum([
   "removed",
 ]);
 
-export const Currency = z.enum(["EUR", "USD", "GBP", "RSD"]);
+export const Currency = z.enum(["EUR", "RSD"]);
 
 export const FrequencyBand = z.enum([
   "160m",
@@ -96,7 +96,7 @@ export const CreateListingSchema = z.object({
   ]),
   condition: z.enum(["new", "excellent", "good", "fair", "parts_repair"]),
   price: z.number().min(0, "Price cannot be negative"),
-  currency: z.enum(["EUR", "USD", "GBP", "RSD"]),
+  currency: z.enum(["EUR", "RSD"]),
   images: z.array(z.string().url()).min(0).max(10),
   manufacturer: z.string().max(100).optional(),
   model: z.string().max(100).optional(),

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ReportListingModal } from "./report-listing-modal";
 
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function ReportListingButton({ listingId, listingTitle }: Props) {
+  const t = useTranslations("reportListing");
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -30,7 +32,7 @@ export function ReportListingButton({ listingId, listingTitle }: Props) {
             d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
           />
         </svg>
-        Report Listing
+        {t("button")}
       </button>
 
       <ReportListingModal

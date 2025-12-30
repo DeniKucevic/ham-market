@@ -1,6 +1,7 @@
 "use client";
 
 import { getCountries } from "@/lib/countries";
+import { useTranslations } from "next-intl";
 import { CountrySelect } from "./country-select";
 
 interface Props {
@@ -22,35 +23,6 @@ interface Props {
   locale: string;
 }
 
-const CATEGORIES = [
-  { value: "", label: "All Categories" },
-  { value: "transceiver_hf", label: "HF Transceiver" },
-  { value: "transceiver_vhf_uhf", label: "VHF/UHF Transceiver" },
-  { value: "transceiver_handheld", label: "Handheld Transceiver" },
-  { value: "antenna_hf", label: "HF Antenna" },
-  { value: "antenna_vhf_uhf", label: "VHF/UHF Antenna" },
-  { value: "antenna_accessories", label: "Antenna Accessories" },
-  { value: "power_supply", label: "Power Supply" },
-  { value: "amplifier", label: "Amplifier" },
-  { value: "tuner", label: "Antenna Tuner" },
-  { value: "rotator", label: "Rotator" },
-  { value: "swr_meter", label: "SWR Meter" },
-  { value: "digital_modes", label: "Digital Modes Equipment" },
-  { value: "microphone", label: "Microphone" },
-  { value: "cables_connectors", label: "Cables & Connectors" },
-  { value: "tools", label: "Tools" },
-  { value: "books_manuals", label: "Books & Manuals" },
-  { value: "other", label: "Other" },
-];
-
-const CONDITIONS = [
-  { value: "new", label: "New" },
-  { value: "excellent", label: "Excellent" },
-  { value: "good", label: "Good" },
-  { value: "fair", label: "Fair" },
-  { value: "parts_repair", label: "For Parts/Repair" },
-];
-
 export function ListingsFilters({
   selectedCategory,
   onCategoryChange,
@@ -67,6 +39,37 @@ export function ListingsFilters({
   onClearFilters,
   locale,
 }: Props) {
+  const t = useTranslations("filters");
+
+  const CATEGORIES = [
+    { value: "", label: t("allCategories") },
+    { value: "transceiver_hf", label: t("hfTransceiver") },
+    { value: "transceiver_vhf_uhf", label: t("vhfUhfTransceiver") },
+    { value: "transceiver_handheld", label: t("handheldTransceiver") },
+    { value: "antenna_hf", label: t("hfAntenna") },
+    { value: "antenna_vhf_uhf", label: t("vhfUhfAntenna") },
+    { value: "antenna_accessories", label: t("antennaAccessories") },
+    { value: "power_supply", label: t("powerSupply") },
+    { value: "amplifier", label: t("amplifier") },
+    { value: "tuner", label: t("antennaTuner") },
+    { value: "rotator", label: t("rotator") },
+    { value: "swr_meter", label: t("swrMeter") },
+    { value: "digital_modes", label: t("digitalModes") },
+    { value: "microphone", label: t("microphone") },
+    { value: "cables_connectors", label: t("cablesConnectors") },
+    { value: "tools", label: t("tools") },
+    { value: "books_manuals", label: t("booksManuals") },
+    { value: "other", label: t("other") },
+  ];
+
+  const CONDITIONS = [
+    { value: "new", label: t("conditionNew") },
+    { value: "excellent", label: t("conditionExcellent") },
+    { value: "good", label: t("conditionGood") },
+    { value: "fair", label: t("conditionFair") },
+    { value: "parts_repair", label: t("conditionPartsRepair") },
+  ];
+
   const toggleCondition = (condition: string) => {
     if (selectedCondition.includes(condition)) {
       onConditionChange(selectedCondition.filter((c) => c !== condition));
@@ -82,7 +85,6 @@ export function ListingsFilters({
     maxPrice !== "" ||
     country !== "";
 
-  // Get readable labels
   const getCategoryLabel = (value: string) =>
     CATEGORIES.find((c) => c.value === value)?.label || value;
 
@@ -101,13 +103,13 @@ export function ListingsFilters({
         <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
           <div className="mb-2 flex items-center justify-between">
             <h3 className="text-sm font-medium text-gray-900 dark:text-white">
-              Active Filters
+              {t("activeFilters")}
             </h3>
             <button
               onClick={onClearFilters}
               className="text-xs font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400"
             >
-              Clear All
+              {t("clearAll")}
             </button>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -164,7 +166,7 @@ export function ListingsFilters({
 
             {(minPrice || maxPrice) && (
               <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                Price: {minPrice || "0"} - {maxPrice || "∞"}
+                {t("priceRange")}: {minPrice || "0"} - {maxPrice || "∞"}
                 <button
                   onClick={() => {
                     onMinPriceChange("");
@@ -222,7 +224,7 @@ export function ListingsFilters({
           htmlFor="sort"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Sort By
+          {t("sortBy")}
         </label>
         <select
           id="sort"
@@ -230,10 +232,10 @@ export function ListingsFilters({
           onChange={(e) => onSortChange(e.target.value)}
           className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
         >
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
-          <option value="price_low">Price: Low to High</option>
-          <option value="price_high">Price: High to Low</option>
+          <option value="newest">{t("newestFirst")}</option>
+          <option value="oldest">{t("oldestFirst")}</option>
+          <option value="price_low">{t("priceLowToHigh")}</option>
+          <option value="price_high">{t("priceHighToLow")}</option>
         </select>
       </div>
 
@@ -242,8 +244,8 @@ export function ListingsFilters({
         value={country}
         onChange={onCountryChange}
         locale={locale}
-        label="Country"
-        placeholder="All Countries"
+        label={t("allCountries")}
+        placeholder={t("allCountries")}
       />
 
       {/* Category */}
@@ -252,7 +254,7 @@ export function ListingsFilters({
           htmlFor="category"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Category
+          {t("allCategories")}
         </label>
         <select
           id="category"
@@ -271,7 +273,7 @@ export function ListingsFilters({
       {/* Condition */}
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Condition
+          {t("condition")}
         </label>
         <div className="mt-2 space-y-2">
           {CONDITIONS.map((condition) => (
@@ -293,19 +295,19 @@ export function ListingsFilters({
       {/* Price Range */}
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Price Range
+          {t("priceRange")}
         </label>
         <div className="mt-2 grid grid-cols-2 gap-2">
           <input
             type="number"
-            placeholder="Min"
+            placeholder={t("minPrice")}
             value={minPrice}
             onChange={(e) => onMinPriceChange(e.target.value)}
             className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           />
           <input
             type="number"
-            placeholder="Max"
+            placeholder={t("maxPrice")}
             value={maxPrice}
             onChange={(e) => onMaxPriceChange(e.target.value)}
             className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"

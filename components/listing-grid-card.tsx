@@ -7,10 +7,11 @@ import { LoadingLink } from "./loading-link";
 
 interface Props {
   listing: BrowseListing;
+  locale?: string;
 }
 
-export function ListingGridCard({ listing }: Props) {
-  const countries = getCountries("en"); // or pass locale as prop
+export function ListingGridCard({ listing, locale }: Props) {
+  const countries = getCountries(locale ?? "en");
   const country = countries.find(
     (c) => c.code === listing.profiles?.location_country
   );

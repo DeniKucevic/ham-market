@@ -1,20 +1,29 @@
-export const formatPrice = (price: number, currency: string): string => {
+export const formatPrice = (
+  price: number,
+  currency: string,
+  locale?: string, // Add locale parameter
+  t?: (key: string) => string
+): string => {
   if (price === 0) {
-    return "FREE";
+    return t ? t("price.free") : "FREE";
   }
 
-  const symbol =
-    currencySymbols[currency as keyof typeof currencySymbols] || currency;
-
-  return `${symbol}${price.toLocaleString("en-US", {
+  const formattedNumber = price.toLocaleString("en-US", {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
-  })}`;
-};
+  });
 
-export const currencySymbols: Record<string, string> = {
-  EUR: "€",
-  USD: "$",
-  GBP: "£",
-  RSD: "дин",
+  if (currency === "RSD") {
+    if (locale === "sr-Cyrl") {
+      return `${formattedNumber} дин`;
+    } else {
+      return `${formattedNumber} RSD`;
+    }
+  }
+
+  if (currency === "EUR") {
+    return `€${formattedNumber}`;
+  }
+
+  return `${currency}${formattedNumber}`;
 };
