@@ -2,8 +2,8 @@ import { getCountries } from "@/lib/countries";
 import { getDisplayName } from "@/lib/display-name";
 import type { BrowseListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
-import Link from "next/link";
 import { ImagePlaceholder } from "./image-placeholder";
+import { LoadingLink } from "./loading-link";
 
 interface Props {
   listing: BrowseListing;
@@ -15,9 +15,9 @@ export function ListingGridCard({ listing }: Props) {
     (c) => c.code === listing.profiles?.location_country
   );
   return (
-    <Link
+    <LoadingLink
       href={`/listings/${listing.id}`}
-      className="group overflow-hidden rounded-lg bg-white shadow transition-shadow hover:shadow-lg dark:bg-gray-800"
+      className="group relative block overflow-hidden rounded-lg bg-white shadow transition-shadow hover:shadow-lg dark:bg-gray-800"
     >
       {/* Image */}
       <div className="aspect-square overflow-hidden bg-gray-100 dark:bg-gray-700">
@@ -93,6 +93,6 @@ export function ListingGridCard({ listing }: Props) {
           </p>
         </div>
       </div>
-    </Link>
+    </LoadingLink>
   );
 }

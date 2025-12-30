@@ -1,15 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { ImagePlaceholder } from "./image-placeholder";
 
 interface Props {
-  images: string[];
+  images: string[] | null;
   title: string;
 }
 
 export function ListingImageGallery({ images, title }: Props) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (images && isLeftSwipe && selectedImage < images.length - 1) {
+      setSelectedImage(selectedImage + 1);
+    }
+    if (isRightSwipe && selectedImage > 0) {
+      setSelectedImage(selectedImage - 1);
+    }
+  };
+
+  // If no images, show placeholder
+  if (!images || images.length === 0) {
+    return (
+      <div className="mb-4 overflow-hidden rounded-lg bg-white dark:bg-gray-800">
+        <div className="aspect-square w-full">
+          <ImagePlaceholder size="lg" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -73,7 +113,7 @@ export function ListingImageGallery({ images, title }: Props) {
           {/* Close button */}
           <button
             onClick={() => setIsLightboxOpen(false)}
-            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+            className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
           >
             <svg
               className="h-6 w-6"
@@ -97,7 +137,7 @@ export function ListingImageGallery({ images, title }: Props) {
                 e.stopPropagation();
                 setSelectedImage(selectedImage - 1);
               }}
-              className="absolute left-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+              className="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
             >
               <svg
                 className="h-6 w-6"
@@ -115,10 +155,13 @@ export function ListingImageGallery({ images, title }: Props) {
             </button>
           )}
 
-          {/* Full size image */}
+          {/* Full size image with swipe support */}
           <div
             className="relative h-[90vh] w-[90vw]"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
           >
             <img
               src={images[selectedImage]}
@@ -134,7 +177,7 @@ export function ListingImageGallery({ images, title }: Props) {
                 e.stopPropagation();
                 setSelectedImage(selectedImage + 1);
               }}
-              className="absolute right-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+              className="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
             >
               <svg
                 className="h-6 w-6"

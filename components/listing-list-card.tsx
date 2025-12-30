@@ -3,8 +3,8 @@ import { getDisplayName } from "@/lib/display-name";
 import { BrowseListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
 import Image from "next/image";
-import Link from "next/link";
 import { ImagePlaceholder } from "./image-placeholder";
+import { LoadingLink } from "./loading-link";
 
 interface Props {
   listing: BrowseListing;
@@ -17,9 +17,9 @@ export function ListingListCard({ listing }: Props) {
   );
 
   return (
-    <Link
+    <LoadingLink
       href={`/listings/${listing.id}`}
-      className="group flex gap-4 overflow-hidden rounded-lg bg-white p-4 shadow transition-shadow hover:shadow-lg dark:bg-gray-800"
+      className="group relative flex gap-4 overflow-hidden rounded-lg bg-white p-4 shadow transition-shadow hover:shadow-lg dark:bg-gray-800"
     >
       {/* Image */}
       <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
@@ -119,6 +119,6 @@ export function ListingListCard({ listing }: Props) {
           </div>
         </div>
       </div>
-    </Link>
+    </LoadingLink>
   );
 }
