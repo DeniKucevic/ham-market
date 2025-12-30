@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { MyPurchasesClient } from "@/components/my-purchases-client";
 import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
@@ -66,6 +67,7 @@ export default async function MyPurchasesPage({
           locale={locale}
         />
       </main>
+      <Footer locale={locale} />
     </div>
   );
 }

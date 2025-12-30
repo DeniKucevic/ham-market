@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
@@ -123,6 +124,7 @@ export default async function PublicProfilePage({ params }: Props) {
         isOwnProfile={user?.id === profile.id}
         locale={locale} // ✅ Add locale prop
       />
+      <Footer locale={locale} />
     </div>
   );
 }

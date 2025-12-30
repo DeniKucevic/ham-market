@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { HeroSearch } from "@/components/hero-search";
 import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
@@ -259,6 +260,7 @@ export default async function HomePage({ params, searchParams }: Props) {
           locale={locale}
         />
       </main>
+      <Footer locale={locale} />
     </div>
   );
 }

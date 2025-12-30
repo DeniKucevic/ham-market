@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { ProfileSettingsForm } from "@/components/profile-settings-form";
 import { createClient } from "@/lib/supabase/server";
@@ -50,6 +51,7 @@ export default async function SettingsPage({
           />
         )}
       </main>
+      <Footer locale={locale} />
     </div>
   );
 }

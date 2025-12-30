@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { ListingForm } from "@/components/listing-form";
 import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
@@ -60,6 +61,7 @@ export default async function EditListingPage({ params }: Props) {
 
         <ListingForm listing={listing} userId={user.id} locale={locale} />
       </div>
+      <Footer locale={locale} />
     </div>
   );
 }

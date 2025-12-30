@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
 import { MyListing } from "@/types/listing";
@@ -75,6 +76,7 @@ export default async function MyListingsPage({
           locale={locale}
         />
       </main>
+      <Footer locale={locale} />
     </div>
   );
 }

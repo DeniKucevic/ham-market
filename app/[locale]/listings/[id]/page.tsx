@@ -1,5 +1,6 @@
 import { CopyIdButton } from "@/components/copy-id-button";
 import { DeleteListingButton } from "@/components/delete-listing-button";
+import { Footer } from "@/components/footer";
 import { IncrementViews } from "@/components/increment-views";
 import { ListingImageGallery } from "@/components/listing-image-gallery";
 import { Navbar } from "@/components/navbar";
@@ -532,6 +533,7 @@ export default async function ListingDetailPage({ params }: Props) {
           </div>
         </div>
       </div>
+      <Footer locale={locale} />
     </div>
   );
 }
