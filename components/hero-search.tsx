@@ -55,22 +55,20 @@ export function HeroSearch({ initialQuery = "" }: Props) {
     <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950">
       {/* Parallax Background Image */}
       <div
-        className="absolute opacity-40 bg-cover bg-center transition-transform duration-75"
+        className="absolute opacity-40 bg-cover bg-center"
         style={{
           backgroundImage: "url('/images/ham-hero-bg.webp')",
-          transform: `translateY(${scrollY * 0.5}px) scale(1.2)`,
+          transform: `translate3d(0, ${scrollY * 0.5}px, 0) scale(1.2)`,
           inset: "-20%",
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
         }}
       />
       ƒ{/* Black overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/40" />
       {/* Content */}
-      <div
-        className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 transition-opacity duration-300"
-        style={{
-          opacity: Math.max(1 - scrollY / 400, 0),
-        }}
-      >
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
             HAM Radio Marketplace
