@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { ListingGridSkeleton, ListingListSkeleton } from "./listing-skeleton";
 
 interface Props {
   listings: BrowseListing[];
@@ -197,23 +198,48 @@ export function BrowseListingsClient({
           </div>
         )}
 
-        {/* Grid View */}
-        {viewMounted && listings.length > 0 && viewMode === "grid" && (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-            {listings.map((listing) => (
-              <ListingGridCard key={listing.id} listing={listing} />
-            ))}
-          </div>
+        {isPending && (
+          <>
+            {viewMode === "grid" && (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+                {[...Array(6)].map((_, i) => (
+                  <ListingGridSkeleton key={i} />
+                ))}
+              </div>
+            )}
+            {viewMode === "list" && (
+              <div className="space-y-4">
+                {[...Array(6)].map((_, i) => (
+                  <ListingListSkeleton key={i} />
+                ))}
+              </div>
+            )}
+          </>
         )}
 
+        {/* Grid View */}
+        {!isPending &&
+          viewMounted &&
+          listings.length > 0 &&
+          viewMode === "grid" && (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+              {listings.map((listing) => (
+                <ListingGridCard key={listing.id} listing={listing} />
+              ))}
+            </div>
+          )}
+
         {/* List View */}
-        {viewMounted && listings.length > 0 && viewMode === "list" && (
-          <div className="space-y-4">
-            {listings.map((listing) => (
-              <ListingListCard key={listing.id} listing={listing} />
-            ))}
-          </div>
-        )}
+        {!isPending &&
+          viewMounted &&
+          listings.length > 0 &&
+          viewMode === "list" && (
+            <div className="space-y-4">
+              {listings.map((listing) => (
+                <ListingListCard key={listing.id} listing={listing} />
+              ))}
+            </div>
+          )}
 
         {/* Pagination */}
         <div className="mt-8">
