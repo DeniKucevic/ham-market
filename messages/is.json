@@ -215,5 +215,12 @@
     "noListingsFound": "Engar auglýsingar fundust",
     "tryAdjusting": "Reyndu að breyta síunum þínum",
     "browseListings": "Skoða auglýsingar"
+  },
+  "metadata": {
+    "title": "HAM Radio Marketplace",
+    "appName": "HAM Radio Marketplace",
+    "appNameShort": "HAM Market",
+    "description": "Kauptu og seldu áhugamannaútvarpsbúnað með öðrum starfsmönnum. Finndu sendara, loftnet, magnara og fleira.",
+    "keywords": "ham radio, áhugamannaútvarp, sendari, loftnet, búnaður, marketplace, kaupa, selja"
   }
 }

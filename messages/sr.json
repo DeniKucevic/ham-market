@@ -215,5 +215,12 @@
     "noListingsFound": "Nema pronađenih oglasa",
     "tryAdjusting": "Pokušaj da prilagodiš filtere",
     "browseListings": "Pretraži oglase"
+  },
+  "metadata": {
+    "title": "HAM Radio Marketplace",
+    "appName": "HAM Radio Marketplace",
+    "appNameShort": "HAM Market",
+    "description": "Kupujte i prodajte amatersku radio opremu sa kolegama operaterima. Pronađite transcivere, antene, pojačala i više.",
+    "keywords": "ham radio, amaterski radio, transceiver, antena, oprema, marketplace, kupovina, prodaja"
   }
 }

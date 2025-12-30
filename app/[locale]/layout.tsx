@@ -1,36 +1,10 @@
 import { Providers } from "@/components/providers";
 import { locales } from "@/i18n";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
-
-export const metadata: Metadata = {
-  title: {
-    default: "HAM Radio Marketplace",
-    template: "%s | HAM Radio Marketplace",
-  },
-  description: "Buy and sell amateur radio equipment with fellow operators",
-  applicationName: "HAM Radio Marketplace",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: "HAM Market",
-  },
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "32x32" },
-      { url: "/icon-96.png", sizes: "96x96", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
-  manifest: "/manifest.json",
-};
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +15,57 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
+  return {
+    title: {
+      default: t("title"),
+      template: `%s | ${t("title")}`,
+    },
+    description: t("description"),
+    applicationName: t("appName"),
+    keywords: t("keywords"),
+    authors: [{ name: t("title") }],
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: `https://ham-market.vercel.app/${locale}`,
+      siteName: t("title"),
+      locale: locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+    },
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "default",
+      title: t("appNameShort"),
+    },
+    icons: {
+      icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "32x32" },
+        { url: "/icon-96.png", sizes: "96x96", type: "image/png" },
+        { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+        { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: [
+        { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      ],
+    },
+    manifest: "/manifest.json",
+  };
+}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

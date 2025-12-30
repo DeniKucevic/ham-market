@@ -215,5 +215,12 @@
     "noListingsFound": "Не са намерени обяви",
     "tryAdjusting": "Опитай да промениш филтрите",
     "browseListings": "Разгледай обяви"
+  },
+  "metadata": {
+    "title": "HAM Radio Marketplace",
+    "appName": "HAM Radio Marketplace",
+    "appNameShort": "HAM Market",
+    "description": "Купувайте и продавайте радиолюбителско оборудване с колеги оператори. Намерете трансивъри, антени, усилватели и още.",
+    "keywords": "ham radio, радиолюбителство, трансивър, антена, оборудване, marketplace, покупка, продажба"
   }
 }

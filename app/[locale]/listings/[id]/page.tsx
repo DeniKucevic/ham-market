@@ -28,7 +28,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       price, 
       currency,
       manufacturer,
-      model
+      model,
+      category,
+      condition,
+      profiles!listings_user_id_fkey (
+        location_city,
+        location_country
+      )
     `
     )
     .eq("id", id)
@@ -45,34 +51,66 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/listings/${listing.images[0]}`
     : null;
 
-  // Build a good title
+  // Build a good title with location
   const title =
     listing.manufacturer && listing.model
       ? `${listing.manufacturer} ${listing.model} - ${listing.title}`
       : listing.title;
 
-  // Build description
+  // Enhanced description with keywords
+  const location = listing.profiles?.location_city
+    ? `${listing.profiles.location_city}, ${listing.profiles.location_country}`
+    : listing.profiles?.location_country || "";
+
   const description =
-    listing.description?.substring(0, 160) ||
-    `${title} available for ${listing.price} ${
+    listing.description?.substring(0, 155) ||
+    `${title} - ${listing.condition} condition. ${listing.price} ${
       listing.currency || "EUR"
-    } on HAM Marketplace`;
+    }${location ? ` - ${location}` : ""}. Buy on HAM Radio Marketplace.`;
+
+  // Keywords for SEO
+  const keywords = [
+    listing.manufacturer,
+    listing.model,
+    listing.category?.replace(/_/g, " "),
+    listing.condition,
+    "ham radio",
+    "amateur radio",
+    "for sale",
+    location,
+  ]
+    .filter(Boolean)
+    .join(", ");
 
   return {
     title: `${title} | HAM Marketplace`,
     description: description,
+    keywords: keywords,
     openGraph: {
       title: title,
       description: description,
-      images: imageUrl ? [imageUrl] : [],
+      images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630 }] : [],
       type: "website",
       locale: locale,
+      url: `https://ham-market.vercel.app/${locale}/listings/${id}`,
+      siteName: "HAM Radio Marketplace",
     },
     twitter: {
       card: "summary_large_image",
       title: title,
       description: description,
       images: imageUrl ? [imageUrl] : [],
+    },
+    alternates: {
+      canonical: `https://ham-market.vercel.app/${locale}/listings/${id}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
     },
   };
 }

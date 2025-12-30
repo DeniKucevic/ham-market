@@ -2,6 +2,7 @@ import { HeroSearch } from "@/components/hero-search";
 import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
+import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { BrowseListingsClient } from "../../components/browse-listings-client";
 
@@ -46,6 +47,67 @@ interface SearchParams {
   max_price?: string;
   country?: string;
   sort?: string;
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const searchParamsResolved = await searchParams;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
+  const searchQuery = searchParamsResolved.search || "";
+  const category = searchParamsResolved.category || "";
+
+  // Build dynamic title based on filters
+  let title = t("title");
+  let description = t("description");
+
+  if (searchQuery) {
+    title = `${searchQuery} - ${t("title")}`;
+    description = `Search results for "${searchQuery}" on HAM Radio Marketplace. ${t(
+      "description"
+    )}`;
+  } else if (category) {
+    const categoryLabel = category.replace(/_/g, " ");
+    title = `${categoryLabel} - ${t("title")}`;
+    description = `Browse ${categoryLabel} equipment on HAM Radio Marketplace. ${t(
+      "description"
+    )}`;
+  }
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://ham-market.vercel.app/${locale}`,
+      siteName: t("title"),
+      locale: locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    alternates: {
+      canonical: `https://ham-market.vercel.app/${locale}`,
+      languages: {
+        en: `https://ham-market.vercel.app/en`,
+        sr: `https://ham-market.vercel.app/sr`,
+        "sr-Cyrl": `https://ham-market.vercel.app/sr-Cyrl`,
+        is: `https://ham-market.vercel.app/is`,
+        bg: `https://ham-market.vercel.app/bg`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
 }
 
 interface Props {
