@@ -57,7 +57,7 @@ export function HeroSearch({ initialQuery = "" }: Props) {
       <div
         className="absolute opacity-40 bg-cover bg-center transition-transform duration-75"
         style={{
-          backgroundImage: "url('/images/ham-hero-bg.png')",
+          backgroundImage: "url('/images/ham-hero-bg.webp')",
           transform: `translateY(${scrollY * 0.5}px) scale(1.2)`,
           inset: "-20%",
         }}
