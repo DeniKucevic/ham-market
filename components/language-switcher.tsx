@@ -1,5 +1,3 @@
-// components/language-switcher.tsx
-
 "use client";
 
 import { localeFlags, localeNames, locales } from "@/i18n";
@@ -17,6 +15,9 @@ export function LanguageSwitcher({ currentLocale }: Props) {
 
   const switchLocale = (newLocale: string) => {
     if (newLocale === currentLocale) return;
+
+    // Save locale preference to cookie
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`; // 1 year
 
     const segments = pathname.split("/").filter(Boolean);
     segments[0] = newLocale;
@@ -41,7 +42,6 @@ export function LanguageSwitcher({ currentLocale }: Props) {
           </option>
         ))}
       </select>
-
       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
         <svg
           className="h-4 w-4 text-gray-400"
