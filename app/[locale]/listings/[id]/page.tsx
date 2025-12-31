@@ -455,7 +455,7 @@ export default async function ListingDetailPage({ params }: Props) {
                     </>
                   ) : (
                     <Link
-                      href="/sign-in"
+                      href={`/${locale}/sign-in?redirect=/listings/${listing.id}`}
                       className="block w-full rounded-md bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
                     >
                       {t("signInToContact")}

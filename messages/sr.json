@@ -59,16 +59,16 @@
     "listingInfo": "Info o Oglasu"
   },
   "messages": {
-    "title": "Messages",
-    "loading": "Loading...",
-    "noConversations": "No conversations yet",
-    "selectConversation": "Select a conversation to start messaging",
-    "typeMessage": "Type a message...",
-    "send": "Send",
-    "messageSeller": "Message Seller"
+    "title": "Poruke",
+    "loading": "Učitavanje...",
+    "noConversations": "Još nema razgovora",
+    "selectConversation": "Izaberite razgovor da počnete poruke",
+    "typeMessage": "Unesite poruku...",
+    "send": "Pošalji",
+    "messageSeller": "Pošalji poruku prodavcu"
   },
   "listingDetail": {
-    "messageSeller": "Message Seller",
+    "messageSeller": "Pošalji poruku prodavcu",
     "backToListings": "Nazad na oglase",
     "description": "Opis",
     "specifications": "Specifikacije",

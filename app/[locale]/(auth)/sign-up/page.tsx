@@ -5,11 +5,14 @@ import { createClient } from "@/lib/supabase/client";
 import { SignUpSchema } from "@/schemas/auth";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { ZodError } from "zod";
 
 export default function SignUpPage() {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const locale = params.locale as string;
   const router = useRouter();
   const t = useTranslations("auth");
   const [error, setError] = useState<string | null>(null);
@@ -54,7 +57,9 @@ export default function SignUpPage() {
         return;
       }
 
-      router.push("/");
+      // Get redirect from query params
+      const redirectTo = searchParams.get("redirect") || `/${locale}`;
+      router.push(redirectTo);
     } catch (err: unknown) {
       if (err instanceof ZodError) {
         setError(err.issues[0]?.message || t("errors.validation"));
@@ -68,12 +73,18 @@ export default function SignUpPage() {
     }
   };
 
+  // Preserve redirect in sign-in link
+  const signInHref = `/${locale}/sign-in${
+    searchParams.get("redirect")
+      ? `?redirect=${searchParams.get("redirect")}`
+      : ""
+  }`;
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-gray-900">
       <div className="absolute right-4 top-4">
         <ThemeToggle />
       </div>
-
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -185,7 +196,7 @@ export default function SignUpPage() {
             <p className="text-center text-sm text-gray-600 dark:text-gray-400">
               {t("haveAccount")}{" "}
               <Link
-                href="/sign-in"
+                href={signInHref}
                 className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 {t("signIn")}

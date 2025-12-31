@@ -59,16 +59,16 @@
     "listingInfo": "Anzeigeninfo"
   },
   "messages": {
-    "title": "Messages",
-    "loading": "Loading...",
-    "noConversations": "No conversations yet",
-    "selectConversation": "Select a conversation to start messaging",
-    "typeMessage": "Type a message...",
-    "send": "Send",
-    "messageSeller": "Message Seller"
+    "title": "Nachrichten",
+    "loading": "Laden...",
+    "noConversations": "Noch keine Unterhaltungen",
+    "selectConversation": "Wählen Sie eine Unterhaltung aus, um Nachrichten zu beginnen",
+    "typeMessage": "Nachricht eingeben...",
+    "send": "Senden",
+    "messageSeller": "Nachricht an Verkäufer"
   },
   "listingDetail": {
-    "messageSeller": "Message Seller",
+    "messageSeller": "Nachricht an Verkäufer",
     "backToListings": "Zurück zu den Anzeigen",
     "description": "Beschreibung",
     "specifications": "Spezifikationen",

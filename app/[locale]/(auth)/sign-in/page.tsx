@@ -5,12 +5,13 @@ import { createClient } from "@/lib/supabase/client";
 import { SignInSchema } from "@/schemas/auth";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { ZodError } from "zod";
 
 export default function SignInPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const locale = params.locale as string;
   const router = useRouter();
   const t = useTranslations("auth");
@@ -39,7 +40,10 @@ export default function SignInPage() {
 
       if (authError) throw authError;
 
-      router.push(`/${locale}`);
+      // Get redirect from query params
+      const redirectTo = searchParams.get("redirect") || `/${locale}`;
+
+      router.push(redirectTo);
       router.refresh();
     } catch (err: unknown) {
       if (err instanceof ZodError) {

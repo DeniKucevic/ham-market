@@ -59,16 +59,16 @@
     "listingInfo": "Инфо за Обявата"
   },
   "messages": {
-    "title": "Messages",
-    "loading": "Loading...",
-    "noConversations": "No conversations yet",
-    "selectConversation": "Select a conversation to start messaging",
-    "typeMessage": "Type a message...",
-    "send": "Send",
-    "messageSeller": "Message Seller"
+    "title": "Съобщения",
+    "loading": "Зареждане...",
+    "noConversations": "Все още няма разговори",
+    "selectConversation": "Изберете разговор, за да започнете съобщения",
+    "typeMessage": "Напишете съобщение...",
+    "send": "Изпрати",
+    "messageSeller": "Изпратете съобщение на продавача"
   },
   "listingDetail": {
-    "messageSeller": "Message Seller",
+    "messageSeller": "Изпратете съобщение на продавача",
     "backToListings": "Обратно към обявите",
     "description": "Описание",
     "specifications": "Спецификации",

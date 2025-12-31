@@ -59,16 +59,16 @@
     "listingInfo": "Info Anunț"
   },
   "messages": {
-    "title": "Messages",
-    "loading": "Loading...",
-    "noConversations": "No conversations yet",
-    "selectConversation": "Select a conversation to start messaging",
-    "typeMessage": "Type a message...",
-    "send": "Send",
-    "messageSeller": "Message Seller"
+    "title": "Mesaje",
+    "loading": "Se încarcă...",
+    "noConversations": "Încă nu există conversații",
+    "selectConversation": "Selectați o conversație pentru a începe mesajele",
+    "typeMessage": "Scrieți un mesaj...",
+    "send": "Trimite",
+    "messageSeller": "Trimite mesaj vânzătorului"
   },
   "listingDetail": {
-    "messageSeller": "Message Seller",
+    "messageSeller": "Trimite mesaj vânzătorului",
     "backToListings": "Înapoi la anunțuri",
     "description": "Descriere",
     "specifications": "Specificații",
