@@ -45,6 +45,7 @@ interface SearchParams {
   condition?: string;
   min_price?: string;
   max_price?: string;
+  price_currency?: string;
   country?: string;
   sort?: string;
 }
@@ -128,6 +129,8 @@ export default async function HomePage({ params, searchParams }: Props) {
     : [];
   const minPrice = searchParamsResolved.min_price || "";
   const maxPrice = searchParamsResolved.max_price || "";
+  const priceCurrency = searchParamsResolved.price_currency || "EUR";
+
   const country = searchParamsResolved.country || "";
   const sortBy = searchParamsResolved.sort || "newest";
 
@@ -185,11 +188,47 @@ export default async function HomePage({ params, searchParams }: Props) {
   }
 
   // Price filters
-  if (minPrice) {
-    query = query.gte("price", parseFloat(minPrice));
-  }
-  if (maxPrice) {
-    query = query.lte("price", parseFloat(maxPrice));
+  if (minPrice || maxPrice) {
+    const exchangeRate = await getExchangeRate();
+
+    if (minPrice) {
+      const minPriceNum = parseFloat(minPrice);
+
+      // Convert to both currencies for filtering
+      if (priceCurrency === "EUR") {
+        // User searching in EUR: show EUR >= minPrice OR RSD >= minPrice*rate
+        const minPriceRSD = minPriceNum * exchangeRate;
+        query = query.or(
+          `and(currency.eq.EUR,price.gte.${minPriceNum}),` +
+            `and(currency.eq.RSD,price.gte.${minPriceRSD})`
+        );
+      } else {
+        // User searching in RSD: show RSD >= minPrice OR EUR >= minPrice/rate
+        const minPriceEUR = minPriceNum / exchangeRate;
+        query = query.or(
+          `and(currency.eq.RSD,price.gte.${minPriceNum}),` +
+            `and(currency.eq.EUR,price.gte.${minPriceEUR})`
+        );
+      }
+    }
+
+    if (maxPrice) {
+      const maxPriceNum = parseFloat(maxPrice);
+
+      if (priceCurrency === "EUR") {
+        const maxPriceRSD = maxPriceNum * exchangeRate;
+        query = query.or(
+          `and(currency.eq.EUR,price.lte.${maxPriceNum}),` +
+            `and(currency.eq.RSD,price.lte.${maxPriceRSD})`
+        );
+      } else {
+        const maxPriceEUR = maxPriceNum / exchangeRate;
+        query = query.or(
+          `and(currency.eq.RSD,price.lte.${maxPriceNum}),` +
+            `and(currency.eq.EUR,price.lte.${maxPriceEUR})`
+        );
+      }
+    }
   }
 
   // Determine if we're doing price sorting
@@ -274,6 +313,7 @@ export default async function HomePage({ params, searchParams }: Props) {
           initialConditions={conditions}
           initialMinPrice={minPrice}
           initialMaxPrice={maxPrice}
+          initialPriceCurrency={priceCurrency} // ADD THIS
           initialCountry={country}
           initialSort={sortBy}
           locale={locale}

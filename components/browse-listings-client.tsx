@@ -10,7 +10,7 @@ import type { BrowseListing } from "@/types/listing";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { ListingGridSkeleton, ListingListSkeleton } from "./listing-skeleton";
 
 interface Props {
@@ -23,6 +23,7 @@ interface Props {
   initialConditions?: string[];
   initialMinPrice?: string;
   initialMaxPrice?: string;
+  initialPriceCurrency?: string;
   initialCountry?: string;
   initialSort?: string;
   locale: string;
@@ -38,6 +39,7 @@ export function BrowseListingsClient({
   initialConditions = [],
   initialMinPrice = "",
   initialMaxPrice = "",
+  initialPriceCurrency = "EUR",
   initialCountry = "",
   initialSort = "newest",
   locale,
@@ -51,55 +53,101 @@ export function BrowseListingsClient({
     "grid"
   );
 
-  // Filter states - controlled by URL params
+  // Filter states
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedCondition, setSelectedCondition] =
     useState<string[]>(initialConditions);
   const [minPrice, setMinPrice] = useState(initialMinPrice);
   const [maxPrice, setMaxPrice] = useState(initialMaxPrice);
+  const [priceCurrency, setPriceCurrency] = useState(initialPriceCurrency);
   const [sortBy, setSortBy] = useState(initialSort);
   const [country, setCountry] = useState(initialCountry);
 
-  // Update URL with filter params
-  const updateFilters = (newParams?: {
-    search?: string;
-    category?: string;
-    condition?: string[];
-    minPrice?: string;
-    maxPrice?: string;
-    country?: string;
-    sort?: string;
-  }) => {
-    const params = new URLSearchParams();
+  // Debounce timer
+  const debounceTimer = useRef<NodeJS.Timeout>(null);
 
-    const search =
-      newParams?.search !== undefined ? newParams.search : searchQuery;
-    const cat =
-      newParams?.category !== undefined ? newParams.category : selectedCategory;
-    const cond =
-      newParams?.condition !== undefined
-        ? newParams.condition
-        : selectedCondition;
-    const minP =
-      newParams?.minPrice !== undefined ? newParams.minPrice : minPrice;
-    const maxP =
-      newParams?.maxPrice !== undefined ? newParams.maxPrice : maxPrice;
-    const ctry = newParams?.country !== undefined ? newParams.country : country;
-    const sort = newParams?.sort !== undefined ? newParams.sort : sortBy;
+  // Update URL with filter params (debounced for text inputs)
+  const updateFilters = useCallback(
+    (
+      newParams?: {
+        search?: string;
+        category?: string;
+        condition?: string[];
+        minPrice?: string;
+        maxPrice?: string;
+        priceCurrency?: string;
+        country?: string;
+        sort?: string;
+      },
+      immediate = false
+    ) => {
+      const doUpdate = () => {
+        const params = new URLSearchParams();
 
-    if (search) params.set("search", search);
-    if (cat) params.set("category", cat);
-    if (cond.length > 0) params.set("condition", cond.join(","));
-    if (minP) params.set("min_price", minP);
-    if (maxP) params.set("max_price", maxP);
-    if (ctry) params.set("country", ctry);
-    if (sort !== "newest") params.set("sort", sort);
+        const search =
+          newParams?.search !== undefined ? newParams.search : searchQuery;
+        const cat =
+          newParams?.category !== undefined
+            ? newParams.category
+            : selectedCategory;
+        const cond =
+          newParams?.condition !== undefined
+            ? newParams.condition
+            : selectedCondition;
+        const minP =
+          newParams?.minPrice !== undefined ? newParams.minPrice : minPrice;
+        const maxP =
+          newParams?.maxPrice !== undefined ? newParams.maxPrice : maxPrice;
+        const priceCurr =
+          newParams?.priceCurrency !== undefined
+            ? newParams.priceCurrency
+            : priceCurrency;
+        const ctry =
+          newParams?.country !== undefined ? newParams.country : country;
+        const sort = newParams?.sort !== undefined ? newParams.sort : sortBy;
 
-    startTransition(() => {
-      router.push(`/${locale}?${params.toString()}`, { scroll: false });
-    });
-  };
+        if (search) params.set("search", search);
+        if (cat) params.set("category", cat);
+        if (cond.length > 0) params.set("condition", cond.join(","));
+        if (minP) params.set("min_price", minP);
+        if (maxP) params.set("max_price", maxP);
+        if (priceCurr !== "EUR") params.set("price_currency", priceCurr);
+        if (ctry) params.set("country", ctry);
+        if (sort !== "newest") params.set("sort", sort);
+
+        startTransition(() => {
+          router.push(`/${locale}?${params.toString()}`, { scroll: false });
+        });
+      };
+
+      if (immediate) {
+        // Clear any pending debounce
+        if (debounceTimer.current) {
+          clearTimeout(debounceTimer.current);
+        }
+        doUpdate();
+      } else {
+        // Debounce for 500ms
+        if (debounceTimer.current) {
+          clearTimeout(debounceTimer.current);
+        }
+        debounceTimer.current = setTimeout(doUpdate, 1000);
+      }
+    },
+    [
+      searchQuery,
+      selectedCategory,
+      selectedCondition,
+      minPrice,
+      maxPrice,
+      priceCurrency,
+      country,
+      sortBy,
+      locale,
+      router,
+    ]
+  );
 
   const clearFilters = () => {
     setSearchQuery("");
@@ -107,6 +155,7 @@ export function BrowseListingsClient({
     setSelectedCondition([]);
     setMinPrice("");
     setMaxPrice("");
+    setPriceCurrency("EUR");
     setSortBy("newest");
     setCountry("");
 
@@ -114,6 +163,15 @@ export function BrowseListingsClient({
       router.push(`/${locale}`, { scroll: false });
     });
   };
+
+  // Cleanup debounce timer
+  useEffect(() => {
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="grid gap-6 lg:grid-cols-4">
@@ -127,37 +185,42 @@ export function BrowseListingsClient({
             searchQuery={searchQuery}
             onSearchChange={(value) => {
               setSearchQuery(value);
-              updateFilters({ search: value });
+              updateFilters({ search: value }, false); // Debounced
             }}
             selectedCategory={selectedCategory}
             onCategoryChange={(value) => {
               setSelectedCategory(value);
-              updateFilters({ category: value });
+              updateFilters({ category: value }, true); // Immediate
             }}
             selectedCondition={selectedCondition}
             onConditionChange={(value) => {
               setSelectedCondition(value);
-              updateFilters({ condition: value });
+              updateFilters({ condition: value }, true); // Immediate
             }}
             minPrice={minPrice}
             maxPrice={maxPrice}
             onMinPriceChange={(value) => {
               setMinPrice(value);
-              updateFilters({ minPrice: value });
+              updateFilters({ minPrice: value }, false); // Debounced
             }}
             onMaxPriceChange={(value) => {
               setMaxPrice(value);
-              updateFilters({ maxPrice: value });
+              updateFilters({ maxPrice: value }, false); // Debounced
+            }}
+            priceCurrency={priceCurrency}
+            onPriceCurrencyChange={(value) => {
+              setPriceCurrency(value);
+              updateFilters({ priceCurrency: value }, true); // Immediate
             }}
             country={country}
             onCountryChange={(value) => {
               setCountry(value);
-              updateFilters({ country: value });
+              updateFilters({ country: value }, true); // Immediate
             }}
             sortBy={sortBy}
             onSortChange={(value) => {
               setSortBy(value);
-              updateFilters({ sort: value });
+              updateFilters({ sort: value }, true); // Immediate
             }}
             onClearFilters={clearFilters}
             locale={locale}

@@ -15,6 +15,8 @@ interface Props {
   maxPrice: string;
   onMinPriceChange: (price: string) => void;
   onMaxPriceChange: (price: string) => void;
+  priceCurrency: string;
+  onPriceCurrencyChange: (currency: string) => void;
   country: string;
   onCountryChange: (country: string) => void;
   sortBy: string;
@@ -32,6 +34,8 @@ export function ListingsFilters({
   maxPrice,
   onMinPriceChange,
   onMaxPriceChange,
+  priceCurrency,
+  onPriceCurrencyChange,
   country,
   onCountryChange,
   sortBy,
@@ -166,7 +170,9 @@ export function ListingsFilters({
 
             {(minPrice || maxPrice) && (
               <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                {t("priceRange")}: {minPrice || "0"} - {maxPrice || "∞"}
+                {t("priceRange")}: {minPrice || "0"}
+                {priceCurrency === "EUR" ? "€" : " RSD"} - {maxPrice || "∞"}
+                {priceCurrency === "EUR" ? "€" : " RSD"}
                 <button
                   onClick={() => {
                     onMinPriceChange("");
@@ -217,7 +223,6 @@ export function ListingsFilters({
           </div>
         </div>
       )}
-
       {/* Sort By */}
       <div>
         <label
@@ -238,7 +243,6 @@ export function ListingsFilters({
           <option value="price_high">{t("priceHighToLow")}</option>
         </select>
       </div>
-
       {/* Location Filters */}
       <CountrySelect
         value={country}
@@ -247,7 +251,6 @@ export function ListingsFilters({
         label={t("allCountries")}
         placeholder={t("allCountries")}
       />
-
       {/* Category */}
       <div>
         <label
@@ -269,7 +272,6 @@ export function ListingsFilters({
           ))}
         </select>
       </div>
-
       {/* Condition */}
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -291,12 +293,25 @@ export function ListingsFilters({
           ))}
         </div>
       </div>
-
       {/* Price Range */}
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           {t("priceRange")}
         </label>
+
+        {/* Currency selector */}
+        <div className="mt-2">
+          <select
+            value={priceCurrency}
+            onChange={(e) => onPriceCurrencyChange(e.target.value)}
+            className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+          >
+            <option value="EUR">EUR (€)</option>
+            <option value="RSD">RSD (дин)</option>
+          </select>
+        </div>
+
+        {/* Price inputs */}
         <div className="mt-2 grid grid-cols-2 gap-2">
           <input
             type="number"
@@ -313,7 +328,7 @@ export function ListingsFilters({
             className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           />
         </div>
-      </div>
+      </div>{" "}
     </div>
   );
 }
