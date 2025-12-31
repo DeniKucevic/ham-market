@@ -44,7 +44,6 @@ export default async function PublicProfilePage({ params }: Props) {
   const { locale, identifier } = await params;
   const supabase = await createClient();
 
-  // Optional auth
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -53,10 +52,8 @@ export default async function PublicProfilePage({ params }: Props) {
     ? await supabase.from("profiles").select("*").eq("id", user.id).single()
     : { data: null };
 
-  // Try to find by callsign first, then by ID
   let profile = null;
 
-  // Try callsign (if not a UUID)
   const isUUID =
     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
       identifier
@@ -74,7 +71,6 @@ export default async function PublicProfilePage({ params }: Props) {
     }
   }
 
-  // Try by ID if not found by callsign
   if (!profile) {
     const { data: profileById } = await supabase
       .from("profiles")
@@ -89,7 +85,6 @@ export default async function PublicProfilePage({ params }: Props) {
     notFound();
   }
 
-  // Fetch user's active listings
   const { data: listings } = await supabase
     .from("listings")
     .select(
@@ -114,7 +109,7 @@ export default async function PublicProfilePage({ params }: Props) {
         listings={listings as BrowseListing[]}
         isLoggedIn={!!user}
         isOwnProfile={user?.id === profile.id}
-        locale={locale} // ✅ Add locale prop
+        locale={locale}
       />
     </div>
   );

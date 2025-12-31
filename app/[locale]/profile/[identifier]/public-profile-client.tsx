@@ -2,6 +2,7 @@
 
 import { ListingGridCard } from "@/components/listing-grid-card";
 import { ListingListCard } from "@/components/listing-list-card";
+import { RatingSkeleton } from "@/components/rating-skeleton";
 import { RespondToRatingModal } from "@/components/respond-to-rating-modal";
 import { ViewMode, ViewToggle } from "@/components/view-toggle";
 import { useLocalStorage } from "@/hooks/use-local-storage";
@@ -66,7 +67,7 @@ export function PublicProfileClient({
   const [unfilteredCount, setUnfilteredCount] = useState(0);
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
-  const RATINGS_PER_PAGE = 5;
+  const RATINGS_PER_PAGE = 2;
   const [loadingRatings, setLoadingRatings] = useState(true);
   const [respondModalOpen, setRespondModalOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
@@ -312,8 +313,10 @@ export function PublicProfileClient({
           </div>
 
           {loadingRatings ? (
-            <div className="py-8 text-center text-gray-500 dark:text-gray-400">
-              {t("loadingReviews")}
+            <div className="space-y-6">
+              {[1, 2].map((i) => (
+                <RatingSkeleton key={i} />
+              ))}
             </div>
           ) : ratings.length === 0 ? (
             <div className="rounded-lg border-2 border-dashed border-gray-300 p-12 text-center dark:border-gray-600">

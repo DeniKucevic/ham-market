@@ -86,7 +86,10 @@
     "sold": "Prodati",
     "deleteError": "Brisanje oglasa nije uspelo. Pokušajte ponovo.",
     "title": "Moji Oglasi",
-    "manageListings": "Upravljajte svojim oglasima"
+    "manageListings": "Upravljajte svojim oglasima",
+    "showing": "Prikazivanje",
+    "of": "od",
+    "listings": "oglasa"
   },
   "myPurchases": {
     "title": "Moje Kupovine",

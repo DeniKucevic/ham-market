@@ -86,7 +86,10 @@
     "sold": "Vândute",
     "deleteError": "Ștergerea anunțului a eșuat. Vă rugăm să încercați din nou.",
     "title": "Anunțurile Mele",
-    "manageListings": "Gestionează anunțurile tale"
+    "manageListings": "Gestionează anunțurile tale",
+    "showing": "Se afișează",
+    "of": "din",
+    "listings": "anunțuri"
   },
   "myPurchases": {
     "title": "Achiziţiile Mele",

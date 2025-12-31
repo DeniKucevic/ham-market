@@ -4,6 +4,7 @@ import { DeleteListingButton } from "@/components/delete-listing-button";
 import { DeleteListingModal } from "@/components/delete-listing-modal";
 import { ImagePlaceholder } from "@/components/image-placeholder";
 import { MarkAsSoldButton } from "@/components/mark-as-sold-button";
+import { Pagination } from "@/components/pagination";
 import { RateUserButton } from "@/components/rate-user-button";
 import { createClient } from "@/lib/supabase/client";
 import { BrowseListing, MyListing } from "@/types/listing";
@@ -18,9 +19,19 @@ interface Props {
   listings: MyListing[];
   userId: string;
   locale: string;
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
 }
 
-export function MyListingsClient({ listings, userId, locale }: Props) {
+export function MyListingsClient({
+  listings,
+  userId,
+  locale,
+  currentPage,
+  totalPages,
+  totalCount,
+}: Props) {
   const router = useRouter();
   const t = useTranslations("myListings");
   const tCommon = useTranslations("common");
@@ -34,16 +45,19 @@ export function MyListingsClient({ listings, userId, locale }: Props) {
   );
   const [deleteLoading, setDeleteLoading] = useState(false);
 
-  const filteredListings = useMemo(() => {
-    if (filter === "all") return listings;
-    if (filter === "active")
-      return listings.filter((l) => l.status === "active");
-    if (filter === "sold") return listings.filter((l) => l.status === "sold");
-    return listings;
-  }, [listings, filter]);
+  const safeListings = listings || [];
 
-  const activeCount = listings.filter((l) => l.status === "active").length;
-  const soldCount = listings.filter((l) => l.status === "sold").length;
+  const filteredListings = useMemo(() => {
+    if (filter === "all") return safeListings;
+    if (filter === "active")
+      return safeListings.filter((l) => l.status === "active");
+    if (filter === "sold")
+      return safeListings.filter((l) => l.status === "sold");
+    return safeListings;
+  }, [safeListings, filter]);
+
+  const activeCount = safeListings.filter((l) => l.status === "active").length;
+  const soldCount = safeListings.filter((l) => l.status === "sold").length;
 
   const handleDeleteConfirm = async () => {
     if (!listingToDelete) return;
@@ -83,7 +97,7 @@ export function MyListingsClient({ listings, userId, locale }: Props) {
     }
   };
 
-  if (!listings || listings.length === 0) {
+  if (!safeListings || safeListings.length === 0) {
     return (
       <div className="rounded-lg border-2 border-dashed border-gray-300 p-12 text-center dark:border-gray-600">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -105,6 +119,12 @@ export function MyListingsClient({ listings, userId, locale }: Props) {
   return (
     <>
       <div>
+        <div className="mb-6">
+          <p className="text-gray-600 dark:text-gray-400">
+            {t("showing")} {safeListings.length} {t("of")} {totalCount}{" "}
+            {t("listings")}
+          </p>
+        </div>
         {/* Filter tabs */}
         <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
           <nav className="-mb-px flex gap-6">
@@ -116,7 +136,7 @@ export function MyListingsClient({ listings, userId, locale }: Props) {
                   : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
               }`}
             >
-              {t("all")} ({listings.length})
+              {t("all")} ({safeListings.length})
             </button>
             <button
               onClick={() => setFilter("active")}
@@ -223,6 +243,14 @@ export function MyListingsClient({ listings, userId, locale }: Props) {
                     />
                   </div>
                 </div>
+                {totalPages > 1 && (
+                  <div className="mt-8">
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           ))}

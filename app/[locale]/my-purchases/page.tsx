@@ -32,12 +32,6 @@ export default async function MyPurchasesPage({ params, searchParams }: Props) {
     redirect(`/${locale}/sign-in`);
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
   // Fetch items user BOUGHT with pagination
   const query = supabase
     .from("listings")

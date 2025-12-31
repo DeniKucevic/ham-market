@@ -86,7 +86,10 @@
     "sold": "Selt",
     "deleteError": "Mistókst að eyða auglýsingu. Vinsamlegast reyndu aftur.",
     "title": "Mínar Auglýsingar",
-    "manageListings": "Stjórna auglýsingunum þínum"
+    "manageListings": "Stjórna auglýsingunum þínum",
+    "showing": "Sýni",
+    "of": "af",
+    "listings": "auglýsingar"
   },
   "myPurchases": {
     "title": "Kaupin Mín",

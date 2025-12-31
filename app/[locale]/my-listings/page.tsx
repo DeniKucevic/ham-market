@@ -5,16 +5,26 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { MyListingsClient } from "./my-listings-client";
 
-export default async function MyListingsPage({
-  params,
-}: {
+const ITEMS_PER_PAGE = 5;
+
+interface SearchParams {
+  page?: string;
+}
+
+interface Props {
   params: Promise<{ locale: string }>;
-}) {
+  searchParams: Promise<SearchParams>;
+}
+
+export default async function MyListingsPage({ params, searchParams }: Props) {
   const { locale } = await params;
+  const searchParamsResolved = await searchParams;
   const t = await getTranslations({ locale, namespace: "myListings" });
 
-  const supabase = await createClient();
+  const page = parseInt(searchParamsResolved.page || "1");
+  const offset = (page - 1) * ITEMS_PER_PAGE;
 
+  const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -23,14 +33,8 @@ export default async function MyListingsPage({
     redirect(`/${locale}/sign-in`);
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
-  // Fetch ONLY user's listings (all statuses)
-  const { data: listings } = await supabase
+  // Fetch user's listings with pagination
+  const query = supabase
     .from("listings")
     .select(
       `
@@ -41,10 +45,19 @@ export default async function MyListingsPage({
         location_city,
         location_country
       )
-    `
+    `,
+      { count: "exact" }
     )
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
+
+  const { count } = await query;
+  const { data: listings } = await query.range(
+    offset,
+    offset + ITEMS_PER_PAGE - 1
+  );
+
+  const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -65,11 +78,13 @@ export default async function MyListingsPage({
             {t("createListing")}
           </Link>
         </div>
-
         <MyListingsClient
           listings={listings as MyListing[]}
           userId={user.id}
           locale={locale}
+          currentPage={page}
+          totalPages={totalPages}
+          totalCount={count || 0}
         />
       </main>
     </div>

@@ -86,7 +86,10 @@
     "sold": "Verkauft",
     "deleteError": "Löschen der Anzeige fehlgeschlagen. Bitte versuchen Sie es erneut.",
     "title": "Meine Anzeigen",
-    "manageListings": "Verwalten Sie Ihre Anzeigen"
+    "manageListings": "Verwalten Sie Ihre Anzeigen",
+    "showing": "Zeige",
+    "of": "von",
+    "listings": "Anzeigen"
   },
   "myPurchases": {
     "title": "Meine Käufe",

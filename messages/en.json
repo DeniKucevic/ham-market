@@ -86,7 +86,10 @@
     "sold": "Sold",
     "deleteError": "Failed to delete listing. Please try again.",
     "title": "My Listings",
-    "manageListings": "Manage your listings"
+    "manageListings": "Manage your listings",
+    "showing": "Showing",
+    "of": "of",
+    "listings": "listings"
   },
   "myPurchases": {
     "title": "My Purchases",
