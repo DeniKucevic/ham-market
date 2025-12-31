@@ -1,6 +1,7 @@
 import { HeroSearch } from "@/components/hero-search";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
+import { getExchangeRate, normalizeToEur } from "@/utils/currency-server";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { BrowseListingsClient } from "../../components/browse-listings-client";
@@ -191,21 +192,23 @@ export default async function HomePage({ params, searchParams }: Props) {
     query = query.lte("price", parseFloat(maxPrice));
   }
 
-  // Sorting
-  switch (sortBy) {
-    case "oldest":
-      query = query.order("created_at", { ascending: true });
-      break;
-    case "price_low":
-      query = query.order("price", { ascending: true });
-      break;
-    case "price_high":
-      query = query.order("price", { ascending: false });
-      break;
-    case "newest":
-    default:
-      query = query.order("created_at", { ascending: false });
-      break;
+  // Determine if we're doing price sorting
+  const isPriceSorting = sortBy === "price_low" || sortBy === "price_high";
+
+  // Apply sorting to query (for non-price sorts)
+  if (!isPriceSorting) {
+    switch (sortBy) {
+      case "oldest":
+        query = query.order("created_at", { ascending: true });
+        break;
+      case "newest":
+      default:
+        query = query.order("created_at", { ascending: false });
+        break;
+    }
+  } else {
+    // For price sorting, order by created_at for consistent pagination
+    query = query.order("created_at", { ascending: false });
   }
 
   // Get count first
@@ -225,6 +228,26 @@ export default async function HomePage({ params, searchParams }: Props) {
         listing.profiles?.location_country?.toLowerCase() ===
         country.toLowerCase()
     );
+  }
+
+  // Handle price sorting with currency normalization
+  if (isPriceSorting && filteredListings.length > 0) {
+    const exchangeRate = await getExchangeRate();
+
+    filteredListings.sort((a, b) => {
+      const priceA = normalizeToEur(
+        a.price,
+        a.currency as "EUR" | "RSD",
+        exchangeRate
+      );
+      const priceB = normalizeToEur(
+        b.price,
+        b.currency as "EUR" | "RSD",
+        exchangeRate
+      );
+
+      return sortBy === "price_low" ? priceA - priceB : priceB - priceA;
+    });
   }
 
   const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);

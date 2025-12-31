@@ -1,7 +1,11 @@
+/**
+ * Format price with currency symbol based on locale
+ * Client-safe - no server dependencies
+ */
 export const formatPrice = (
   price: number,
   currency: string,
-  locale?: string, // Add locale parameter
+  locale?: string,
   t?: (key: string) => string
 ): string => {
   if (price === 0) {
