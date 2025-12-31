@@ -167,7 +167,8 @@
     "listings": "Огласи",
     "noActiveListings": "Нема активних огласа",
     "youHaveNoListings": "Немате активних огласа",
-    "createListing": "Креирај Оглас"
+    "createListing": "Креирај Оглас",
+     "respond": "Одговори"
   },
   "settings": {
     "title": "Подешавања Профила",

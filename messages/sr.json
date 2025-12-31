@@ -167,7 +167,8 @@
     "listings": "Oglasi",
     "noActiveListings": "Nema aktivnih oglasa",
     "youHaveNoListings": "Nemate aktivnih oglasa",
-    "createListing": "Kreiraj Oglas"
+    "createListing": "Kreiraj Oglas",
+    "respond": "Odgovori"
   },
   "settings": {
     "title": "Podešavanja Profila",

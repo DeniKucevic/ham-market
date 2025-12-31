@@ -167,7 +167,8 @@
     "listings": "Listings",
     "noActiveListings": "No active listings",
     "youHaveNoListings": "You have no active listings",
-    "createListing": "Create Listing"
+    "createListing": "Create Listing",
+    "respond": "Respond"
   },
   "settings": {
     "title": "Profile Settings",

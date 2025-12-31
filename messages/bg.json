@@ -167,7 +167,8 @@
     "listings": "Обяви",
     "noActiveListings": "Няма активни обяви",
     "youHaveNoListings": "Нямате активни обяви",
-    "createListing": "Създай Обява"
+    "createListing": "Създай Обява",
+    "respond": "Отговори"
   },
   "settings": {
     "title": "Настройки на Профила",

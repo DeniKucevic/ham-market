@@ -471,9 +471,14 @@ export default async function ListingDetailPage({ params }: Props) {
               <div className="mt-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <Link
+                      href={`/${locale}/profile/${
+                        listing.profiles?.callsign || listing.user_id
+                      }`}
+                      className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+                    >
                       {getDisplayName(listing.profiles ?? null, "Seller")}
-                    </p>
+                    </Link>
                     {listing.profiles?.location_country && (
                       <div className="mt-1 flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                         <svg

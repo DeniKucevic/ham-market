@@ -167,7 +167,8 @@
     "listings": "Auglýsingar",
     "noActiveListings": "Engar virkar auglýsingar",
     "youHaveNoListings": "Þú ert ekki með neinar virkar auglýsingar",
-    "createListing": "Búa til Auglýsingu"
+    "createListing": "Búa til Auglýsingu",
+    "respond": "Svara"
   },
   "settings": {
     "title": "Prófílstillingar",

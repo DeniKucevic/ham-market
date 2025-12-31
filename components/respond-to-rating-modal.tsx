@@ -12,6 +12,7 @@ interface Props {
   ratingComment: string | null;
   raterName: string;
   ratingStars: number;
+  onResponseSubmitted?: () => void;
 }
 
 export function RespondToRatingModal({
@@ -21,6 +22,7 @@ export function RespondToRatingModal({
   ratingComment,
   raterName,
   ratingStars,
+  onResponseSubmitted,
 }: Props) {
   const t = useTranslations("respondToRating");
   const router = useRouter();
@@ -46,10 +48,13 @@ export function RespondToRatingModal({
 
       if (error) throw error;
 
-      alert(t("successMessage"));
       setResponse("");
       onClose();
-      router.refresh();
+
+      // Call the callback instead of router.refresh
+      if (onResponseSubmitted) {
+        onResponseSubmitted();
+      }
     } catch (error) {
       console.error("Response error:", error);
       alert(t("errorMessage"));
@@ -72,7 +77,7 @@ export function RespondToRatingModal({
               {t("title")}
             </h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              {t("from").replace("{name}", raterName)}
+              {t("from", { name: raterName })}
             </p>
           </div>
 
@@ -119,10 +124,7 @@ export function RespondToRatingModal({
                 placeholder={t("responsePlaceholder")}
               />
               <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                {t("charactersCount").replace(
-                  "{count}",
-                  String(response.length)
-                )}
+                {t("charactersCount", { count: response.length })}
               </p>
             </div>
 

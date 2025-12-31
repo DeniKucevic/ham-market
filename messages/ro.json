@@ -167,7 +167,8 @@
     "listings": "Anunțuri",
     "noActiveListings": "Nu există anunțuri active",
     "youHaveNoListings": "Nu ai anunțuri active",
-    "createListing": "Creează Anunț"
+    "createListing": "Creează Anunț",
+    "respond": "Răspunde"
   },
   "settings": {
     "title": "Setări Profil",

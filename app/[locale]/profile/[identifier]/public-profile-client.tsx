@@ -36,6 +36,8 @@ type Rating = {
   } | null;
 };
 
+const RATINGS_PER_PAGE = 2;
+
 interface Props {
   profile: Profile;
   listings: BrowseListing[];
@@ -67,10 +69,10 @@ export function PublicProfileClient({
   const [unfilteredCount, setUnfilteredCount] = useState(0);
   const [ratingFilter, setRatingFilter] = useState<number | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
-  const RATINGS_PER_PAGE = 2;
   const [loadingRatings, setLoadingRatings] = useState(true);
   const [respondModalOpen, setRespondModalOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0); // Add this
 
   useEffect(() => {
     const fetchRatings = async () => {
@@ -83,10 +85,12 @@ export function PublicProfileClient({
         .select("*", { count: "exact", head: true })
         .eq("rated_user_id", profile.id);
 
-      setUnfilteredCount(totalCount || 0); // ← DODAJ OVO
+      setUnfilteredCount(totalCount || 0);
 
-      let query = supabase.from("ratings").select(
-        `
+      let query = supabase
+        .from("ratings")
+        .select(
+          `
           id,
           rating,
           comment,
@@ -103,15 +107,14 @@ export function PublicProfileClient({
             display_name
           )
         `,
-        { count: "exact" }
-      );
+          { count: "exact" }
+        )
+        .eq("rated_user_id", profile.id);
 
-      // Filter by rating
       if (ratingFilter !== null) {
         query = query.eq("rating", ratingFilter);
       }
 
-      // Sort
       switch (sortBy) {
         case "newest":
           query = query.order("created_at", { ascending: false });
@@ -142,7 +145,7 @@ export function PublicProfileClient({
     };
 
     fetchRatings();
-  }, [profile.id, ratingsPage, ratingFilter, sortBy]);
+  }, [profile.id, ratingsPage, ratingFilter, sortBy, refreshTrigger]);
 
   const totalPages = Math.ceil(totalRatings / RATINGS_PER_PAGE);
 
@@ -418,11 +421,29 @@ export function PublicProfileClient({
                           <span>•</span>
                           <span>
                             {rating.created_at
-                              ? new Date(rating.created_at).toLocaleDateString()
+                              ? new Date(rating.created_at).toLocaleDateString(
+                                  locale,
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  }
+                                )
                               : "Unknown date"}
                           </span>
                         </div>
                       </div>
+                      {isOwnProfile && !rating.response && (
+                        <button
+                          onClick={() => {
+                            setSelectedRating(rating);
+                            setRespondModalOpen(true);
+                          }}
+                          className="ml-4 rounded-md bg-blue-100 px-3 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30"
+                        >
+                          {t("respond")}
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -518,6 +539,7 @@ export function PublicProfileClient({
           ratingComment={selectedRating.comment}
           raterName={getDisplayName(selectedRating.profiles ?? null, "User")}
           ratingStars={selectedRating.rating}
+          onResponseSubmitted={() => setRefreshTrigger((prev) => prev + 1)} // Trigger refetch
         />
       )}
     </main>

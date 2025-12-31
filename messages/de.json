@@ -167,7 +167,8 @@
     "listings": "Anzeigen",
     "noActiveListings": "Keine aktiven Anzeigen",
     "youHaveNoListings": "Sie haben keine aktiven Anzeigen",
-    "createListing": "Anzeige Erstellen"
+    "createListing": "Anzeige Erstellen",
+    "respond": "Antworten"
   },
   "settings": {
     "title": "Profileinstellungen",
