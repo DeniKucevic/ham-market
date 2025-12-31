@@ -404,31 +404,457 @@
   },
   "footer": {
     "about": {
-      "title": "About",
-      "aboutUs": "About Us",
-      "howItWorks": "How It Works",
+      "title": "Despre",
+      "aboutUs": "Despre Noi",
+      "howItWorks": "Cum Funcționează",
       "contact": "Contact"
     },
     "help": {
-      "title": "Help & Support",
-      "faq": "FAQ",
-      "safetyTips": "Safety Tips",
-      "shippingGuide": "Shipping Guide"
+      "title": "Ajutor și Suport",
+      "faq": "Întrebări Frecvente",
+      "safetyTips": "Sfaturi de Siguranță",
+      "shippingGuide": "Ghid de Expediere"
     },
     "legal": {
       "title": "Legal",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "guidelines": "Community Guidelines"
+      "terms": "Termeni și Condiții",
+      "privacy": "Politica de Confidențialitate",
+      "guidelines": "Ghiduri ale Comunității"
     },
     "developer": {
-      "title": "Developer",
-      "createdBy": "Created by",
-      "contact": "Contact Developer"
+      "title": "Dezvoltator",
+      "createdBy": "Creat de",
+      "contact": "Contactează Dezvoltatorul"
     },
-    "copyright": "All rights reserved.",
-    "openSource": "This is an open-source project.",
-    "viewOnGitHub": "View on GitHub"
+    "copyright": "Toate drepturile rezervate.",
+    "openSource": "Acesta este un proiect open-source.",
+    "viewOnGitHub": "Vezi pe GitHub"
+  },
+  "aboutPage": {
+    "title": "Despre HAM Radio Marketplace",
+    "intro": "HAM Radio Marketplace este o platformă gratuită, open-source dedicată conectării radioamatorilor din întreaga lume pentru cumpărarea și vânzarea de echipamente.",
+    "mission": {
+      "title": "Misiunea Noastră",
+      "content": "Credem că echipamentele radio amateur ar trebui să fie accesibile tuturor din comunitatea HAM. Platforma noastră oferă un marketplace sigur, transparent și ușor de utilizat unde operatorii pot găsi echipamente de calitate la prețuri corecte, în timp ce vânzătorii primesc o platformă de încredere pentru a ajunge la colegii entuziaști."
+    },
+    "features": {
+      "title": "Caracteristici Cheie",
+      "free": "Complet gratuit de utilizat - fără taxe de listare, fără taxe de vânzare",
+      "openSource": "Proiect open-source - transparent și condus de comunitate",
+      "multilingual": "Suport multilingv (Engleză, Sârbă, Islandeză, Bulgară, Română, Germană)",
+      "ratings": "Sistem de evaluare integrat pentru a construi încredere între cumpărători și vânzători",
+      "community": "Făcut de operatori radio, pentru operatori radio"
+    },
+    "developer": {
+      "title": "Despre Dezvoltator",
+      "content": "Acest proiect a fost creat de Brixi, un radioamator și dezvoltator software cu pasiune pentru conectarea comunității radio HAM prin tehnologie.",
+      "callsign": "Indicativ:",
+      "github": "GitHub:"
+    },
+    "getStarted": {
+      "title": "Gata să Începi?",
+      "content": "Alătură-te comunității noastre astăzi și începe să cumperi sau să vinzi echipamente radio amateur cu colegi operatori din întreaga lume.",
+      "button": "Creează Cont Gratuit"
+    }
+  },
+  "howItWorksPage": {
+    "title": "Cum Funcționează",
+    "sellers": {
+      "title": "Pentru Vânzători",
+      "step1": {
+        "title": "Creează-ți Contul",
+        "content": "Înregistrează-te cu emailul și completează-ți profilul. Adaugă indicativul, locația și informațiile de contact pentru a construi încredere cu cumpărătorii."
+      },
+      "step2": {
+        "title": "Listează Echipamentul",
+        "content": "Creează un anunț detaliat cu fotografii, descriere, stare și preț. Fii onest și complet pentru a atrage cumpărători serioși."
+      },
+      "step3": {
+        "title": "Comunică cu Cumpărătorii",
+        "content": "Răspunde prompt la întrebări. Răspunde onest la întrebări și oferă informații sau fotografii suplimentare dacă sunt solicitate."
+      },
+      "step4": {
+        "title": "Finalizează Vânzarea",
+        "content": "Odată vândut, marchează articolul ca vândut, aranjează plata și livrarea direct cu cumpărătorul și lasă feedback pentru a-ți construi reputația."
+      }
+    },
+    "buyers": {
+      "title": "Pentru Cumpărători",
+      "step1": {
+        "title": "Răsfoiește Anunțuri",
+        "content": "Caută după categorie, producător, interval de preț sau locație. Folosește filtre pentru a găsi exact ceea ce cauți."
+      },
+      "step2": {
+        "title": "Contactează Vânzătorul",
+        "content": "Pune întrebări despre echipament, solicită fotografii suplimentare și discută opțiunile de plată și livrare."
+      },
+      "step3": {
+        "title": "Efectuează Achiziția",
+        "content": "Convino termenii cu vânzătorul, aranjează plata securizată și confirmă detaliile livrării. Folosește întotdeauna metode de plată sigure."
+      },
+      "step4": {
+        "title": "Lasă Feedback",
+        "content": "După primirea articolului, evaluează experiența cu vânzătorul pentru a ajuta la construirea încrederii în comunitate."
+      }
+    },
+    "tips": {
+      "title": "Sfaturi pentru Succes",
+      "tip1": "Comunică întotdeauna prin platformă inițial pentru a păstra o înregistrare a conversațiilor tale",
+      "tip2": "Verifică evaluările și recenziile vânzătorului înainte de a cumpăra",
+      "tip3": "Folosește fotografii și descrieri detaliate pentru a atrage cumpărători serioși",
+      "tip4": "Fii receptiv și profesionist în toate comunicările",
+      "tip5": "Când expediezi, folosește urmărire și asigurare pentru articole valoroase"
+    },
+    "startBrowsing": "Începe să Răsfoiești Anunțuri"
+  },
+  "faqPage": {
+    "title": "Întrebări Frecvente",
+    "subtitle": "Găsește răspunsuri la întrebări comune despre utilizarea HAM Radio Marketplace",
+    "q1": "HAM Radio Marketplace este cu adevărat gratuit?",
+    "a1": "Da! Nu există taxe de listare, taxe de vânzare și nicio taxă ascunsă. Suntem un proiect condus de comunitate și open-source.",
+    "q2": "Am nevoie de licență HAM pentru a folosi această platformă?",
+    "a2": "Nu, nu ai nevoie de licență pentru a răsfoi sau cumpăra echipamente. Totuși, încurajăm utilizarea responsabilă și respectarea reglementărilor locale.",
+    "q3": "Cum funcționează plățile?",
+    "a3": "Plățile sunt aranjate direct între cumpărători și vânzători. Recomandăm utilizarea metodelor de plată sigure precum PayPal, transferuri bancare sau întâlniri personale pentru tranzacții locale.",
+    "q4": "Ce se întâmplă dacă am o dispută cu un cumpărător sau vânzător?",
+    "a4": "Încurajăm utilizatorii să rezolve disputele direct. Dacă acest lucru nu este posibil, poți raporta anunțuri sau utilizatori problematici. Reține că toate tranzacțiile sunt între utilizatori individuali.",
+    "q5": "Cum expediez internațional?",
+    "a5": "Livrarea internațională este aranjată între cumpărător și vânzător. Verifică Ghidul nostru de Expediere pentru sfaturi despre vamă, asigurare și recomandări de curieri.",
+    "q6": "Pot edita sau șterge anunțul meu?",
+    "a6": "Da! Poți edita anunțurile tale oricând și le poți șterge când nu mai sunt necesare. Pur și simplu mergi la 'Anunțurile Mele' în contul tău.",
+    "q7": "Cum funcționează sistemul de evaluare?",
+    "a7": "După o tranzacție reușită, atât cumpărătorii, cât și vânzătorii pot să se evalueze reciproc. Aceste evaluări ajută la construirea încrederii în comunitate.",
+    "q8": "Ce articole sunt interzise?",
+    "a8": "Interzice articolele ilegale, mărfurile contrafăcute, echipamentele furate și orice încalcă legile locale. Vezi Ghidurile Comunității noastre pentru detalii.",
+    "q9": "Cum raportez un anunț suspect?",
+    "a9": "Fă clic pe butonul 'Raportează Anunț' pe orice pagină de anunț și oferă detalii despre preocupările tale. Revedem toate rapoartele prompt.",
+    "q10": "Sunt informațiile mele personale în siguranță?",
+    "a10": "Luăm confidențialitatea în serios. Informațiile tale de contact sunt vizibile doar utilizatorilor autentificați și tu controlezi ce informații partajezi. Vezi Politica noastră de Confidențialitate pentru detalii."
+  },
+  "safetyTipsPage": {
+    "title": "Sfaturi de Siguranță",
+    "subtitle": "Rămâi în siguranță când cumperi și vinzi echipamente radio amateur",
+    "buyers": {
+      "title": "Pentru Cumpărători",
+      "tip1": "Verifică evaluările și recenziile vânzătorului înainte de a cumpăra",
+      "tip2": "Solicită fotografii detaliate și rezultate ale testelor dacă cumperi echipamente second-hand",
+      "tip3": "Folosește metode de plată sigure care oferă protecție cumpărătorului",
+      "tip4": "Fii precaut cu oferte care par prea bune pentru a fi adevărate",
+      "tip5": "Pentru ridicări locale, întâlnește-te în locuri publice în timpul zilei"
+    },
+    "sellers": {
+      "title": "Pentru Vânzători",
+      "tip1": "Fii onest despre starea echipamentului tău",
+      "tip2": "Fă fotografii clare, bine iluminate din mai multe unghiuri",
+      "tip3": "Folosește livrare cu urmărire și asigurare pentru articole valoroase",
+      "tip4": "Nu expedia articole până când plata nu este confirmată și procesată",
+      "tip5": "Păstrează înregistrări ale tuturor comunicărilor și tranzacțiilor"
+    },
+    "redFlags": {
+      "title": "Semnale de Alarmă",
+      "flag1": "Cumpărători sau vânzători care refuză să comunice prin platformă",
+      "flag2": "Solicitări de plată prin metode neobișnuite (carduri cadou, criptomonede la adrese necunoscute)",
+      "flag3": "Presiune pentru a finaliza tranzacția rapid fără verificare adecvată",
+      "flag4": "Reticență în a furniza fotografii sau informații suplimentare",
+      "flag5": "Prețuri semnificativ sub valoarea de piață fără explicație bună"
+    },
+    "general": {
+      "title": "Ghiduri Generale de Siguranță",
+      "tip1": "Ai încredere în instinctele tale - dacă ceva pare greșit, probabil este greșit",
+      "tip2": "Nu partaja niciodată informații personale sensibile precum parole sau detalii financiare",
+      "tip3": "Raportează activități sau anunțuri suspecte imediat"
+    }
+  },
+  "shippingGuidePage": {
+    "title": "Ghid de Expediere",
+    "subtitle": "Cele mai bune practici pentru expedierea în siguranță a echipamentelor radio amateur",
+    "sellers": {
+      "title": "Pentru Vânzători",
+      "packaging": {
+        "title": "Ghiduri de Ambalare",
+        "tip1": "Folosește cutii rezistente cu umplutură adecvată (folie cu bule, spumă sau nuci de ambalare)",
+        "tip2": "Înfășoară antene și componente fragile separat",
+        "tip3": "Îndepărtează sau fixează toate piesele libere pentru a preveni deteriorarea în timpul transportului",
+        "tip4": "Dublu-ambalează articole valoroase sau fragile pentru protecție suplimentară",
+        "tip5": "Sigilează cutiile cu bandă de ambalare puternică, întărind toate cusăturile"
+      },
+      "documentation": {
+        "title": "Documentație",
+        "tip1": "Include un bon de ambalare cu descrierea articolului și numărul de urmărire",
+        "tip2": "Păstrează copii ale tuturor chitanțelor de expediere și informațiilor de urmărire",
+        "tip3": "Pentru expedieri internaționale, completează formularele vamale cu acuratețe",
+        "tip4": "Consideră includerea unei copii a manualului original dacă este disponibil"
+      },
+      "insurance": {
+        "title": "Asigurare",
+        "content": "Pentru echipamente valoroase, cumpără întotdeauna asigurare de expediere. Costul este minim comparativ cu pierderea potențială. Documentează starea articolului cu fotografii înainte de expediere."
+      }
+    },
+    "buyers": {
+      "title": "Pentru Cumpărători",
+      "receiving": {
+        "title": "Primirea Expedierilor",
+        "tip1": "Inspectează pachetele pentru deteriorări înainte de a accepta livrarea",
+        "tip2": "Documentează orice deteriorare vizibilă cu fotografii imediat",
+        "tip3": "Deschide pachetele cu atenție și inspectează conținutul complet",
+        "tip4": "Testează echipamentul prompt după primire"
+      },
+      "inspection": {
+        "title": "Lista de Verificare",
+        "tip1": "Verifică că toate componentele și accesoriile descrise sunt incluse",
+        "tip2": "Verifică că echipamentul corespunde descrierii anunțului și fotografiilor",
+        "tip3": "Testează toate funcțiile dacă este posibil înainte de a lăsa feedback"
+      }
+    },
+    "international": {
+      "title": "Expediere Internațională",
+      "customs": {
+        "title": "Vamă",
+        "content": "Fii conștient că expedierile internaționale pot implica taxe vamale și taxe. Acestea sunt responsabilitatea cumpărătorului decât dacă se convine altfel."
+      },
+      "vat": {
+        "title": "TVA/Taxe de Import",
+        "content": "Multe țări percep TVA sau taxe de import pe articole peste anumite valori. Verifică reglementările locale."
+      },
+      "regulations": {
+        "title": "Reglementări",
+        "content": "Unele echipamente radio pot necesita permise sau licențe speciale pentru import. Verifică conformitatea atât cu reglementările de export, cât și cu cele de import."
+      }
+    },
+    "carriers": {
+      "title": "Curieri Recomandați",
+      "intro": "Alege curieri pe baza destinației, dimensiunii pachetului și valorii:",
+      "national": "Servicii Poștale Naționale",
+      "nationalDesc": "Rentabil pentru articole mai ușoare și expediere internă",
+      "international": "DHL, FedEx, UPS",
+      "internationalDesc": "Opțiuni mai bune de urmărire și asigurare pentru expedieri internaționale și valoroase"
+    }
+  },
+  "termsPage": {
+    "title": "Termeni și Condiții",
+    "lastUpdated": "Ultima actualizare",
+    "acceptance": {
+      "title": "Acceptarea Termenilor",
+      "content": "Accesând și utilizând HAM Radio Marketplace, accepți și ești de acord să fii legat de acești Termeni și Condiții. Dacă nu ești de acord cu acești termeni, te rugăm să nu folosești platforma noastră."
+    },
+    "eligibility": {
+      "title": "Eligibilitate",
+      "content": "Trebuie să ai cel puțin 18 ani pentru a utiliza această platformă. Prin utilizarea acestui serviciu, declari că îndeplinești această cerință de vârstă și ai capacitatea juridică de a încheia acești termeni."
+    },
+    "userAccounts": {
+      "title": "Conturi de Utilizator",
+      "content": "Ești responsabil pentru:",
+      "responsibility1": "Menținerea confidențialității acreditărilor contului tău",
+      "responsibility2": "Toate activitățile care au loc sub contul tău",
+      "responsibility3": "Furnizarea de informații exacte și actuale în profilul tău"
+    },
+    "listings": {
+      "title": "Anunțuri și Conținut",
+      "content": "Când creezi anunțuri, ești de acord să:",
+      "rule1": "Furnizezi descrieri și fotografii exacte ale articolelor",
+      "rule2": "Listezi doar articole pe care le deții și ai dreptul să le vinzi",
+      "rule3": "Respecți toate legile și reglementările aplicabile",
+      "rule4": "Nu postezi articole interzise, ilegale sau contrafăcute"
+    },
+    "transactions": {
+      "title": "Tranzacții",
+      "content": "HAM Radio Marketplace este o platformă care conectează cumpărători și vânzători. Nu suntem parte a tranzacțiilor și nu garantăm calitatea, siguranța sau legalitatea articolelor listate. Toate tranzacțiile sunt direct între utilizatori."
+    },
+    "prohibitedConduct": {
+      "title": "Conduită Interzisă",
+      "intro": "Nu poți:",
+      "item1": "Posta anunțuri false, înșelătoare sau frauduloase",
+      "item2": "Hărțui, amenința sau abuza alți utilizatori",
+      "item3": "Încerca să eviți taxele sau politicile platformei",
+      "item4": "Utiliza instrumente automatizate pentru a colecta date",
+      "item5": "Încălca drepturile de proprietate intelectuală ale altora"
+    },
+    "intellectualProperty": {
+      "title": "Proprietate Intelectuală",
+      "content": "Platforma și conținutul său original, caracteristicile și funcționalitatea sunt deținute de dezvoltator și sunt protejate de legile internaționale privind drepturile de autor, mărcile comerciale și alte drepturi de proprietate intelectuală."
+    },
+    "disclaimer": {
+      "title": "Declinarea Responsabilității",
+      "content": "Această platformă este furnizată 'ca atare' fără garanții de orice tip. Nu garantăm acces continuu, neîntrerupt sau sigur la platformă."
+    },
+    "limitation": {
+      "title": "Limitarea Răspunderii",
+      "content": "În măsura maximă permisă de lege, nu vom fi răspunzători pentru niciun fel de daune indirecte, incidentale, speciale, consecvente sau punitive rezultate din utilizarea platformei."
+    },
+    "termination": {
+      "title": "Încetare",
+      "content": "Ne rezervăm dreptul de a înceta sau suspenda contul tău oricând pentru încălcări ale acestor termeni sau din orice alt motiv la discreția noastră."
+    },
+    "changes": {
+      "title": "Modificări ale Termenilor",
+      "content": "Putem modifica acești termeni oricând. Utilizarea continuă a platformei după modificări constituie acceptarea termenilor modificați."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "Dacă ai întrebări despre acești Termeni și Condiții, te rugăm să ne contactezi prin pagina de Contact."
+    }
+  },
+  "privacyPage": {
+    "title": "Politica de Confidențialitate",
+    "lastUpdated": "Ultima actualizare",
+    "introduction": {
+      "title": "Introducere",
+      "content": "Această Politică de Confidențialitate descrie cum HAM Radio Marketplace colectează, utilizează și protejează informațiile tale personale. Suntem angajați să-ți protejăm confidențialitatea și să fim transparenți despre practicile noastre de date."
+    },
+    "dataCollection": {
+      "title": "Informații pe care le Colectăm",
+      "intro": "Colectăm următoarele tipuri de informații:",
+      "account": {
+        "title": "Informații despre Cont",
+        "items": "Adresă de email, parolă (criptată), indicativ (opțional)"
+      },
+      "profile": {
+        "title": "Informații despre Profil",
+        "items": "Nume de afișare, locație (țară/oraș), informații de contact (dacă alegi să le faci publice), biografie"
+      },
+      "listings": {
+        "title": "Informații despre Anunțuri",
+        "items": "Descrieri ale articolelor, fotografii, prețuri și istoric al tranzacțiilor"
+      },
+      "usage": {
+        "title": "Date de Utilizare",
+        "items": "Adresă IP, tip de browser, pagini vizitate, marcaje temporale"
+      }
+    },
+    "dataUse": {
+      "title": "Cum Folosim Informațiile Tale",
+      "intro": "Folosim informațiile colectate pentru a:",
+      "purpose1": "Furniza și întreține platforma",
+      "purpose2": "Permite comunicarea între cumpărători și vânzători",
+      "purpose3": "Îmbunătăți experiența utilizatorului și funcțiile platformei",
+      "purpose4": "Preveni frauda și aplica Termenii și Condițiile noastre",
+      "purpose5": "Trimite actualizări importante despre contul tău sau platformă"
+    },
+    "dataSharing": {
+      "title": "Partajarea Informațiilor",
+      "content": "Nu vindem informațiile tale personale. Partajăm informații doar:",
+      "case1": "Cu alți utilizatori după cum este necesar pentru tranzacții (informații de contact dacă le faci publice)",
+      "case2": "Când este cerut de lege sau proces legal",
+      "case3": "Pentru a proteja drepturile noastre sau siguranța utilizatorilor"
+    },
+    "dataSecurity": {
+      "title": "Securitatea Datelor",
+      "content": "Implementăm măsuri tehnice și organizatorice adecvate pentru a proteja informațiile tale personale. Totuși, nicio metodă de transmisie prin internet nu este 100% sigură."
+    },
+    "cookies": {
+      "title": "Cookie-uri și Urmărire",
+      "content": "Folosim cookie-uri esențiale pentru a menține sesiunea și preferințele tale. Nu folosim cookie-uri de publicitate de la terți."
+    },
+    "userRights": {
+      "title": "Drepturile Tale",
+      "intro": "Ai dreptul să:",
+      "right1": "Accesezi, actualizezi sau ștergi informațiile tale personale",
+      "right2": "Obiecți la procesarea datelor tale",
+      "right3": "Soliciți portabilitatea datelor",
+      "right4": "Retragi consimțământul oricând"
+    },
+    "retention": {
+      "title": "Retenția Datelor",
+      "content": "Păstrăm informațiile tale atât timp cât contul tău este activ sau după cum este necesar pentru a furniza servicii. Poți solicita ștergerea contului și datelor tale oricând."
+    },
+    "children": {
+      "title": "Confidențialitatea Copiilor",
+      "content": "Platforma noastră nu este destinată utilizatorilor sub 18 ani. Nu colectăm în mod conștient informații de la copii."
+    },
+    "changes": {
+      "title": "Modificări ale Politicii de Confidențialitate",
+      "content": "Putem actualiza această Politică de Confidențialitate din când în când. Vom notifica utilizatorii despre modificări semnificative prin email sau prin platformă."
+    },
+    "contact": {
+      "title": "Contactează-ne",
+      "content": "Dacă ai întrebări despre această Politică de Confidențialitate sau practicile noastre de date, te rugăm să ne contactezi prin pagina de Contact."
+    }
+  },
+  "guidelinesPage": {
+    "title": "Ghiduri ale Comunității",
+    "subtitle": "Ajută-ne să menținem un marketplace sigur, respectuos și prosper pentru comunitatea radio HAM",
+    "respect": {
+      "title": "Fii Respectuos",
+      "content": "Tratează toți utilizatorii cu curtoazie și respect, indiferent de nivelul de experiență sau proveniență.",
+      "rule1": "Folosește limbaj profesional în toate comunicările",
+      "rule2": "Respectă opiniile și abordările diferite",
+      "rule3": "Evită atacurile personale sau hărțuirea"
+    },
+    "honesty": {
+      "title": "Fii Onest",
+      "content": "Onestitatea este fundamentul încrederii în comunitatea noastră.",
+      "rule1": "Descrie articolele cu acuratețe, inclusiv toate defectele sau problemele",
+      "rule2": "Folosește propriile fotografii - nu copia imagini din alte surse",
+      "rule3": "Onorează-ți angajamentele față de cumpărători și vânzători",
+      "rule4": "Dezvăluie orice modificări sau reparații la echipament"
+    },
+    "safety": {
+      "title": "Prioritizează Siguranța",
+      "content": "Siguranța ta și a celorlalți este primordială.",
+      "rule1": "Urmează Sfaturile noastre de Siguranță pentru tranzacții sigure",
+      "rule2": "Raportează activități sau anunțuri suspecte",
+      "rule3": "Nu partaja niciodată informații personale sensibile public"
+    },
+    "communication": {
+      "title": "Comunică Clar",
+      "content": "Comunicarea bună previne neînțelegerile.",
+      "rule1": "Răspunde prompt la mesaje și întrebări",
+      "rule2": "Fii clar despre termeni, condiții și așteptări",
+      "rule3": "Păstrează conversațiile profesionale și pe subiect"
+    },
+    "prohibited": {
+      "title": "Activități Interzise",
+      "item1": "Postarea de articole contrafăcute, furate sau ilegale",
+      "item2": "Fraudă, înșelătorie sau anunțuri înșelătoare",
+      "item3": "Hărțuire, amenințări sau abuz",
+      "item4": "Spam sau publicitate nesolicită",
+      "item5": "Încercarea de manipulare a evaluărilor sau recenziilor",
+      "item6": "Eludarea politicilor sau restricțiilor platformei"
+    },
+    "reporting": {
+      "title": "Raportarea Încălcărilor",
+      "content": "Dacă întâlnești conținut sau comportament care încalcă aceste ghiduri, te rugăm să-l raportezi imediat. Revedem toate rapoartele și luăm măsuri adecvate."
+    },
+    "consequences": {
+      "title": "Consecințele Încălcărilor",
+      "content": "Încălcările acestor ghiduri pot rezulta în:",
+      "action1": "Avertisment și eliminarea conținutului",
+      "action2": "Suspendarea temporară a privilegiilor contului",
+      "action3": "Încetarea permanentă a contului"
+    },
+    "spirit": {
+      "title": "Spiritul Radio HAM",
+      "content": "Aceste ghiduri reflectă valorile comunității radio amateur: experimentare, învățare, serviciu comunitar și respect reciproc. Să lucrăm împreună pentru a menține aceste tradiții pe marketplace-ul nostru."
+    }
+  },
+  "contactPage": {
+    "title": "Contactează-ne",
+    "subtitle": "Intră în contact cu dezvoltatorul sau găsește resurse utile",
+    "developer": {
+      "title": "Contact Dezvoltator",
+      "callsign": "Indicativ"
+    },
+    "project": {
+      "title": "Despre Proiect",
+      "description": "HAM Radio Marketplace este un proiect open-source construit cu dragoste pentru comunitatea radio amateur. Contribuțiile, feedback-ul și sugestiile sunt întotdeauna binevenite!",
+      "viewSource": "Vezi codul sursă pe GitHub →"
+    },
+    "support": {
+      "title": "Suport",
+      "content": "Pentru întrebări despre utilizarea platformei, verifică mai întâi FAQ-ul nostru. Pentru raportarea de bug-uri sau sugestii de funcții, te rugăm să deschizi o problemă pe GitHub."
+    },
+    "quickLinks": {
+      "title": "Link-uri Rapide",
+      "reportIssue": "Raportează un Bug",
+      "suggestFeature": "Sugerează o Funcție",
+      "contribute": "Contribuie la Proiect"
+    },
+    "beforeContacting": {
+      "title": "Înainte de a Contacta",
+      "checkFaq": "Verifică FAQ-ul pentru întrebări comune",
+      "searchIssues": "Caută probleme existente pe GitHub",
+      "readDocs": "Revizuiește documentația"
+    }
   },
   "metadata": {
     "title": "HAM Radio Marketplace",

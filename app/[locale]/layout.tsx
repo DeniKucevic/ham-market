@@ -1,5 +1,8 @@
+import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 import { Providers } from "@/components/providers";
 import { locales } from "@/i18n";
+import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -86,10 +89,30 @@ export default async function LocaleLayout({
 
   const messages = (await import(`../../messages/${locale}.json`)).default;
 
+  // Get user and profile for navbar
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let profile = null;
+  if (user) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+    profile = data;
+  }
+
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <Providers messages={messages} locale={locale}>
-        {children}
+        <div className="flex min-h-screen flex-col">
+          <Navbar user={user} profile={profile} locale={locale} />
+          <main className="flex-1">{children}</main>
+          <Footer locale={locale} />
+        </div>
       </Providers>
     </div>
   );

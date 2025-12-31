@@ -1,6 +1,4 @@
-import { Footer } from "@/components/footer";
 import { HeroSearch } from "@/components/hero-search";
-import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
 import { Metadata } from "next";
@@ -233,8 +231,6 @@ export default async function HomePage({ params, searchParams }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar user={user} profile={profile ?? null} locale={locale} />
-
       {/* Hero Section */}
       <HeroSearch initialQuery={searchQuery} />
 
@@ -260,7 +256,6 @@ export default async function HomePage({ params, searchParams }: Props) {
           locale={locale}
         />
       </main>
-      <Footer locale={locale} />
     </div>
   );
 }

@@ -1,6 +1,4 @@
-import { Footer } from "@/components/footer";
 import { ListingForm } from "@/components/listing-form";
-import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
@@ -47,8 +45,6 @@ export default async function EditListingPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar user={user} profile={profile} locale={locale} />
-
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -61,7 +57,6 @@ export default async function EditListingPage({ params }: Props) {
 
         <ListingForm listing={listing} userId={user.id} locale={locale} />
       </div>
-      <Footer locale={locale} />
     </div>
   );
 }

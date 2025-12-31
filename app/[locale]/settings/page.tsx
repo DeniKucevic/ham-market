@@ -1,5 +1,3 @@
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
 import { ProfileSettingsForm } from "@/components/profile-settings-form";
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
@@ -31,8 +29,6 @@ export default async function SettingsPage({
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar user={user} profile={profile} locale={locale} />
-
       <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -51,7 +47,6 @@ export default async function SettingsPage({
           />
         )}
       </main>
-      <Footer locale={locale} />
     </div>
   );
 }

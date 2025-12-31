@@ -404,31 +404,457 @@
   },
   "footer": {
     "about": {
-      "title": "About",
-      "aboutUs": "About Us",
-      "howItWorks": "How It Works",
-      "contact": "Contact"
+      "title": "O Nama",
+      "aboutUs": "O Nama",
+      "howItWorks": "Kako Funkcioniše",
+      "contact": "Kontakt"
     },
     "help": {
-      "title": "Help & Support",
-      "faq": "FAQ",
-      "safetyTips": "Safety Tips",
-      "shippingGuide": "Shipping Guide"
+      "title": "Pomoć i Podrška",
+      "faq": "Često Postavljana Pitanja",
+      "safetyTips": "Saveti za Bezbednost",
+      "shippingGuide": "Vodič za Dostavu"
     },
     "legal": {
-      "title": "Legal",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "guidelines": "Community Guidelines"
+      "title": "Pravno",
+      "terms": "Uslovi Korišćenja",
+      "privacy": "Politika Privatnosti",
+      "guidelines": "Smernice Zajednice"
     },
     "developer": {
-      "title": "Developer",
-      "createdBy": "Created by",
-      "contact": "Contact Developer"
+      "title": "Programer",
+      "createdBy": "Kreirao",
+      "contact": "Kontaktirajte Programera"
     },
-    "copyright": "All rights reserved.",
-    "openSource": "This is an open-source project.",
-    "viewOnGitHub": "View on GitHub"
+    "copyright": "Sva prava zadržana.",
+    "openSource": "Ovo je open-source projekat.",
+    "viewOnGitHub": "Pogledajte na GitHub-u"
+  },
+  "aboutPage": {
+    "title": "O HAM Radio Marketplace-u",
+    "intro": "HAM Radio Marketplace je besplatna, open-source platforma posvećena povezivanju radio amatera širom sveta za kupovinu i prodaju opreme.",
+    "mission": {
+      "title": "Naša Misija",
+      "content": "Verujemo da oprema za amaterski radio treba biti dostupna svima u HAM zajednici. Naša platforma pruža siguran, transparentan i jednostavan marketplace gde operateri mogu pronaći kvalitetnu opremu po fer cenama, dok prodavci dobijaju pouzdanu platformu da dosegnu kolege entuzijaste."
+    },
+    "features": {
+      "title": "Ključne Karakteristike",
+      "free": "Potpuno besplatno - bez naknade za oglase, bez provizije za prodaju",
+      "openSource": "Open-source projekat - transparentan i vođen zajednicom",
+      "multilingual": "Podrška za više jezika (Engleski, Srpski, Islandski, Bugarski, Rumunski, Nemački)",
+      "ratings": "Ugrađen sistem ocenjivanja za izgradnju poverenja između kupaca i prodavaca",
+      "community": "Napravili radio operateri, za radio operatere"
+    },
+    "developer": {
+      "title": "O Programeru",
+      "content": "Ovaj projekat je kreirao Brixi, radio amater i programer sa strašću za povezivanje HAM radio zajednice kroz tehnologiju.",
+      "callsign": "Pozivni znak:",
+      "github": "GitHub:"
+    },
+    "getStarted": {
+      "title": "Spremni da Počnete?",
+      "content": "Pridružite se našoj zajednici danas i počnite da kupujete ili prodajete amatersku radio opremu sa kolegama operaterima širom sveta.",
+      "button": "Kreirajte Besplatan Nalog"
+    }
+  },
+  "howItWorksPage": {
+    "title": "Kako Funkcioniše",
+    "sellers": {
+      "title": "Za Prodavce",
+      "step1": {
+        "title": "Kreirajte Nalog",
+        "content": "Registrujte se sa emailom i popunite profil. Dodajte pozivni znak, lokaciju i kontakt informacije da izgradite poverenje sa kupcima."
+      },
+      "step2": {
+        "title": "Oglašavajte Opremu",
+        "content": "Kreirajte detaljan oglas sa fotografijama, opisom, stanjem i cenom. Budite iskreni i detaljni da privučete ozbiljne kupce."
+      },
+      "step3": {
+        "title": "Komunicirajte sa Kupcima",
+        "content": "Odgovarajte brzo na upite. Odgovarajte iskreno na pitanja i pružite dodatne informacije ili fotografije ako je potrebno."
+      },
+      "step4": {
+        "title": "Završite Prodaju",
+        "content": "Kada prodate, označite artikal kao prodat, dogovorite plaćanje i dostavu direktno sa kupcem, i ostavite povratnu informaciju da izgradite reputaciju."
+      }
+    },
+    "buyers": {
+      "title": "Za Kupce",
+      "step1": {
+        "title": "Pretražite Oglase",
+        "content": "Pretražujte po kategoriji, proizvođaču, cenovnom rangu ili lokaciji. Koristite filtere da pronađete tačno ono što tražite."
+      },
+      "step2": {
+        "title": "Kontaktirajte Prodavca",
+        "content": "Postavite pitanja o opremi, zatražite dodatne fotografije i razgovarajte o opcijama plaćanja i dostave."
+      },
+      "step3": {
+        "title": "Izvršite Kupovinu",
+        "content": "Dogovorite uslove sa prodavcem, dogovorite sigurno plaćanje i potvrdite detalje dostave. Uvek koristite sigurne metode plaćanja."
+      },
+      "step4": {
+        "title": "Ostavite Povratnu Informaciju",
+        "content": "Nakon prijema artikla, ocenite svoje iskustvo sa prodavcem da pomognete u izgradnji poverenja u zajednici."
+      }
+    },
+    "tips": {
+      "title": "Saveti za Uspeh",
+      "tip1": "Uvek komunicirajte kroz platformu inicijalno da održite evidenciju svojih razgovora",
+      "tip2": "Proverite ocene i recenzije prodavca pre kupovine",
+      "tip3": "Koristite detaljne fotografije i opise da privučete ozbiljne kupce",
+      "tip4": "Budite odgovorni i profesionalni u svim komunikacijama",
+      "tip5": "Kada šaljete, koristite praćenje i osiguranje za vredne artikle"
+    },
+    "startBrowsing": "Počnite da Pretražujete Oglase"
+  },
+  "faqPage": {
+    "title": "Često Postavljana Pitanja",
+    "subtitle": "Pronađite odgovore na uobičajena pitanja o korišćenju HAM Radio Marketplace-a",
+    "q1": "Da li je HAM Radio Marketplace zaista besplatan?",
+    "a1": "Da! Nema naknade za oglase, nema provizije za prodaju i nema skrivenih troškova. Mi smo projekat vođen zajednicom i open-source.",
+    "q2": "Da li mi treba HAM licenca da koristim ovu platformu?",
+    "a2": "Ne, ne treba vam licenca da pretražujete ili kupujete opremu. Međutim, podsticamo odgovorno korišćenje i poštovanje lokalnih propisa.",
+    "q3": "Kako funkcionišu plaćanja?",
+    "a3": "Plaćanja se dogovaraju direktno između kupaca i prodavaca. Preporučujemo korišćenje sigurnih metoda plaćanja kao što su PayPal, bankarske transakcije ili lično za lokalne transakcije.",
+    "q4": "Šta ako imam spor sa kupcem ili prodavcem?",
+    "a4": "Ohrabrujemo korisnike da rešavaju sporove direktno. Ako to nije moguće, možete prijaviti problematične oglase ili korisnike. Zapamtite, sve transakcije su između individualnih korisnika.",
+    "q5": "Kako da pošaljem međunarodnu pošiljku?",
+    "a5": "Međunarodna dostava se dogovara između kupca i prodavca. Pogledajte naš Vodič za Dostavu za savete o carini, osiguranju i preporukama kurirskih službi.",
+    "q6": "Mogu li da izmenim ili obrišem svoj oglas?",
+    "a6": "Da! Možete izmeniti svoje oglase u bilo kom trenutku i obrisati ih kada više nisu potrebni. Samo idite na 'Moji Oglasi' u svom nalogu.",
+    "q7": "Kako funkcioniše sistem ocenjivanja?",
+    "a7": "Nakon uspešne transakcije, i kupci i prodavci mogu da ocene jedni druge. Ove ocene pomažu u izgradnji poverenja u zajednici.",
+    "q8": "Koji artikli su zabranjeni?",
+    "a8": "Zabranjujemo ilegalne artikle, falsifikovanu robu, ukradenu opremu i sve što krši lokalne zakone. Pogledajte naše Smernice Zajednice za detalje.",
+    "q9": "Kako da prijavim sumnjiv oglas?",
+    "a9": "Kliknite na dugme 'Prijavi Oglas' na bilo kojoj stranici oglasa i pružite detalje o vašim zabrinutostima. Mi razmatramo sve prijave odmah.",
+    "q10": "Da li su moje lične informacije bezbedne?",
+    "a10": "Ozbiljno shvatamo privatnost. Vaše kontakt informacije su vidljive samo prijavljenim korisnicima i vi kontrolišete koje informacije delite. Pogledajte našu Politiku Privatnosti za detalje."
+  },
+  "safetyTipsPage": {
+    "title": "Saveti za Bezbednost",
+    "subtitle": "Ostanite bezbedni kada kupujete i prodajete amatersku radio opremu",
+    "buyers": {
+      "title": "Za Kupce",
+      "tip1": "Proverite ocene i recenzije prodavca pre kupovine",
+      "tip2": "Zatražite detaljne fotografije i rezultate testova ako kupujete korišćenu opremu",
+      "tip3": "Koristite sigurne metode plaćanja koje nude zaštitu kupaca",
+      "tip4": "Budite oprezni sa ponudama koje izgledaju predobro da bi bile istinite",
+      "tip5": "Za lokalna preuzimanja, sastanite se na javnim mestima tokom dana"
+    },
+    "sellers": {
+      "title": "Za Prodavce",
+      "tip1": "Budite iskreni o stanju vaše opreme",
+      "tip2": "Pravite jasne, dobro osvetljene fotografije iz više uglova",
+      "tip3": "Koristite praćenu dostavu sa osiguranjem za vredne artikle",
+      "tip4": "Ne šaljite artikle dok se plaćanje ne potvrdi i obradi",
+      "tip5": "Čuvajte evidenciju svih komunikacija i transakcija"
+    },
+    "redFlags": {
+      "title": "Znakovi Upozorenja",
+      "flag1": "Kupci ili prodavci koji odbijaju da komuniciraju kroz platformu",
+      "flag2": "Zahtevi za plaćanje neobičnim metodama (poklon kartice, kriptovaluta na nepoznate adrese)",
+      "flag3": "Pritisak da se transakcija završi brzo bez odgovarajuće provere",
+      "flag4": "Nespremnost da pruže dodatne fotografije ili informacije",
+      "flag5": "Cene značajno ispod tržišne vrednosti bez dobrog objašnjenja"
+    },
+    "general": {
+      "title": "Opšte Smernice za Bezbednost",
+      "tip1": "Verujte svojim instinktima - ako nešto deluje pogrešno, verovatno i jeste",
+      "tip2": "Nikada ne delite osetljive lične informacije kao što su lozinke ili finansijski detalji",
+      "tip3": "Prijavite sumnjive aktivnosti ili oglase odmah"
+    }
+  },
+  "shippingGuidePage": {
+    "title": "Vodič za Dostavu",
+    "subtitle": "Najbolje prakse za sigurnu dostavu amaterske radio opreme",
+    "sellers": {
+      "title": "Za Prodavce",
+      "packaging": {
+        "title": "Smernice za Pakovanje",
+        "tip1": "Koristite čvrste kutije sa adekvatnim punjenjem (mehurasta folija, pena ili stiropor)",
+        "tip2": "Umotajte antene i krhke komponente odvojeno",
+        "tip3": "Uklonite ili pričvrstite sve labave delove da sprečite oštećenje tokom transporta",
+        "tip4": "Dvostruko zapakujte vredne ili krhke artikle za dodatnu zaštitu",
+        "tip5": "Zalepite kutije jakom trakom za pakovanje, pojačavajući sve šavove"
+      },
+      "documentation": {
+        "title": "Dokumentacija",
+        "tip1": "Uključite list za pakovanje sa opisom artikla i brojem za praćenje",
+        "tip2": "Čuvajte kopije svih računa za dostavu i informacija o praćenju",
+        "tip3": "Za međunarodne pošiljke, tačno popunite carinske formulare",
+        "tip4": "Razmotrite uključivanje kopije originalnog priručnika ako je dostupan"
+      },
+      "insurance": {
+        "title": "Osiguranje",
+        "content": "Za vrednu opremu, uvek kupite osiguranje za dostavu. Troškovi su minimalni u poređenju sa potencijalnim gubitkom. Dokumentujte stanje artikla fotografijama pre slanja."
+      }
+    },
+    "buyers": {
+      "title": "Za Kupce",
+      "receiving": {
+        "title": "Prijem Pošiljki",
+        "tip1": "Pregledajte pakete za oštećenja pre prihvatanja dostave",
+        "tip2": "Dokumentujte sve vidljive štete fotografijama odmah",
+        "tip3": "Otvarajte pakete pažljivo i temeljno pregledajte sadržaj",
+        "tip4": "Testirajte opremu odmah nakon prijema"
+      },
+      "inspection": {
+        "title": "Lista za Proveru",
+        "tip1": "Proverite da su sve opisane komponente i dodaci uključeni",
+        "tip2": "Proverite da oprema odgovara opisu oglasa i fotografijama",
+        "tip3": "Testirajte sve funkcije ako je moguće pre ostavljanja povratne informacije"
+      }
+    },
+    "international": {
+      "title": "Međunarodna Dostava",
+      "customs": {
+        "title": "Carina",
+        "content": "Budite svesni da međunarodne pošiljke mogu imati carinske takse i poreze. To je odgovornost kupca osim ako nije drugačije dogovoreno."
+      },
+      "vat": {
+        "title": "PDV/Uvozni Porezi",
+        "content": "Mnoge zemlje naplaćuju PDV ili uvozne poreze na artikle iznad određenih vrednosti. Proverite lokalne propise."
+      },
+      "regulations": {
+        "title": "Propisi",
+        "content": "Neka radio oprema može zahtevati specijalne dozvole ili licence za uvoz. Proverite usklađenost i sa propisima o izvozu i uvozu."
+      }
+    },
+    "carriers": {
+      "title": "Preporučene Kurirske Službe",
+      "intro": "Izaberite kurire na osnovu destinacije, veličine paketa i vrednosti:",
+      "national": "Nacionalne Poštanske Službe",
+      "nationalDesc": "Isplativo za lakše artikle i domaću dostavu",
+      "international": "DHL, FedEx, UPS",
+      "internationalDesc": "Bolje opcije praćenja i osiguranja za međunarodne i vredne pošiljke"
+    }
+  },
+  "termsPage": {
+    "title": "Uslovi Korišćenja",
+    "lastUpdated": "Poslednje ažuriranje",
+    "acceptance": {
+      "title": "Prihvatanje Uslova",
+      "content": "Pristupajući i koristeći HAM Radio Marketplace, prihvatate i slažete se da budete vezani ovim Uslovima Korišćenja. Ako se ne slažete sa ovim uslovima, molimo vas da ne koristite našu platformu."
+    },
+    "eligibility": {
+      "title": "Prihvatljivost",
+      "content": "Morate imati najmanje 18 godina da koristite ovu platformu. Korišćenjem ove usluge, izjavljujete da ispunjavate ovaj uslov starosti i imate pravnu sposobnost da prihvatite ove uslove."
+    },
+    "userAccounts": {
+      "title": "Korisnički Nalozi",
+      "content": "Vi ste odgovorni za:",
+      "responsibility1": "Čuvanje poverljivosti podataka vašeg naloga",
+      "responsibility2": "Sve aktivnosti koje se dešavaju pod vašim nalogom",
+      "responsibility3": "Pružanje tačnih i aktuelnih informacija u vašem profilu"
+    },
+    "listings": {
+      "title": "Oglasi i Sadržaj",
+      "content": "Kada kreirate oglase, slažete se da:",
+      "rule1": "Pružite tačne opise i fotografije artikala",
+      "rule2": "Oglašavate samo artikle koje posedujete i imate pravo da prodate",
+      "rule3": "Poštujete sve primenjive zakone i propise",
+      "rule4": "Ne objavljujete zabranjene, ilegalne ili falsifikovane artikle"
+    },
+    "transactions": {
+      "title": "Transakcije",
+      "content": "HAM Radio Marketplace je platforma koja povezuje kupce i prodavce. Mi nismo strana u transakcijama i ne garantujemo kvalitet, bezbednost ili legalnost oglašenih artikala. Sve transakcije su direktno između korisnika."
+    },
+    "prohibitedConduct": {
+      "title": "Zabranjeno Ponašanje",
+      "intro": "Ne smete:",
+      "item1": "Objavljivati lažne, obmanjujuće ili prevarne oglase",
+      "item2": "Uznemiravati, pretiti ili zlostavljati druge korisnike",
+      "item3": "Pokušavati da zaobiđete naknade ili politike platforme",
+      "item4": "Koristiti automatizovane alate za prikupljanje podataka",
+      "item5": "Kršiti prava intelektualne svojine drugih"
+    },
+    "intellectualProperty": {
+      "title": "Intelektualna Svojina",
+      "content": "Platforma i njen originalni sadržaj, funkcije i funkcionalnost su u vlasništvu programera i zaštićeni su međunarodnim zakonima o autorskim pravima, žigovima i drugim pravima intelektualne svojine."
+    },
+    "disclaimer": {
+      "title": "Odricanje od Garancija",
+      "content": "Ova platforma se pruža 'kakva jeste' bez garancija bilo koje vrste. Ne garantujemo kontinuiran, neprekidan ili siguran pristup platformi."
+    },
+    "limitation": {
+      "title": "Ograničenje Odgovornosti",
+      "content": "U maksimalnoj meri dozvoljenoj zakonom, nećemo biti odgovorni za bilo kakvu indirektnu, slučajnu, specijalnu, posledičnu ili kaznenu štetu koja proizilazi iz vašeg korišćenja platforme."
+    },
+    "termination": {
+      "title": "Raskid",
+      "content": "Zadržavamo pravo da prekinemo ili suspendujemo vaš nalog u bilo kom trenutku zbog kršenja ovih uslova ili iz bilo kog drugog razloga po našoj diskreciji."
+    },
+    "changes": {
+      "title": "Izmene Uslova",
+      "content": "Možemo izmeniti ove uslove u bilo kom trenutku. Nastavak korišćenja platforme nakon izmena predstavlja prihvatanje izmenjenih uslova."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "content": "Ako imate pitanja o ovim Uslovima Korišćenja, molimo vas da nas kontaktirate preko stranice Kontakt."
+    }
+  },
+  "privacyPage": {
+    "title": "Politika Privatnosti",
+    "lastUpdated": "Poslednje ažuriranje",
+    "introduction": {
+      "title": "Uvod",
+      "content": "Ova Politika Privatnosti opisuje kako HAM Radio Marketplace prikuplja, koristi i štiti vaše lične informacije. Posvećeni smo zaštiti vaše privatnosti i transparentnosti o našim praksama sa podacima."
+    },
+    "dataCollection": {
+      "title": "Informacije koje Prikupljamo",
+      "intro": "Prikupljamo sledeće vrste informacija:",
+      "account": {
+        "title": "Informacije o Nalogu",
+        "items": "Email adresa, lozinka (šifrovana), pozivni znak (opciono)"
+      },
+      "profile": {
+        "title": "Informacije o Profilu",
+        "items": "Ime za prikaz, lokacija (država/grad), kontakt informacije (ako izaberete da ih učinite javnim), biografija"
+      },
+      "listings": {
+        "title": "Informacije o Oglasima",
+        "items": "Opisi artikala, fotografije, cene i istorija transakcija"
+      },
+      "usage": {
+        "title": "Podaci o Korišćenju",
+        "items": "IP adresa, tip pretraživača, posećene stranice, vremenske oznake"
+      }
+    },
+    "dataUse": {
+      "title": "Kako Koristimo Vaše Informacije",
+      "intro": "Koristimo prikupljene informacije da:",
+      "purpose1": "Pružimo i održavamo platformu",
+      "purpose2": "Omogućimo komunikaciju između kupaca i prodavaca",
+      "purpose3": "Poboljšamo korisničko iskustvo i funkcije platforme",
+      "purpose4": "Sprečimo prevare i sprovodimo naše Uslove Korišćenja",
+      "purpose5": "Šaljemo važna ažuriranja o vašem nalogu ili platformi"
+    },
+    "dataSharing": {
+      "title": "Deljenje Informacija",
+      "content": "Ne prodajemo vaše lične informacije. Delimo informacije samo:",
+      "case1": "Sa drugim korisnicima kao što je potrebno za transakcije (kontakt informacije ako ih učinite javnim)",
+      "case2": "Kada je to zahtevano zakonom ili pravnim postupkom",
+      "case3": "Da zaštitimo naša prava ili bezbednost korisnika"
+    },
+    "dataSecurity": {
+      "title": "Bezbednost Podataka",
+      "content": "Implementiramo odgovarajuće tehničke i organizacione mere da zaštitimo vaše lične informacije. Međutim, nijedna metoda prenosa preko interneta nije 100% sigurna."
+    },
+    "cookies": {
+      "title": "Kolačići i Praćenje",
+      "content": "Koristimo neophodne kolačiće da održimo vašu sesiju i preference. Ne koristimo kolačiće treće strane za oglašavanje."
+    },
+    "userRights": {
+      "title": "Vaša Prava",
+      "intro": "Imate pravo da:",
+      "right1": "Pristupite, ažurirate ili obrišete svoje lične informacije",
+      "right2": "Prigovorite na obradu vaših podataka",
+      "right3": "Zatražite prenosivost podataka",
+      "right4": "Povučete saglasnost u bilo kom trenutku"
+    },
+    "retention": {
+      "title": "Čuvanje Podataka",
+      "content": "Čuvamo vaše informacije dok je vaš nalog aktivan ili koliko je potrebno da pružimo usluge. Možete zatražiti brisanje vašeg naloga i podataka u bilo kom trenutku."
+    },
+    "children": {
+      "title": "Privatnost Dece",
+      "content": "Naša platforma nije namenjena korisnicima mlađim od 18 godina. Ne prikupljamo svesno informacije od dece."
+    },
+    "changes": {
+      "title": "Izmene Politike Privatnosti",
+      "content": "Možemo ažurirati ovu Politiku Privatnosti s vremena na vreme. Obavestićemo korisnike o značajnim promenama putem emaila ili kroz platformu."
+    },
+    "contact": {
+      "title": "Kontaktirajte Nas",
+      "content": "Ako imate pitanja o ovoj Politici Privatnosti ili našim praksama sa podacima, molimo vas da nas kontaktirate preko stranice Kontakt."
+    }
+  },
+  "guidelinesPage": {
+    "title": "Smernice Zajednice",
+    "subtitle": "Pomozite nam da održimo siguran, pun poštovanja i uspešan marketplace za HAM radio zajednicu",
+    "respect": {
+      "title": "Budite Puni Poštovanja",
+      "content": "Tretirajte sve korisnike sa učtivošću i poštovanjem, bez obzira na nivo iskustva ili poreklo.",
+      "rule1": "Koristite profesionalan jezik u svim komunikacijama",
+      "rule2": "Poštujte različita mišljenja i pristupe",
+      "rule3": "Izbegavajte lične napade ili uznemiravanje"
+    },
+    "honesty": {
+      "title": "Budite Iskreni",
+      "content": "Iskrenost je osnova poverenja u našoj zajednici.",
+      "rule1": "Opišite artikle tačno, uključujući sve defekte ili probleme",
+      "rule2": "Koristite svoje fotografije - ne kopirajte slike iz drugih izvora",
+      "rule3": "Ispunite svoje obaveze prema kupcima i prodavcima",
+      "rule4": "Otkrijte sve modifikacije ili popravke opreme"
+    },
+    "safety": {
+      "title": "Dajte Prioritet Bezbednosti",
+      "content": "Vaša bezbednost i bezbednost drugih je najvažnija.",
+      "rule1": "Pratite naše Savete za Bezbednost za sigurne transakcije",
+      "rule2": "Prijavite sumnjive aktivnosti ili oglase",
+      "rule3": "Nikada ne delite osetljive lične informacije javno"
+    },
+    "communication": {
+      "title": "Komunicirajte Jasno",
+      "content": "Dobra komunikacija sprečava nesporazume.",
+      "rule1": "Odgovarajte brzo na poruke i upite",
+      "rule2": "Budite jasni o uslovima i očekivanjima",
+      "rule3": "Držite razgovore profesionalnim i na temu"
+    },
+    "prohibited": {
+      "title": "Zabranjene Aktivnosti",
+      "item1": "Objavljivanje falsifikovanih, ukradenih ili ilegalnih artikala",
+      "item2": "Prevare, lukavstva ili obmanjujući oglasi",
+      "item3": "Uznemiravanje, pretnje ili zlostavljanje",
+      "item4": "Spam ili neželjeno oglašavanje",
+      "item5": "Pokušaj manipulacije ocenama ili recenzijama",
+      "item6": "Zaobilaženje politika ili ograničenja platforme"
+    },
+    "reporting": {
+      "title": "Prijavljivanje Kršenja",
+      "content": "Ako naiđete na sadržaj ili ponašanje koje krši ove smernice, molimo vas da to prijavite odmah. Razmatramo sve prijave i preduzimamo odgovarajuće mere."
+    },
+    "consequences": {
+      "title": "Posledice Kršenja",
+      "content": "Kršenja ovih smernica mogu rezultirati u:",
+      "action1": "Upozorenju i uklanjanju sadržaja",
+      "action2": "Privremenom obustavljanju privilegija naloga",
+      "action3": "Trajnom ukidanju naloga"
+    },
+    "spirit": {
+      "title": "Duh HAM Radija",
+      "content": "Ove smernice odražavaju vrednosti zajednice amaterskog radija: eksperimentisanje, učenje, društvena služba i međusobno poštovanje. Hajde da zajedno radimo na održavanju ovih tradicija na našem marketplace-u."
+    }
+  },
+  "contactPage": {
+    "title": "Kontaktirajte Nas",
+    "subtitle": "Stupite u kontakt sa programerom ili pronađite korisne resurse",
+    "developer": {
+      "title": "Kontakt Programera",
+      "callsign": "Pozivni znak"
+    },
+    "project": {
+      "title": "O Projektu",
+      "description": "HAM Radio Marketplace je open-source projekat napravljen sa ljubavlju za zajednicu amaterskog radija. Doprinosi, povratne informacije i sugestije su uvek dobrodošli!",
+      "viewSource": "Pogledajte izvorni kod na GitHub-u →"
+    },
+    "support": {
+      "title": "Podrška",
+      "content": "Za pitanja o korišćenju platforme, prvo proverite naš FAQ. Za prijave bagova ili sugestije funkcija, molimo vas da otvorite problem na GitHub-u."
+    },
+    "quickLinks": {
+      "title": "Brzi Linkovi",
+      "reportIssue": "Prijavite Bag",
+      "suggestFeature": "Predložite Funkciju",
+      "contribute": "Doprinesi Projektu"
+    },
+    "beforeContacting": {
+      "title": "Pre Kontaktiranja",
+      "checkFaq": "Proverite FAQ za uobičajena pitanja",
+      "searchIssues": "Pretražite postojeće GitHub probleme",
+      "readDocs": "Pregledajte dokumentaciju"
+    }
   },
   "metadata": {
     "title": "HAM Radio Marketplace",

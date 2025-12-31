@@ -404,31 +404,457 @@
   },
   "footer": {
     "about": {
-      "title": "About",
-      "aboutUs": "About Us",
-      "howItWorks": "How It Works",
-      "contact": "Contact"
+      "title": "Um",
+      "aboutUs": "Um Okkur",
+      "howItWorks": "Hvernig Það Virkar",
+      "contact": "Samband"
     },
     "help": {
-      "title": "Help & Support",
-      "faq": "FAQ",
-      "safetyTips": "Safety Tips",
-      "shippingGuide": "Shipping Guide"
+      "title": "Hjálp og Stuðningur",
+      "faq": "Algengar Spurningar",
+      "safetyTips": "Öryggisráð",
+      "shippingGuide": "Sendingarhandbók"
     },
     "legal": {
-      "title": "Legal",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "guidelines": "Community Guidelines"
+      "title": "Lögfræði",
+      "terms": "Þjónustuskilmálar",
+      "privacy": "Persónuverndarstefna",
+      "guidelines": "Samfélagsviðmiðunarreglur"
     },
     "developer": {
-      "title": "Developer",
-      "createdBy": "Created by",
-      "contact": "Contact Developer"
+      "title": "Forritari",
+      "createdBy": "Búið til af",
+      "contact": "Hafa Samband við Forritara"
     },
-    "copyright": "All rights reserved.",
-    "openSource": "This is an open-source project.",
-    "viewOnGitHub": "View on GitHub"
+    "copyright": "Allur réttur áskilinn.",
+    "openSource": "Þetta er opinn uppspretta verkefni.",
+    "viewOnGitHub": "Skoða á GitHub"
+  },
+  "aboutPage": {
+    "title": "Um HAM Radio Marketplace",
+    "intro": "HAM Radio Marketplace er ókeypis, opinn uppspretta vettvangur sem er tileinkað því að tengja áhugamanna útvarpsmenn um allan heim til að kaupa og selja búnað.",
+    "mission": {
+      "title": "Verkefni Okkar",
+      "content": "Við trúum því að áhugamannaútvarpsbúnaður ætti að vera aðgengilegur öllum í HAM samfélaginu. Vettvangur okkar veitir öruggan, gagnsæjan og notendavænan markaðstorg þar sem rekstraraðilar geta fundið gæðabúnað á sanngjörnu verði, á meðan seljendur fá traustan vettvang til að ná til samstarfsmanna áhugamanna."
+    },
+    "features": {
+      "title": "Lykilatriði",
+      "free": "Algjörlega ókeypis í notkun - engin skráningargjöld, engin sölugjöld",
+      "openSource": "Opinn uppspretta verkefni - gagnsætt og samfélagsdrifið",
+      "multilingual": "Fjöltyngdur stuðningur (Enska, Serbneska, Íslenska, Búlgarska, Rúmenska, Þýska)",
+      "ratings": "Innbyggt matskerfi til að byggja upp traust milli kaupenda og seljenda",
+      "community": "Gert af útvarpsmönnum, fyrir útvarpsmenn"
+    },
+    "developer": {
+      "title": "Um Forritarann",
+      "content": "Þetta verkefni var búið til af Brixi, áhugamanni útvarpsmanni og hugbúnaðarframleiðanda með ástríðu fyrir því að tengja HAM útvarpsamfélagið með tækni.",
+      "callsign": "Kallmerki:",
+      "github": "GitHub:"
+    },
+    "getStarted": {
+      "title": "Tilbúinn að Byrja?",
+      "content": "Vertu hluti af samfélaginu okkar í dag og byrjaðu að kaupa eða selja áhugamannaútvarpsbúnað með samstarfsmönnum um allan heim.",
+      "button": "Búðu til Ókeypis Reikning"
+    }
+  },
+  "howItWorksPage": {
+    "title": "Hvernig Það Virkar",
+    "sellers": {
+      "title": "Fyrir Seljendur",
+      "step1": {
+        "title": "Búðu til Reikninginn Þinn",
+        "content": "Skráðu þig með tölvupósti og fylltu út prófílinn þinn. Bættu við kallmerki, staðsetningu og tengiliðaupplýsingum til að byggja upp traust hjá kaupendum."
+      },
+      "step2": {
+        "title": "Skráðu Búnaðinn Þinn",
+        "content": "Búðu til ítarlega auglýsingu með myndum, lýsingu, ástandi og verði. Vertu heiðarlegur og ítarlegur til að laða að alvöru kaupendur."
+      },
+      "step3": {
+        "title": "Hafðu Samband við Kaupendur",
+        "content": "Svaraðu fyrirspurnum tafarlaust. Svaraðu spurningum heiðarlega og veittu viðbótarupplýsingar eða myndir ef þess er óskað."
+      },
+      "step4": {
+        "title": "Ljúktu Sölunni",
+        "content": "Þegar það er selt, merktu hlutinn sem seldan, skiptu um greiðslu og sendingu beint með kaupandanum og skildu eftir endurgjöf til að byggja upp orðspor þitt."
+      }
+    },
+    "buyers": {
+      "title": "Fyrir Kaupendur",
+      "step1": {
+        "title": "Skoðaðu Auglýsingar",
+        "content": "Leitaðu eftir flokki, framleiðanda, verðbili eða staðsetningu. Notaðu síur til að finna nákvæmlega það sem þú ert að leita að."
+      },
+      "step2": {
+        "title": "Hafðu Samband við Seljandann",
+        "content": "Spurðu spurninga um búnaðinn, biddu um fleiri myndir og ræddu um greiðslu- og sendingarmöguleika."
+      },
+      "step3": {
+        "title": "Gerðu Kaupin",
+        "content": "Samþykktu skilmála með seljandanum, skiptu um örugga greiðslu og staðfestu sendingarupplýsingar. Notaðu alltaf öruggar greiðsluaðferðir."
+      },
+      "step4": {
+        "title": "Skildu eftir Endurgjöf",
+        "content": "Eftir að hafa fengið hlutinn þinn, mettu reynslu þína af seljandanum til að hjálpa til við að byggja upp traust í samfélaginu."
+      }
+    },
+    "tips": {
+      "title": "Ábendingar um Árangur",
+      "tip1": "Hafðu alltaf samskipti í gegnum vettvanginn í upphafi til að viðhalda skrá yfir samtöl þín",
+      "tip2": "Athugaðu einkunnir seljanda og umsagnir áður en þú kaupir",
+      "tip3": "Notaðu ítarlegar myndir og lýsingar til að laða að alvöru kaupendur",
+      "tip4": "Vertu svörun og faglegur í öllum samskiptum",
+      "tip5": "Þegar þú sendir, notaðu rakningu og tryggingu fyrir verðmæta hluti"
+    },
+    "startBrowsing": "Byrjaðu að Skoða Auglýsingar"
+  },
+  "faqPage": {
+    "title": "Algengar Spurningar",
+    "subtitle": "Finndu svör við algengum spurningum um að nota HAM Radio Marketplace",
+    "q1": "Er HAM Radio Marketplace virkilega ókeypis?",
+    "a1": "Já! Það eru engin skráningargjöld, engin sölugjöld og engin falin gjöld. Við erum samfélagsdrifið, opinn uppspretta verkefni.",
+    "q2": "Þarf ég HAM leyfi til að nota þennan vettvang?",
+    "a2": "Nei, þú þarft ekki leyfi til að skoða eða kaupa búnað. Hins vegar hvetjum við til ábyrgrar notkunar og að fylgja staðbundnum reglugerðum.",
+    "q3": "Hvernig virka greiðslur?",
+    "a3": "Greiðslur eru skipulagðar beint milli kaupenda og seljenda. Við mælum með því að nota öruggar greiðsluaðferðir eins og PayPal, bankaflutningar eða hittast í eigin persónu fyrir staðbundin viðskipti.",
+    "q4": "Hvað ef ég á í ágreiningi við kaupanda eða seljanda?",
+    "a4": "Við hvetjum notendur til að leysa ágreiningsefni beint. Ef það er ekki hægt, geturðu tilkynnt vandamál auglýsingar eða notendur. Mundu að öll viðskipti eru milli einstakra notenda.",
+    "q5": "Hvernig sendi ég alþjóðlega?",
+    "a5": "Alþjóðleg sending er skipulögð milli kaupanda og seljanda. Athugaðu Sendingarhandbókina okkar fyrir ábendingar um tolla, tryggingar og tilmæli um flutningsaðila.",
+    "q6": "Get ég breytt eða eytt auglýsingunni minni?",
+    "a6": "Já! Þú getur breytt auglýsingunum þínum hvenær sem er og eytt þeim þegar þeirra er ekki lengur þörf. Farðu bara á 'Auglýsingarnar Mínar' í reikningnum þínum.",
+    "q7": "Hvernig virkar einkunnakerfið?",
+    "a7": "Eftir vel heppnaða viðskipti geta bæði kaupendur og seljendur metið hvorn annan. Þessar einkunnir hjálpa til við að byggja upp traust í samfélaginu.",
+    "q8": "Hverjir hlutir eru bannaðir?",
+    "a8": "Við bönnum ólöglega hluti, fölsuð vörur, stolna búnað og allt sem brýtur í bága við staðbundin lög. Sjá Samfélagsviðmiðunarreglur okkar fyrir upplýsingar.",
+    "q9": "Hvernig tilkynni ég grunsamlega auglýsingu?",
+    "a9": "Smelltu á 'Tilkynna Auglýsingu' hnappinn á hvaða auglýsingarsíðu sem er og gefðu upplýsingar um áhyggjur þínar. Við skoðum allar tilkynningar tafarlaust.",
+    "q10": "Eru persónuupplýsingarnar mínar öruggar?",
+    "a10": "Við tökum friðhelgi alvarlega. Tengiliðaupplýsingarnar þínar eru aðeins sýnilegar innskráðum notendum og þú stjórnar hvaða upplýsingar þú deilir. Sjá Persónuverndarstefnu okkar fyrir upplýsingar."
+  },
+  "safetyTipsPage": {
+    "title": "Öryggisráð",
+    "subtitle": "Vertu öruggur þegar þú kaupir og selur áhugamannaútvarpsbúnað",
+    "buyers": {
+      "title": "Fyrir Kaupendur",
+      "tip1": "Athugaðu einkunnir og umsagnir seljanda áður en þú kaupir",
+      "tip2": "Biddu um ítarlegar myndir og prófunarniðurstöður ef þú kaupir notaðan búnað",
+      "tip3": "Notaðu öruggar greiðsluaðferðir sem bjóða upp á kaupendavernd",
+      "tip4": "Vertu varkár varðandi tilboð sem virðast of góð til að vera sönn",
+      "tip5": "Fyrir staðbundnar afhendingar, hittist á opinberum stöðum á dagljósi"
+    },
+    "sellers": {
+      "title": "Fyrir Seljendur",
+      "tip1": "Vertu heiðarlegur um ástand búnaðarins þíns",
+      "tip2": "Taktu skýrar, vel lýstar myndir frá mörgum sjónarhornum",
+      "tip3": "Notaðu rakta sendingu með tryggingu fyrir verðmæta hluti",
+      "tip4": "Ekki senda hluti fyrr en greiðsla er staðfest og hreinsuð",
+      "tip5": "Haltu skrár yfir öll samskipti og viðskipti"
+    },
+    "redFlags": {
+      "title": "Viðvörunarmerki",
+      "flag1": "Kaupendur eða seljendur sem neita að hafa samskipti í gegnum vettvanginn",
+      "flag2": "Beiðnir um greiðslu með óvenjulegum aðferðum (gjafakort, dulritunargjaldmiðill á óþekkt heimilisföng)",
+      "flag3": "Þrýstingur til að ljúka viðskiptunum fljótt án viðeigandi staðfestingar",
+      "flag4": "Ófús til að veita fleiri myndir eða upplýsingar",
+      "flag5": "Verð verulega undir markaðsvirði án góðrar skýringar"
+    },
+    "general": {
+      "title": "Almennar Öryggisviðmiðunarreglur",
+      "tip1": "Treystu eðlishvötinni þinni - ef eitthvað finnst rangt, er það líklega rangt",
+      "tip2": "Deildu aldrei viðkvæmum persónuupplýsingum eins og lykilorðum eða fjárhagslegum upplýsingum",
+      "tip3": "Tilkynntu grunsamlega starfsemi eða auglýsingar strax"
+    }
+  },
+  "shippingGuidePage": {
+    "title": "Sendingarhandbók",
+    "subtitle": "Bestu venjur til að senda áhugamannaútvarpsbúnað örugglega",
+    "sellers": {
+      "title": "Fyrir Seljendur",
+      "packaging": {
+        "title": "Pökkunarviðmiðunarreglur",
+        "tip1": "Notaðu sterkar kassaer með nægilegri polstrun (loftkúluplast, froða eða pökkunarkúlur)",
+        "tip2": "Vafðu loftnetum og viðkvæmum íhlutum sérstaklega",
+        "tip3": "Fjarlægðu eða tryggðu alla lausa hluta til að koma í veg fyrir skemmdir við flutning",
+        "tip4": "Tvöfaldaðu pökkun verðmætra eða viðkvæmra hluta fyrir auka vernd",
+        "tip5": "Lokuðu kassanum með sterkri pökkunarteip og styrktu allar saumana"
+      },
+      "documentation": {
+        "title": "Skjöl",
+        "tip1": "Láttu fylgja pökkunarseðil með lýsingu á hlut og rakningarnúmeri",
+        "tip2": "Geymdu afrit af öllum sendingarkvittunum og rakningarupplýsingum",
+        "tip3": "Fyrir alþjóðlegar sendingar, fylltu út tollaeyðublöð nákvæmlega",
+        "tip4": "Íhugaðu að láta fylgja afrit af upprunalega handbókinni ef hún er tiltæk"
+      },
+      "insurance": {
+        "title": "Trygging",
+        "content": "Fyrir verðmætan búnað, keyptu alltaf sendingatryggingu. Kostnaðurinn er lágmarks miðað við hugsanlegt tap. Skráðu ástand hlutarins með myndum áður en sent er."
+      }
+    },
+    "buyers": {
+      "title": "Fyrir Kaupendur",
+      "receiving": {
+        "title": "Móttaka Sendinga",
+        "tip1": "Skoðaðu pakka fyrir skemmdir áður en þú samþykkir afhendingu",
+        "tip2": "Skráðu allar sýnilegar skemmdir með myndum strax",
+        "tip3": "Opnaðu pakka varlega og skoðaðu innihaldið vandlega",
+        "tip4": "Prófaðu búnað tafarlaust eftir móttöku"
+      },
+      "inspection": {
+        "title": "Skoðunarlisti",
+        "tip1": "Athugaðu að allir lýstir íhlutir og fylgihlutir séu með",
+        "tip2": "Staðfestu að búnaðurinn passi við lýsingu auglýsingarinnar og myndir",
+        "tip3": "Prófaðu allar aðgerðir ef mögulegt er áður en þú skilur eftir endurgjöf"
+      }
+    },
+    "international": {
+      "title": "Alþjóðleg Sending",
+      "customs": {
+        "title": "Tollur",
+        "content": "Vertu meðvitaður um að alþjóðlegar sendingar geta haft tollagjöld og skatta. Þetta er á ábyrgð kaupanda nema annað sé samið um."
+      },
+      "vat": {
+        "title": "VSK/Innflutningsskattar",
+        "content": "Mörg lönd rukka VSK eða innflutningsskatta á hluti yfir ákveðnum gildum. Athugaðu staðbundnar reglugerðir."
+      },
+      "regulations": {
+        "title": "Reglugerðir",
+        "content": "Sumir útvarpsbúnaður gæti þurft sérstök leyfi eða leyfi til að flytja inn. Staðfestu að farið sé að bæði útflutnings- og innflutningsreglum."
+      }
+    },
+    "carriers": {
+      "title": "Ráðlagðir Flutningsaðilar",
+      "intro": "Veldu flutningsaðila byggt á áfangastað, pakkastærð og verðmæti:",
+      "national": "Innlendar Póstþjónustur",
+      "nationalDesc": "Hagkvæmt fyrir léttari hluti og innanlandsendingar",
+      "international": "DHL, FedEx, UPS",
+      "internationalDesc": "Betri rakningar- og tryggingavalkostir fyrir alþjóðlegar og verðmætar sendingar"
+    }
+  },
+  "termsPage": {
+    "title": "Þjónustuskilmálar",
+    "lastUpdated": "Síðast uppfært",
+    "acceptance": {
+      "title": "Samþykki Skilmála",
+      "content": "Með því að fara inn á og nota HAM Radio Marketplace samþykkir þú og samþykkir að vera bundinn af þessum Þjónustuskilmálum. Ef þú samþykkir ekki þessa skilmála, vinsamlegast ekki nota vettvanginn okkar."
+    },
+    "eligibility": {
+      "title": "Hæfi",
+      "content": "Þú verður að vera að minnsta kosti 18 ára til að nota þennan vettvang. Með því að nota þessa þjónustu lýsir þú því yfir að þú uppfyllir þessa aldurskröfu og hefur lagalega getu til að gera þessa skilmála."
+    },
+    "userAccounts": {
+      "title": "Notendareikningar",
+      "content": "Þú ert ábyrgur fyrir:",
+      "responsibility1": "Að viðhalda trúnaði reikningsupplýsinga þinna",
+      "responsibility2": "Öllum athöfnum sem eiga sér stað undir reikningnum þínum",
+      "responsibility3": "Að veita nákvæmar og núverandi upplýsingar í prófílnum þínum"
+    },
+    "listings": {
+      "title": "Auglýsingar og Efni",
+      "content": "Þegar þú býrð til auglýsingar samþykkir þú að:",
+      "rule1": "Veita nákvæmar lýsingar og myndir af hlutum",
+      "rule2": "Auglýsa aðeins hluti sem þú átt og hefur rétt til að selja",
+      "rule3": "Fara eftir öllum viðeigandi lögum og reglugerðum",
+      "rule4": "Ekki birta bannaða, ólöglega eða fölsuð hluti"
+    },
+    "transactions": {
+      "title": "Viðskipti",
+      "content": "HAM Radio Marketplace er vettvangur sem tengir kaupendur og seljendur. Við erum ekki aðili að viðskiptum og ábyrgjumst ekki gæði, öryggi eða lögmæti skráðra hluta. Öll viðskipti eru beint á milli notenda."
+    },
+    "prohibitedConduct": {
+      "title": "Bönnuð Hegðun",
+      "intro": "Þú mátt ekki:",
+      "item1": "Birta rangar, villandi eða sviksamlegar auglýsingar",
+      "item2": "Áreita, hóta eða misnota aðra notendur",
+      "item3": "Reyna að komast í kringum gjöld eða stefnur vettvangsins",
+      "item4": "Nota sjálfvirk verkfæri til að skafa eða safna gögnum",
+      "item5": "Brjóta hugverkaréttindi annarra"
+    },
+    "intellectualProperty": {
+      "title": "Hugverkaréttur",
+      "content": "Vettvangurinn og upprunalegt efni hans, eiginleikar og virkni eru í eigu forritarans og eru vernduð af alþjóðlegum höfundarrétti, vörumerkjum og öðrum hugverkalögum."
+    },
+    "disclaimer": {
+      "title": "Fyrirvari um Ábyrgðir",
+      "content": "Þessi vettvangur er veittur 'eins og hann er' án ábyrgða af neinu tagi. Við ábyrgjumst ekki stöðugan, ótruflaðan eða öruggan aðgang að vettvangi."
+    },
+    "limitation": {
+      "title": "Takmörkun Ábyrgðar",
+      "content": "Að hámarki sem leyft er samkvæmt lögum munum við ekki bera ábyrgð á óbeinum, tilfallandi, sérstökum, afleiddum eða refsingum skaðabótum sem leiða af notkun þinni á vettvangi."
+    },
+    "termination": {
+      "title": "Uppsögn",
+      "content": "Við áskildum okkur rétt til að segja upp eða fresta reikningnum þínum hvenær sem er vegna brota á þessum skilmálum eða af hvaða öðrum ástæðum sem okkur sýnist."
+    },
+    "changes": {
+      "title": "Breytingar á Skilmálum",
+      "content": "Við getum breytt þessum skilmálum hvenær sem er. Áframhaldandi notkun vettvangsins eftir breytingar jafngildir samþykki á breyttum skilmálum."
+    },
+    "contact": {
+      "title": "Samband",
+      "content": "Ef þú hefur spurningar um þessa Þjónustuskilmála, vinsamlegast hafðu samband við okkur í gegnum Tengiliðasíðuna."
+    }
+  },
+  "privacyPage": {
+    "title": "Persónuverndarstefna",
+    "lastUpdated": "Síðast uppfært",
+    "introduction": {
+      "title": "Inngangur",
+      "content": "Þessi Persónuverndarstefna lýsir því hvernig HAM Radio Marketplace safnar, notar og verndar persónuupplýsingarnar þínar. Við erum skuldbundin að vernda friðhelgi þína og að vera gagnsæ um gagnaaðferðir okkar."
+    },
+    "dataCollection": {
+      "title": "Upplýsingar sem Við Söfnum",
+      "intro": "Við söfnum eftirfarandi tegundum upplýsinga:",
+      "account": {
+        "title": "Reikningsupplýsingar",
+        "items": "Tölvupóstfang, lykilorð (dulkóðað), kallmerki (valfrjálst)"
+      },
+      "profile": {
+        "title": "Prófílupplýsingar",
+        "items": "Birtingarnafn, staðsetning (land/borg), tengiliðaupplýsingar (ef þú velur að gera þær opinberar), ævisaga"
+      },
+      "listings": {
+        "title": "Auglýsingaupplýsingar",
+        "items": "Vörulýsingar, myndir, verðlagning og viðskiptasaga"
+      },
+      "usage": {
+        "title": "Notkunargögn",
+        "items": "IP tala, vafratýpa, heimsóttar síður, tímastimplar"
+      }
+    },
+    "dataUse": {
+      "title": "Hvernig Við Notum Upplýsingarnar Þínar",
+      "intro": "Við notum safnaðar upplýsingar til að:",
+      "purpose1": "Veita og viðhalda vettvangi",
+      "purpose2": "Gera kleift samskipti milli kaupenda og seljenda",
+      "purpose3": "Bæta notendaupplifun og eiginleika vettvangs",
+      "purpose4": "Koma í veg fyrir svik og framfylgja Þjónustuskilmálum okkar",
+      "purpose5": "Senda mikilvægar uppfærslur um reikninginn þinn eða vettvanginn"
+    },
+    "dataSharing": {
+      "title": "Deiing Upplýsinga",
+      "content": "Við seljum ekki persónuupplýsingarnar þínar. Við deilum aðeins upplýsingum:",
+      "case1": "Með öðrum notendum eins og nauðsynlegt er fyrir viðskipti (tengiliðaupplýsingar ef þú gerir þær opinberar)",
+      "case2": "Þegar krafist er af lögum eða réttarfari",
+      "case3": "Til að vernda réttindi okkar eða öryggi notenda"
+    },
+    "dataSecurity": {
+      "title": "Gagnaöryggi",
+      "content": "Við innleiðum viðeigandi tæknilegar og skipulagslegar ráðstafanir til að vernda persónuupplýsingarnar þínar. Hins vegar er engin aðferð til að senda yfir netið 100% örugg."
+    },
+    "cookies": {
+      "title": "Vafrakökur og Rakning",
+      "content": "Við notum nauðsynlegar vafrakökur til að viðhalda lotunni þinni og kjörstillingum. Við notum ekki auglýsingavafrakökur þriðja aðila."
+    },
+    "userRights": {
+      "title": "Réttindi Þín",
+      "intro": "Þú hefur rétt til að:",
+      "right1": "Fá aðgang að, uppfæra eða eyða persónuupplýsingum þínum",
+      "right2": "Andmæla vinnslu gagna þinna",
+      "right3": "Óska eftir gagnaflutningsmöguleika",
+      "right4": "Afturkalla samþykki hvenær sem er"
+    },
+    "retention": {
+      "title": "Gagnavarðveisla",
+      "content": "Við geymum upplýsingarnar þínar svo lengi sem reikningurinn þinn er virkur eða eins og þarf til að veita þjónustu. Þú getur óskað eftir eyðingu á reikningnum þínum og gögnum hvenær sem er."
+    },
+    "children": {
+      "title": "Friðhelgi Barna",
+      "content": "Vettvangur okkar er ekki ætlaður notendum yngri en 18 ára. Við söfnum ekki vísvitandi upplýsingum frá börnum."
+    },
+    "changes": {
+      "title": "Breytingar á Persónuverndarstefnu",
+      "content": "Við getum uppfært þessa Persónuverndarstefnu frá tíma til tíma. Við munum tilkynna notendum um verulegar breytingar með tölvupósti eða í gegnum vettvanginn."
+    },
+    "contact": {
+      "title": "Hafðu Samband við Okkur",
+      "content": "Ef þú hefur spurningar um þessa Persónuverndarstefnu eða gagnaaðferðir okkar, vinsamlegast hafðu samband við okkur í gegnum Tengiliðasíðuna."
+    }
+  },
+  "guidelinesPage": {
+    "title": "Samfélagsviðmiðunarreglur",
+    "subtitle": "Hjálpaðu okkur að viðhalda öruggum, virðingarfullum og blómstrandi markaðstorgi fyrir HAM útvarpsamfélagið",
+    "respect": {
+      "title": "Vertu Virðingarfullur",
+      "content": "Komdu fram við alla notendur með kurteisi og virðingu, óháð reynslustigi eða bakgrunni.",
+      "rule1": "Notaðu faglegt mál í öllum samskiptum",
+      "rule2": "Virtu mismunandi skoðanir og nálganir",
+      "rule3": "Forðastu persónulegar árásir eða áreitni"
+    },
+    "honesty": {
+      "title": "Vertu Heiðarlegur",
+      "content": "Heiðarleiki er grunnur trausts í samfélaginu okkar.",
+      "rule1": "Lýstu hlutum nákvæmlega, þar með talið öllum göllum eða vandamálum",
+      "rule2": "Notaðu þínar eigin myndir - ekki afrita myndir frá öðrum heimildum",
+      "rule3": "Haltu skuldbindingum þínum við kaupendur og seljendur",
+      "rule4": "Upplýstu um allar breytingar eða viðgerðir á búnaði"
+    },
+    "safety": {
+      "title": "Settu Öryggi í Forgang",
+      "content": "Öryggi þitt og annarra er í fyrirrúmi.",
+      "rule1": "Fylgdu Öryggisráðum okkar fyrir örugga viðskipti",
+      "rule2": "Tilkynntu grunsamlega starfsemi eða auglýsingar",
+      "rule3": "Deildu aldrei viðkvæmum persónuupplýsingum opinberlega"
+    },
+    "communication": {
+      "title": "Hafðu Skýr Samskipti",
+      "content": "Góð samskipti koma í veg fyrir misskilning.",
+      "rule1": "Svaraðu skilaboðum og fyrirspurnum tafarlaust",
+      "rule2": "Vertu skýr um skilmála, skilyrði og væntingar",
+      "rule3": "Haltu samtölum faglegum og á efninu"
+    },
+    "prohibited": {
+      "title": "Bannaðar Athafnir",
+      "item1": "Birting fölsuðra, stolinna eða ólöglegra hluta",
+      "item2": "Svik, svindl eða villandi auglýsingar",
+      "item3": "Áreitni, hótanir eða misnotkun",
+      "item4": "Ruslpóstur eða óumbeðnar auglýsingar",
+      "item5": "Tilraun til að hagræða einkunnum eða umsögnum",
+      "item6": "Að komast í kringum stefnur eða takmarkanir vettvangsins"
+    },
+    "reporting": {
+      "title": "Tilkynning Brota",
+      "content": "Ef þú lendir í efni eða hegðun sem brýtur gegn þessum viðmiðunarreglum, vinsamlegast tilkynntu það strax. Við skoðum allar tilkynningar og gerum viðeigandi ráðstafanir."
+    },
+    "consequences": {
+      "title": "Afleiðingar Brota",
+      "content": "Brot á þessum viðmiðunarreglum geta leitt til:",
+      "action1": "Viðvörunar og efniseyðingar",
+      "action2": "Tímabundinnar stöðvunar á réttindum reiknings",
+      "action3": "Varanlegrar uppsagnar reiknings"
+    },
+    "spirit": {
+      "title": "Andi HAM Útvarpsins",
+      "content": "Þessar viðmiðunarreglur endurspegla gildi áhugamannaútvarpssamfélagsins: tilraunir, nám, samfélagsþjónusta og gagnkvæm virðing. Vinnum saman að því að viðhalda þessum hefðum á markaðstorginu okkar."
+    }
+  },
+  "contactPage": {
+    "title": "Hafðu Samband við Okkur",
+    "subtitle": "Komdu í samband við forritarann eða finndu gagnlegar auðlindir",
+    "developer": {
+      "title": "Tengiliðir Forritara",
+      "callsign": "Kallmerki"
+    },
+    "project": {
+      "title": "Um Verkefnið",
+      "description": "HAM Radio Marketplace er opinn uppspretta verkefni byggt með ást fyrir áhugamannaútvarpssamfélagið. Framlög, endurgjöf og tillögur eru alltaf vel þegnar!",
+      "viewSource": "Skoða frumkóða á GitHub →"
+    },
+    "support": {
+      "title": "Stuðningur",
+      "content": "Fyrir spurningar um að nota vettvanginn, athugaðu FAQ okkar fyrst. Fyrir villutilkynningar eða tillögur að eiginleikum, vinsamlegast opnaðu mál á GitHub."
+    },
+    "quickLinks": {
+      "title": "Flýtitenglar",
+      "reportIssue": "Tilkynntu Villu",
+      "suggestFeature": "Stingdu upp á Eiginleika",
+      "contribute": "Stuðla að Verkefninu"
+    },
+    "beforeContacting": {
+      "title": "Áður en Þú Hefur Samband",
+      "checkFaq": "Athugaðu FAQ fyrir algengar spurningar",
+      "searchIssues": "Leitaðu í núverandi GitHub málum",
+      "readDocs": "Farðu yfir skjölin"
+    }
   },
   "metadata": {
     "title": "HAM Radio Marketplace",

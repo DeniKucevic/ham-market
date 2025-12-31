@@ -430,6 +430,460 @@
     "openSource": "This is an open-source project.",
     "viewOnGitHub": "View on GitHub"
   },
+  "footer": {
+    "about": {
+      "title": "About",
+      "aboutUs": "About Us",
+      "howItWorks": "How It Works",
+      "contact": "Contact"
+    },
+    "help": {
+      "title": "Help & Support",
+      "faq": "FAQ",
+      "safetyTips": "Safety Tips",
+      "shippingGuide": "Shipping Guide"
+    },
+    "legal": {
+      "title": "Legal",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "guidelines": "Community Guidelines"
+    },
+    "developer": {
+      "title": "Developer",
+      "createdBy": "Created by",
+      "contact": "Contact Developer"
+    },
+    "copyright": "All rights reserved.",
+    "openSource": "This is an open-source project.",
+    "viewOnGitHub": "View on GitHub"
+  },
+  "aboutPage": {
+    "title": "About HAM Radio Marketplace",
+    "intro": "HAM Radio Marketplace is a free, open-source platform dedicated to connecting amateur radio operators worldwide for buying and selling equipment.",
+    "mission": {
+      "title": "Our Mission",
+      "content": "We believe that amateur radio equipment should be accessible to everyone in the HAM community. Our platform provides a safe, transparent, and user-friendly marketplace where operators can find quality equipment at fair prices, while also giving sellers a trusted platform to reach fellow enthusiasts."
+    },
+    "features": {
+      "title": "Key Features",
+      "free": "Completely free to use - no listing fees, no selling fees",
+      "openSource": "Open-source project - transparent and community-driven",
+      "multilingual": "Multilingual support (English, Serbian, Icelandic, Bulgarian, Romanian, German)",
+      "ratings": "Built-in rating system to build trust between buyers and sellers",
+      "community": "Made by radio operators, for radio operators"
+    },
+    "developer": {
+      "title": "About the Developer",
+      "content": "This project was created by Brixi, an amateur radio operator and software developer with a passion for connecting the HAM radio community through technology.",
+      "callsign": "Callsign:",
+      "github": "GitHub:"
+    },
+    "getStarted": {
+      "title": "Ready to Get Started?",
+      "content": "Join our community today and start buying or selling amateur radio equipment with fellow operators around the world.",
+      "button": "Create Free Account"
+    }
+  },
+  "howItWorksPage": {
+    "title": "How It Works",
+    "sellers": {
+      "title": "For Sellers",
+      "step1": {
+        "title": "Create Your Account",
+        "content": "Sign up with your email and complete your profile. Add your callsign, location, and contact information to build trust with buyers."
+      },
+      "step2": {
+        "title": "List Your Equipment",
+        "content": "Create a detailed listing with photos, description, condition, and price. Be honest and thorough to attract serious buyers."
+      },
+      "step3": {
+        "title": "Communicate with Buyers",
+        "content": "Respond promptly to inquiries. Answer questions honestly and provide additional information or photos if requested."
+      },
+      "step4": {
+        "title": "Complete the Sale",
+        "content": "Once sold, mark the item as sold, arrange payment and shipping directly with the buyer, and leave feedback to build your reputation."
+      }
+    },
+    "buyers": {
+      "title": "For Buyers",
+      "step1": {
+        "title": "Browse Listings",
+        "content": "Search by category, manufacturer, price range, or location. Use filters to find exactly what you're looking for."
+      },
+      "step2": {
+        "title": "Contact the Seller",
+        "content": "Ask questions about the equipment, request additional photos, and discuss payment and shipping options."
+      },
+      "step3": {
+        "title": "Make the Purchase",
+        "content": "Agree on terms with the seller, arrange secure payment, and confirm shipping details. Always use secure payment methods."
+      },
+      "step4": {
+        "title": "Leave Feedback",
+        "content": "After receiving your item, rate your experience with the seller to help build trust in the community."
+      }
+    },
+    "tips": {
+      "title": "Tips for Success",
+      "tip1": "Always communicate through the platform initially to maintain a record of your conversations",
+      "tip2": "Check seller ratings and reviews before making a purchase",
+      "tip3": "Use detailed photos and descriptions to attract serious buyers",
+      "tip4": "Be responsive and professional in all communications",
+      "tip5": "When shipping, use tracking and insurance for valuable items"
+    },
+    "startBrowsing": "Start Browsing Listings"
+  },
+  "faqPage": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about using HAM Radio Marketplace",
+    "q1": "Is HAM Radio Marketplace really free?",
+    "a1": "Yes! There are no listing fees, no selling fees, and no hidden charges. We're a community-driven, open-source project.",
+    "q2": "Do I need a HAM license to use this platform?",
+    "a2": "No, you don't need a license to browse or buy equipment. However, we encourage responsible use and compliance with your local regulations.",
+    "q3": "How do payments work?",
+    "a3": "Payments are arranged directly between buyers and sellers. We recommend using secure payment methods like PayPal, bank transfers, or meeting in person for local transactions.",
+    "q4": "What if I have a dispute with a buyer or seller?",
+    "a4": "We encourage users to resolve disputes directly. If that's not possible, you can report problematic listings or users. Remember, all transactions are between individual users.",
+    "q5": "How do I ship internationally?",
+    "a5": "International shipping is arranged between buyer and seller. Check our Shipping Guide for tips on customs, insurance, and carrier recommendations.",
+    "q6": "Can I edit or delete my listing?",
+    "a6": "Yes! You can edit your listings at any time and delete them when no longer needed. Just go to 'My Listings' in your account.",
+    "q7": "How does the rating system work?",
+    "a7": "After a successful transaction, both buyers and sellers can rate each other. These ratings help build trust in the community.",
+    "q8": "What items are prohibited?",
+    "a8": "We prohibit illegal items, counterfeit goods, stolen equipment, and anything that violates local laws. See our Community Guidelines for details.",
+    "q9": "How do I report a suspicious listing?",
+    "a9": "Click the 'Report Listing' button on any listing page and provide details about your concerns. We review all reports promptly.",
+    "q10": "Is my personal information safe?",
+    "a10": "We take privacy seriously. Your contact information is only visible to logged-in users, and you control what information you share. See our Privacy Policy for details."
+  },
+  "safetyTipsPage": {
+    "title": "Safety Tips",
+    "subtitle": "Stay safe when buying and selling amateur radio equipment",
+    "buyers": {
+      "title": "For Buyers",
+      "tip1": "Check seller ratings and reviews before purchasing",
+      "tip2": "Ask for detailed photos and test results if buying used equipment",
+      "tip3": "Use secure payment methods that offer buyer protection",
+      "tip4": "Be cautious of deals that seem too good to be true",
+      "tip5": "For local pickups, meet in public places during daylight hours"
+    },
+    "sellers": {
+      "title": "For Sellers",
+      "tip1": "Be honest about the condition of your equipment",
+      "tip2": "Take clear, well-lit photos from multiple angles",
+      "tip3": "Use tracked shipping with insurance for valuable items",
+      "tip4": "Don't ship items until payment is confirmed and cleared",
+      "tip5": "Keep records of all communications and transactions"
+    },
+    "redFlags": {
+      "title": "Red Flags to Watch For",
+      "flag1": "Buyers or sellers who refuse to communicate through the platform",
+      "flag2": "Requests for payment through unusual methods (gift cards, cryptocurrency to unknown addresses)",
+      "flag3": "Pressure to complete the transaction quickly without proper verification",
+      "flag4": "Unwillingness to provide additional photos or information",
+      "flag5": "Prices significantly below market value without good explanation"
+    },
+    "general": {
+      "title": "General Safety Guidelines",
+      "tip1": "Trust your instincts - if something feels wrong, it probably is",
+      "tip2": "Never share sensitive personal information like passwords or financial details",
+      "tip3": "Report suspicious activity or listings immediately"
+    }
+  },
+  "shippingGuidePage": {
+    "title": "Shipping Guide",
+    "subtitle": "Best practices for shipping amateur radio equipment safely",
+    "sellers": {
+      "title": "For Sellers",
+      "packaging": {
+        "title": "Packaging Guidelines",
+        "tip1": "Use sturdy boxes with adequate padding (bubble wrap, foam, or packing peanuts)",
+        "tip2": "Wrap antennas and fragile components separately",
+        "tip3": "Remove or secure any loose parts to prevent damage during transit",
+        "tip4": "Double-box valuable or fragile items for extra protection",
+        "tip5": "Seal boxes with strong packing tape, reinforcing all seams"
+      },
+      "documentation": {
+        "title": "Documentation",
+        "tip1": "Include a packing slip with item description and tracking number",
+        "tip2": "Keep copies of all shipping receipts and tracking information",
+        "tip3": "For international shipments, complete customs forms accurately",
+        "tip4": "Consider including a copy of the original manual if available"
+      },
+      "insurance": {
+        "title": "Insurance",
+        "content": "For valuable equipment, always purchase shipping insurance. The cost is minimal compared to potential loss. Document the item's condition with photos before shipping."
+      }
+    },
+    "buyers": {
+      "title": "For Buyers",
+      "receiving": {
+        "title": "Receiving Shipments",
+        "tip1": "Inspect packages for damage before accepting delivery",
+        "tip2": "Document any visible damage with photos immediately",
+        "tip3": "Open packages carefully and inspect contents thoroughly",
+        "tip4": "Test equipment promptly after receiving it"
+      },
+      "inspection": {
+        "title": "Inspection Checklist",
+        "tip1": "Check that all described components and accessories are included",
+        "tip2": "Verify the equipment matches the listing description and photos",
+        "tip3": "Test all functions if possible before leaving feedback"
+      }
+    },
+    "international": {
+      "title": "International Shipping",
+      "customs": {
+        "title": "Customs",
+        "content": "Be aware that international shipments may incur customs duties and taxes. These are the buyer's responsibility unless otherwise agreed."
+      },
+      "vat": {
+        "title": "VAT/Import Taxes",
+        "content": "Many countries charge VAT or import taxes on items above certain values. Check your local regulations."
+      },
+      "regulations": {
+        "title": "Regulations",
+        "content": "Some radio equipment may require special permits or licenses to import. Verify compliance with both export and import regulations."
+      }
+    },
+    "carriers": {
+      "title": "Recommended Carriers",
+      "intro": "Choose carriers based on destination, package size, and value:",
+      "national": "National Post Services",
+      "nationalDesc": "Cost-effective for lighter items and domestic shipping",
+      "international": "DHL, FedEx, UPS",
+      "internationalDesc": "Better tracking and insurance options for international and valuable shipments"
+    }
+  },
+  "termsPage": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated",
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "content": "By accessing and using HAM Radio Marketplace, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our platform."
+    },
+    "eligibility": {
+      "title": "Eligibility",
+      "content": "You must be at least 18 years old to use this platform. By using this service, you represent that you meet this age requirement and have the legal capacity to enter into these terms."
+    },
+    "userAccounts": {
+      "title": "User Accounts",
+      "content": "You are responsible for:",
+      "responsibility1": "Maintaining the confidentiality of your account credentials",
+      "responsibility2": "All activities that occur under your account",
+      "responsibility3": "Providing accurate and current information in your profile"
+    },
+    "listings": {
+      "title": "Listings and Content",
+      "content": "When creating listings, you agree to:",
+      "rule1": "Provide accurate descriptions and photos of items",
+      "rule2": "Only list items you own and have the right to sell",
+      "rule3": "Comply with all applicable laws and regulations",
+      "rule4": "Not post prohibited, illegal, or counterfeit items"
+    },
+    "transactions": {
+      "title": "Transactions",
+      "content": "HAM Radio Marketplace is a platform connecting buyers and sellers. We are not party to any transactions and do not guarantee the quality, safety, or legality of items listed. All transactions are directly between users."
+    },
+    "prohibitedConduct": {
+      "title": "Prohibited Conduct",
+      "intro": "You may not:",
+      "item1": "Post false, misleading, or fraudulent listings",
+      "item2": "Harass, threaten, or abuse other users",
+      "item3": "Attempt to circumvent platform fees or policies",
+      "item4": "Use automated tools to scrape or collect data",
+      "item5": "Violate intellectual property rights of others"
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "content": "The platform and its original content, features, and functionality are owned by the developer and are protected by international copyright, trademark, and other intellectual property laws."
+    },
+    "disclaimer": {
+      "title": "Disclaimer of Warranties",
+      "content": "This platform is provided 'as is' without warranties of any kind. We do not guarantee continuous, uninterrupted, or secure access to the platform."
+    },
+    "limitation": {
+      "title": "Limitation of Liability",
+      "content": "To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the platform."
+    },
+    "termination": {
+      "title": "Termination",
+      "content": "We reserve the right to terminate or suspend your account at any time for violations of these terms or for any other reason at our discretion."
+    },
+    "changes": {
+      "title": "Changes to Terms",
+      "content": "We may modify these terms at any time. Continued use of the platform after changes constitutes acceptance of the modified terms."
+    },
+    "contact": {
+      "title": "Contact",
+      "content": "If you have questions about these Terms of Service, please contact us through the Contact page."
+    }
+  },
+  "privacyPage": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated",
+    "introduction": {
+      "title": "Introduction",
+      "content": "This Privacy Policy describes how HAM Radio Marketplace collects, uses, and protects your personal information. We are committed to protecting your privacy and being transparent about our data practices."
+    },
+    "dataCollection": {
+      "title": "Information We Collect",
+      "intro": "We collect the following types of information:",
+      "account": {
+        "title": "Account Information",
+        "items": "Email address, password (encrypted), callsign (optional)"
+      },
+      "profile": {
+        "title": "Profile Information",
+        "items": "Display name, location (country/city), contact information (if you choose to make it public), biography"
+      },
+      "listings": {
+        "title": "Listing Information",
+        "items": "Item descriptions, photos, pricing, and transaction history"
+      },
+      "usage": {
+        "title": "Usage Data",
+        "items": "IP address, browser type, pages visited, timestamps"
+      }
+    },
+    "dataUse": {
+      "title": "How We Use Your Information",
+      "intro": "We use collected information to:",
+      "purpose1": "Provide and maintain the platform",
+      "purpose2": "Enable communication between buyers and sellers",
+      "purpose3": "Improve user experience and platform features",
+      "purpose4": "Prevent fraud and enforce our Terms of Service",
+      "purpose5": "Send important updates about your account or the platform"
+    },
+    "dataSharing": {
+      "title": "Information Sharing",
+      "content": "We do not sell your personal information. We only share information:",
+      "case1": "With other users as necessary for transactions (contact info if you make it public)",
+      "case2": "When required by law or legal process",
+      "case3": "To protect our rights or the safety of users"
+    },
+    "dataSecurity": {
+      "title": "Data Security",
+      "content": "We implement appropriate technical and organizational measures to protect your personal information. However, no method of transmission over the internet is 100% secure."
+    },
+    "cookies": {
+      "title": "Cookies and Tracking",
+      "content": "We use essential cookies to maintain your session and preferences. We do not use third-party advertising cookies."
+    },
+    "userRights": {
+      "title": "Your Rights",
+      "intro": "You have the right to:",
+      "right1": "Access, update, or delete your personal information",
+      "right2": "Object to processing of your data",
+      "right3": "Request data portability",
+      "right4": "Withdraw consent at any time"
+    },
+    "retention": {
+      "title": "Data Retention",
+      "content": "We retain your information as long as your account is active or as needed to provide services. You can request deletion of your account and data at any time."
+    },
+    "children": {
+      "title": "Children's Privacy",
+      "content": "Our platform is not intended for users under 18 years of age. We do not knowingly collect information from children."
+    },
+    "changes": {
+      "title": "Changes to Privacy Policy",
+      "content": "We may update this Privacy Policy from time to time. We will notify users of significant changes by email or through the platform."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have questions about this Privacy Policy or our data practices, please contact us through the Contact page."
+    }
+  },
+  "guidelinesPage": {
+    "title": "Community Guidelines",
+    "subtitle": "Help us maintain a safe, respectful, and thriving marketplace for the HAM radio community",
+    "respect": {
+      "title": "Be Respectful",
+      "content": "Treat all users with courtesy and respect, regardless of experience level or background.",
+      "rule1": "Use professional language in all communications",
+      "rule2": "Respect different opinions and approaches",
+      "rule3": "Avoid personal attacks or harassment"
+    },
+    "honesty": {
+      "title": "Be Honest",
+      "content": "Honesty is the foundation of trust in our community.",
+      "rule1": "Describe items accurately, including all defects or issues",
+      "rule2": "Use your own photos - don't copy images from other sources",
+      "rule3": "Honor your commitments to buyers and sellers",
+      "rule4": "Disclose any modifications or repairs to equipment"
+    },
+    "safety": {
+      "title": "Prioritize Safety",
+      "content": "Your safety and the safety of others is paramount.",
+      "rule1": "Follow our Safety Tips for secure transactions",
+      "rule2": "Report suspicious activity or listings",
+      "rule3": "Never share sensitive personal information publicly"
+    },
+    "communication": {
+      "title": "Communicate Clearly",
+      "content": "Good communication prevents misunderstandings.",
+      "rule1": "Respond promptly to messages and inquiries",
+      "rule2": "Be clear about terms, conditions, and expectations",
+      "rule3": "Keep conversations professional and on-topic"
+    },
+    "prohibited": {
+      "title": "Prohibited Activities",
+      "item1": "Posting counterfeit, stolen, or illegal items",
+      "item2": "Fraud, scams, or misleading listings",
+      "item3": "Harassment, threats, or abusive behavior",
+      "item4": "Spam or unsolicited advertising",
+      "item5": "Attempting to manipulate ratings or reviews",
+      "item6": "Circumventing platform policies or restrictions"
+    },
+    "reporting": {
+      "title": "Reporting Violations",
+      "content": "If you encounter content or behavior that violates these guidelines, please report it immediately. We review all reports and take appropriate action."
+    },
+    "consequences": {
+      "title": "Consequences of Violations",
+      "content": "Violations of these guidelines may result in:",
+      "action1": "Warning and content removal",
+      "action2": "Temporary suspension of account privileges",
+      "action3": "Permanent account termination"
+    },
+    "spirit": {
+      "title": "The Spirit of HAM Radio",
+      "content": "These guidelines reflect the values of the amateur radio community: experimentation, learning, community service, and mutual respect. Let's work together to maintain these traditions in our marketplace."
+    }
+  },
+  "contactPage": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with the developer or find helpful resources",
+    "developer": {
+      "title": "Developer Contact",
+      "callsign": "Callsign"
+    },
+    "project": {
+      "title": "About the Project",
+      "description": "HAM Radio Marketplace is an open-source project built with love for the amateur radio community. Contributions, feedback, and suggestions are always welcome!",
+      "viewSource": "View source code on GitHub →"
+    },
+    "support": {
+      "title": "Support",
+      "content": "For questions about using the platform, check our FAQ first. For bug reports or feature suggestions, please open an issue on GitHub."
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "reportIssue": "Report a Bug",
+      "suggestFeature": "Suggest a Feature",
+      "contribute": "Contribute to the Project"
+    },
+    "beforeContacting": {
+      "title": "Before Contacting",
+      "checkFaq": "Check the FAQ for common questions",
+      "searchIssues": "Search existing GitHub issues",
+      "readDocs": "Review the documentation"
+    }
+  },
   "metadata": {
     "title": "HAM Radio Marketplace",
     "appName": "HAM Radio Marketplace",

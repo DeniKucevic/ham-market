@@ -404,31 +404,457 @@
   },
   "footer": {
     "about": {
-      "title": "About",
-      "aboutUs": "About Us",
-      "howItWorks": "How It Works",
-      "contact": "Contact"
+      "title": "Über",
+      "aboutUs": "Über Uns",
+      "howItWorks": "Wie Es Funktioniert",
+      "contact": "Kontakt"
     },
     "help": {
-      "title": "Help & Support",
-      "faq": "FAQ",
-      "safetyTips": "Safety Tips",
-      "shippingGuide": "Shipping Guide"
+      "title": "Hilfe & Support",
+      "faq": "Häufig Gestellte Fragen",
+      "safetyTips": "Sicherheitstipps",
+      "shippingGuide": "Versandleitfaden"
     },
     "legal": {
-      "title": "Legal",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "guidelines": "Community Guidelines"
+      "title": "Rechtliches",
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutzerklärung",
+      "guidelines": "Community-Richtlinien"
     },
     "developer": {
-      "title": "Developer",
-      "createdBy": "Created by",
-      "contact": "Contact Developer"
+      "title": "Entwickler",
+      "createdBy": "Erstellt von",
+      "contact": "Entwickler Kontaktieren"
     },
-    "copyright": "All rights reserved.",
-    "openSource": "This is an open-source project.",
-    "viewOnGitHub": "View on GitHub"
+    "copyright": "Alle Rechte vorbehalten.",
+    "openSource": "Dies ist ein Open-Source-Projekt.",
+    "viewOnGitHub": "Auf GitHub Ansehen"
+  },
+  "aboutPage": {
+    "title": "Über HAM Radio Marketplace",
+    "intro": "HAM Radio Marketplace ist eine kostenlose Open-Source-Plattform, die sich der Verbindung von Amateurfunkern weltweit zum Kauf und Verkauf von Ausrüstung widmet.",
+    "mission": {
+      "title": "Unsere Mission",
+      "content": "Wir glauben, dass Amateurfunkausrüstung für alle in der HAM-Gemeinschaft zugänglich sein sollte. Unsere Plattform bietet einen sicheren, transparenten und benutzerfreundlichen Marktplatz, auf dem Betreiber hochwertige Ausrüstung zu fairen Preisen finden können, während Verkäufer eine vertrauenswürdige Plattform erhalten, um andere Enthusiasten zu erreichen."
+    },
+    "features": {
+      "title": "Hauptmerkmale",
+      "free": "Vollständig kostenlos - keine Listungsgebühren, keine Verkaufsgebühren",
+      "openSource": "Open-Source-Projekt - transparent und gemeinschaftlich gesteuert",
+      "multilingual": "Mehrsprachige Unterstützung (Englisch, Serbisch, Isländisch, Bulgarisch, Rumänisch, Deutsch)",
+      "ratings": "Integriertes Bewertungssystem zum Aufbau von Vertrauen zwischen Käufern und Verkäufern",
+      "community": "Von Funkamateuren gemacht, für Funkamateure"
+    },
+    "developer": {
+      "title": "Über den Entwickler",
+      "content": "Dieses Projekt wurde von Brixi erstellt, einem Funkamateur und Softwareentwickler mit einer Leidenschaft dafür, die HAM-Funk-Community durch Technologie zu verbinden.",
+      "callsign": "Rufzeichen:",
+      "github": "GitHub:"
+    },
+    "getStarted": {
+      "title": "Bereit Loszulegen?",
+      "content": "Werden Sie heute Teil unserer Community und beginnen Sie, Amateurfunkausrüstung mit anderen Betreibern weltweit zu kaufen oder zu verkaufen.",
+      "button": "Kostenloses Konto Erstellen"
+    }
+  },
+  "howItWorksPage": {
+    "title": "Wie Es Funktioniert",
+    "sellers": {
+      "title": "Für Verkäufer",
+      "step1": {
+        "title": "Erstellen Sie Ihr Konto",
+        "content": "Melden Sie sich mit Ihrer E-Mail an und vervollständigen Sie Ihr Profil. Fügen Sie Ihr Rufzeichen, Standort und Kontaktinformationen hinzu, um Vertrauen bei Käufern aufzubauen."
+      },
+      "step2": {
+        "title": "Listen Sie Ihre Ausrüstung",
+        "content": "Erstellen Sie eine detaillierte Anzeige mit Fotos, Beschreibung, Zustand und Preis. Seien Sie ehrlich und gründlich, um ernsthafte Käufer anzuziehen."
+      },
+      "step3": {
+        "title": "Kommunizieren Sie mit Käufern",
+        "content": "Antworten Sie zeitnah auf Anfragen. Beantworten Sie Fragen ehrlich und stellen Sie zusätzliche Informationen oder Fotos zur Verfügung, wenn gewünscht."
+      },
+      "step4": {
+        "title": "Schließen Sie den Verkauf ab",
+        "content": "Sobald verkauft, markieren Sie den Artikel als verkauft, vereinbaren Sie Zahlung und Versand direkt mit dem Käufer und hinterlassen Sie Feedback, um Ihren Ruf aufzubauen."
+      }
+    },
+    "buyers": {
+      "title": "Für Käufer",
+      "step1": {
+        "title": "Durchsuchen Sie Anzeigen",
+        "content": "Suchen Sie nach Kategorie, Hersteller, Preisspanne oder Standort. Verwenden Sie Filter, um genau das zu finden, wonach Sie suchen."
+      },
+      "step2": {
+        "title": "Kontaktieren Sie den Verkäufer",
+        "content": "Stellen Sie Fragen zur Ausrüstung, fordern Sie zusätzliche Fotos an und besprechen Sie Zahlungs- und Versandoptionen."
+      },
+      "step3": {
+        "title": "Tätigen Sie den Kauf",
+        "content": "Vereinbaren Sie Bedingungen mit dem Verkäufer, vereinbaren Sie sichere Zahlung und bestätigen Sie Versanddetails. Verwenden Sie immer sichere Zahlungsmethoden."
+      },
+      "step4": {
+        "title": "Hinterlassen Sie Feedback",
+        "content": "Bewerten Sie nach Erhalt Ihres Artikels Ihre Erfahrung mit dem Verkäufer, um Vertrauen in der Community aufzubauen."
+      }
+    },
+    "tips": {
+      "title": "Tipps für Erfolg",
+      "tip1": "Kommunizieren Sie zunächst immer über die Plattform, um eine Aufzeichnung Ihrer Gespräche zu führen",
+      "tip2": "Überprüfen Sie Verkäuferbewertungen und Rezensionen vor dem Kauf",
+      "tip3": "Verwenden Sie detaillierte Fotos und Beschreibungen, um ernsthafte Käufer anzuziehen",
+      "tip4": "Seien Sie reaktionsschnell und professionell in allen Kommunikationen",
+      "tip5": "Verwenden Sie beim Versand Sendungsverfolgung und Versicherung für wertvolle Artikel"
+    },
+    "startBrowsing": "Beginnen Sie mit dem Durchsuchen von Anzeigen"
+  },
+  "faqPage": {
+    "title": "Häufig Gestellte Fragen",
+    "subtitle": "Finden Sie Antworten auf häufige Fragen zur Nutzung von HAM Radio Marketplace",
+    "q1": "Ist HAM Radio Marketplace wirklich kostenlos?",
+    "a1": "Ja! Es gibt keine Listungsgebühren, keine Verkaufsgebühren und keine versteckten Kosten. Wir sind ein gemeinschaftlich gesteuertes Open-Source-Projekt.",
+    "q2": "Brauche ich eine HAM-Lizenz, um diese Plattform zu nutzen?",
+    "a2": "Nein, Sie benötigen keine Lizenz zum Durchsuchen oder Kaufen von Ausrüstung. Wir ermutigen jedoch zur verantwortungsvollen Nutzung und zur Einhaltung lokaler Vorschriften.",
+    "q3": "Wie funktionieren Zahlungen?",
+    "a3": "Zahlungen werden direkt zwischen Käufern und Verkäufern vereinbart. Wir empfehlen die Verwendung sicherer Zahlungsmethoden wie PayPal, Banküberweisungen oder persönliche Treffen für lokale Transaktionen.",
+    "q4": "Was ist, wenn ich eine Streitigkeit mit einem Käufer oder Verkäufer habe?",
+    "a4": "Wir ermutigen Benutzer, Streitigkeiten direkt zu lösen. Wenn dies nicht möglich ist, können Sie problematische Anzeigen oder Benutzer melden. Denken Sie daran, dass alle Transaktionen zwischen einzelnen Benutzern stattfinden.",
+    "q5": "Wie versende ich international?",
+    "a5": "Internationaler Versand wird zwischen Käufer und Verkäufer vereinbart. Lesen Sie unseren Versandleitfaden für Tipps zu Zoll, Versicherung und Empfehlungen für Versanddienstleister.",
+    "q6": "Kann ich meine Anzeige bearbeiten oder löschen?",
+    "a6": "Ja! Sie können Ihre Anzeigen jederzeit bearbeiten und löschen, wenn sie nicht mehr benötigt werden. Gehen Sie einfach zu 'Meine Anzeigen' in Ihrem Konto.",
+    "q7": "Wie funktioniert das Bewertungssystem?",
+    "a7": "Nach einer erfolgreichen Transaktion können sowohl Käufer als auch Verkäufer einander bewerten. Diese Bewertungen helfen, Vertrauen in der Community aufzubauen.",
+    "q8": "Welche Artikel sind verboten?",
+    "a8": "Wir verbieten illegale Artikel, gefälschte Waren, gestohlene Ausrüstung und alles, was gegen lokale Gesetze verstößt. Siehe unsere Community-Richtlinien für Details.",
+    "q9": "Wie melde ich eine verdächtige Anzeige?",
+    "a9": "Klicken Sie auf die Schaltfläche 'Anzeige Melden' auf jeder Anzeigenseite und geben Sie Details zu Ihren Bedenken an. Wir prüfen alle Meldungen umgehend.",
+    "q10": "Sind meine persönlichen Informationen sicher?",
+    "a10": "Wir nehmen Datenschutz ernst. Ihre Kontaktinformationen sind nur für angemeldete Benutzer sichtbar, und Sie kontrollieren, welche Informationen Sie teilen. Siehe unsere Datenschutzerklärung für Details."
+  },
+  "safetyTipsPage": {
+    "title": "Sicherheitstipps",
+    "subtitle": "Bleiben Sie sicher beim Kauf und Verkauf von Amateurfunkausrüstung",
+    "buyers": {
+      "title": "Für Käufer",
+      "tip1": "Überprüfen Sie Verkäuferbewertungen und Rezensionen vor dem Kauf",
+      "tip2": "Fordern Sie detaillierte Fotos und Testergebnisse an, wenn Sie gebrauchte Ausrüstung kaufen",
+      "tip3": "Verwenden Sie sichere Zahlungsmethoden, die Käuferschutz bieten",
+      "tip4": "Seien Sie vorsichtig bei Angeboten, die zu gut erscheinen, um wahr zu sein",
+      "tip5": "Treffen Sie sich bei lokalen Abholungen an öffentlichen Orten während der Tageslichtstunden"
+    },
+    "sellers": {
+      "title": "Für Verkäufer",
+      "tip1": "Seien Sie ehrlich über den Zustand Ihrer Ausrüstung",
+      "tip2": "Machen Sie klare, gut beleuchtete Fotos aus mehreren Winkeln",
+      "tip3": "Verwenden Sie verfolgten Versand mit Versicherung für wertvolle Artikel",
+      "tip4": "Versenden Sie keine Artikel, bis die Zahlung bestätigt und abgewickelt ist",
+      "tip5": "Führen Sie Aufzeichnungen über alle Kommunikationen und Transaktionen"
+    },
+    "redFlags": {
+      "title": "Warnzeichen",
+      "flag1": "Käufer oder Verkäufer, die sich weigern, über die Plattform zu kommunizieren",
+      "flag2": "Zahlungsanfragen über ungewöhnliche Methoden (Geschenkkarten, Kryptowährung an unbekannte Adressen)",
+      "flag3": "Druck, die Transaktion schnell ohne ordnungsgemäße Überprüfung abzuschließen",
+      "flag4": "Unwilligkeit, zusätzliche Fotos oder Informationen bereitzustellen",
+      "flag5": "Preise deutlich unter dem Marktwert ohne gute Erklärung"
+    },
+    "general": {
+      "title": "Allgemeine Sicherheitsrichtlinien",
+      "tip1": "Vertrauen Sie Ihrem Instinkt - wenn etwas falsch erscheint, ist es wahrscheinlich falsch",
+      "tip2": "Teilen Sie niemals sensible persönliche Informationen wie Passwörter oder Finanzdetails",
+      "tip3": "Melden Sie verdächtige Aktivitäten oder Anzeigen sofort"
+    }
+  },
+  "shippingGuidePage": {
+    "title": "Versandleitfaden",
+    "subtitle": "Best Practices für den sicheren Versand von Amateurfunkausrüstung",
+    "sellers": {
+      "title": "Für Verkäufer",
+      "packaging": {
+        "title": "Verpackungsrichtlinien",
+        "tip1": "Verwenden Sie stabile Kartons mit ausreichender Polsterung (Luftpolsterfolie, Schaumstoff oder Verpackungserdnüsse)",
+        "tip2": "Wickeln Sie Antennen und empfindliche Komponenten separat ein",
+        "tip3": "Entfernen Sie oder sichern Sie alle losen Teile, um Schäden während des Transports zu vermeiden",
+        "tip4": "Verpacken Sie wertvolle oder empfindliche Artikel doppelt für zusätzlichen Schutz",
+        "tip5": "Verschließen Sie Kartons mit starkem Klebeband und verstärken Sie alle Nähte"
+      },
+      "documentation": {
+        "title": "Dokumentation",
+        "tip1": "Fügen Sie einen Packzettel mit Artikelbeschreibung und Sendungsverfolgungsnummer bei",
+        "tip2": "Bewahren Sie Kopien aller Versandbelege und Tracking-Informationen auf",
+        "tip3": "Füllen Sie für internationale Sendungen Zollformulare genau aus",
+        "tip4": "Erwägen Sie, eine Kopie der Originalanleitung beizufügen, falls verfügbar"
+      },
+      "insurance": {
+        "title": "Versicherung",
+        "content": "Kaufen Sie für wertvolle Ausrüstung immer eine Versandversicherung. Die Kosten sind minimal im Vergleich zum potenziellen Verlust. Dokumentieren Sie den Zustand des Artikels mit Fotos vor dem Versand."
+      }
+    },
+    "buyers": {
+      "title": "Für Käufer",
+      "receiving": {
+        "title": "Empfang von Sendungen",
+        "tip1": "Überprüfen Sie Pakete auf Schäden, bevor Sie die Lieferung annehmen",
+        "tip2": "Dokumentieren Sie sichtbare Schäden sofort mit Fotos",
+        "tip3": "Öffnen Sie Pakete vorsichtig und überprüfen Sie den Inhalt gründlich",
+        "tip4": "Testen Sie die Ausrüstung umgehend nach Erhalt"
+      },
+      "inspection": {
+        "title": "Checkliste",
+        "tip1": "Überprüfen Sie, ob alle beschriebenen Komponenten und Zubehörteile enthalten sind",
+        "tip2": "Überprüfen Sie, ob die Ausrüstung der Anzeigenbeschreibung und den Fotos entspricht",
+        "tip3": "Testen Sie alle Funktionen, wenn möglich, bevor Sie Feedback hinterlassen"
+      }
+    },
+    "international": {
+      "title": "Internationaler Versand",
+      "customs": {
+        "title": "Zoll",
+        "content": "Beachten Sie, dass internationale Sendungen Zollgebühren und Steuern beinhalten können. Diese liegen in der Verantwortung des Käufers, sofern nicht anders vereinbart."
+      },
+      "vat": {
+        "title": "MwSt./Einfuhrsteuern",
+        "content": "Viele Länder erheben Mehrwertsteuer oder Einfuhrsteuern auf Artikel über bestimmten Werten. Prüfen Sie lokale Vorschriften."
+      },
+      "regulations": {
+        "title": "Vorschriften",
+        "content": "Einige Funkgeräte erfordern möglicherweise spezielle Genehmigungen oder Lizenzen für die Einfuhr. Überprüfen Sie die Einhaltung sowohl der Export- als auch der Importvorschriften."
+      }
+    },
+    "carriers": {
+      "title": "Empfohlene Versanddienstleister",
+      "intro": "Wählen Sie Versanddienstleister basierend auf Ziel, Paketgröße und Wert:",
+      "national": "Nationale Postdienste",
+      "nationalDesc": "Kostengünstig für leichtere Artikel und Inlandsversand",
+      "international": "DHL, FedEx, UPS",
+      "internationalDesc": "Bessere Tracking- und Versicherungsoptionen für internationale und wertvolle Sendungen"
+    }
+  },
+  "termsPage": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "acceptance": {
+      "title": "Annahme der Bedingungen",
+      "content": "Durch den Zugriff auf und die Nutzung von HAM Radio Marketplace akzeptieren Sie diese Nutzungsbedingungen und erklären sich damit einverstanden. Wenn Sie mit diesen Bedingungen nicht einverstanden sind, nutzen Sie bitte unsere Plattform nicht."
+    },
+    "eligibility": {
+      "title": "Berechtigung",
+      "content": "Sie müssen mindestens 18 Jahre alt sein, um diese Plattform zu nutzen. Durch die Nutzung dieses Dienstes erklären Sie, dass Sie diese Altersanforderung erfüllen und die rechtliche Befähigung haben, diese Bedingungen einzugehen."
+    },
+    "userAccounts": {
+      "title": "Benutzerkonten",
+      "content": "Sie sind verantwortlich für:",
+      "responsibility1": "Die Wahrung der Vertraulichkeit Ihrer Kontodaten",
+      "responsibility2": "Alle Aktivitäten, die unter Ihrem Konto stattfinden",
+      "responsibility3": "Die Bereitstellung genauer und aktueller Informationen in Ihrem Profil"
+    },
+    "listings": {
+      "title": "Anzeigen und Inhalte",
+      "content": "Beim Erstellen von Anzeigen stimmen Sie zu:",
+      "rule1": "Genaue Beschreibungen und Fotos von Artikeln bereitzustellen",
+      "rule2": "Nur Artikel zu listen, die Sie besitzen und verkaufen dürfen",
+      "rule3": "Alle geltenden Gesetze und Vorschriften einzuhalten",
+      "rule4": "Keine verbotenen, illegalen oder gefälschten Artikel zu posten"
+    },
+    "transactions": {
+      "title": "Transaktionen",
+      "content": "HAM Radio Marketplace ist eine Plattform, die Käufer und Verkäufer verbindet. Wir sind nicht Partei von Transaktionen und garantieren nicht die Qualität, Sicherheit oder Legalität gelisteter Artikel. Alle Transaktionen finden direkt zwischen Benutzern statt."
+    },
+    "prohibitedConduct": {
+      "title": "Verbotenes Verhalten",
+      "intro": "Sie dürfen nicht:",
+      "item1": "Falsche, irreführende oder betrügerische Anzeigen posten",
+      "item2": "Andere Benutzer belästigen, bedrohen oder missbrauchen",
+      "item3": "Versuchen, Plattformgebühren oder -richtlinien zu umgehen",
+      "item4": "Automatisierte Tools zum Scraping oder Sammeln von Daten verwenden",
+      "item5": "Urheberrechte anderer verletzen"
+    },
+    "intellectualProperty": {
+      "title": "Geistiges Eigentum",
+      "content": "Die Plattform und ihre Originalinhalte, Funktionen und Funktionalität sind Eigentum des Entwicklers und werden durch internationale Urheberrechts-, Marken- und andere Gesetze zum geistigen Eigentum geschützt."
+    },
+    "disclaimer": {
+      "title": "Haftungsausschluss",
+      "content": "Diese Plattform wird 'wie besehen' ohne Garantien jeglicher Art bereitgestellt. Wir garantieren keinen kontinuierlichen, ununterbrochenen oder sicheren Zugang zur Plattform."
+    },
+    "limitation": {
+      "title": "Haftungsbeschränkung",
+      "content": "Im maximal gesetzlich zulässigen Umfang haften wir nicht für indirekte, zufällige, besondere, Folge- oder Strafschäden, die aus Ihrer Nutzung der Plattform resultieren."
+    },
+    "termination": {
+      "title": "Kündigung",
+      "content": "Wir behalten uns das Recht vor, Ihr Konto jederzeit wegen Verstößen gegen diese Bedingungen oder aus anderen Gründen nach unserem Ermessen zu kündigen oder zu sperren."
+    },
+    "changes": {
+      "title": "Änderungen der Bedingungen",
+      "content": "Wir können diese Bedingungen jederzeit ändern. Die fortgesetzte Nutzung der Plattform nach Änderungen stellt die Annahme der geänderten Bedingungen dar."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "content": "Wenn Sie Fragen zu diesen Nutzungsbedingungen haben, kontaktieren Sie uns bitte über die Kontaktseite."
+    }
+  },
+  "privacyPage": {
+    "title": "Datenschutzerklärung",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "introduction": {
+      "title": "Einführung",
+      "content": "Diese Datenschutzerklärung beschreibt, wie HAM Radio Marketplace Ihre persönlichen Informationen sammelt, verwendet und schützt. Wir sind dem Schutz Ihrer Privatsphäre und der Transparenz über unsere Datenpraktiken verpflichtet."
+    },
+    "dataCollection": {
+      "title": "Informationen, die Wir Sammeln",
+      "intro": "Wir sammeln folgende Arten von Informationen:",
+      "account": {
+        "title": "Kontoinformationen",
+        "items": "E-Mail-Adresse, Passwort (verschlüsselt), Rufzeichen (optional)"
+      },
+      "profile": {
+        "title": "Profilinformationen",
+        "items": "Anzeigename, Standort (Land/Stadt), Kontaktinformationen (wenn Sie sie öffentlich machen), Biografie"
+      },
+      "listings": {
+        "title": "Anzeigeninformationen",
+        "items": "Artikelbeschreibungen, Fotos, Preisgestaltung und Transaktionshistorie"
+      },
+      "usage": {
+        "title": "Nutzungsdaten",
+        "items": "IP-Adresse, Browsertyp, besuchte Seiten, Zeitstempel"
+      }
+    },
+    "dataUse": {
+      "title": "Wie Wir Ihre Informationen Verwenden",
+      "intro": "Wir verwenden gesammelte Informationen, um:",
+      "purpose1": "Die Plattform bereitzustellen und zu pflegen",
+      "purpose2": "Kommunikation zwischen Käufern und Verkäufern zu ermöglichen",
+      "purpose3": "Benutzererfahrung und Plattformfunktionen zu verbessern",
+      "purpose4": "Betrug zu verhindern und unsere Nutzungsbedingungen durchzusetzen",
+      "purpose5": "Wichtige Updates über Ihr Konto oder die Plattform zu senden"
+    },
+    "dataSharing": {
+      "title": "Informationsweitergabe",
+      "content": "Wir verkaufen Ihre persönlichen Informationen nicht. Wir geben Informationen nur weiter:",
+      "case1": "An andere Benutzer, wie für Transaktionen erforderlich (Kontaktinformationen, wenn Sie sie öffentlich machen)",
+      "case2": "Wenn gesetzlich oder durch Gerichtsverfahren erforderlich",
+      "case3": "Um unsere Rechte oder die Sicherheit der Benutzer zu schützen"
+    },
+    "dataSecurity": {
+      "title": "Datensicherheit",
+      "content": "Wir implementieren angemessene technische und organisatorische Maßnahmen zum Schutz Ihrer persönlichen Informationen. Keine Übertragungsmethode über das Internet ist jedoch zu 100% sicher."
+    },
+    "cookies": {
+      "title": "Cookies und Tracking",
+      "content": "Wir verwenden wesentliche Cookies, um Ihre Sitzung und Präferenzen aufrechtzuerhalten. Wir verwenden keine Werbe-Cookies von Drittanbietern."
+    },
+    "userRights": {
+      "title": "Ihre Rechte",
+      "intro": "Sie haben das Recht:",
+      "right1": "Auf Ihre persönlichen Informationen zuzugreifen, sie zu aktualisieren oder zu löschen",
+      "right2": "Der Verarbeitung Ihrer Daten zu widersprechen",
+      "right3": "Datenportabilität zu beantragen",
+      "right4": "Ihre Einwilligung jederzeit zu widerrufen"
+    },
+    "retention": {
+      "title": "Datenspeicherung",
+      "content": "Wir bewahren Ihre Informationen auf, solange Ihr Konto aktiv ist oder wie zur Erbringung von Dienstleistungen erforderlich. Sie können jederzeit die Löschung Ihres Kontos und Ihrer Daten beantragen."
+    },
+    "children": {
+      "title": "Datenschutz für Kinder",
+      "content": "Unsere Plattform ist nicht für Benutzer unter 18 Jahren bestimmt. Wir sammeln wissentlich keine Informationen von Kindern."
+    },
+    "changes": {
+      "title": "Änderungen der Datenschutzerklärung",
+      "content": "Wir können diese Datenschutzerklärung von Zeit zu Zeit aktualisieren. Wir werden Benutzer über wesentliche Änderungen per E-Mail oder über die Plattform informieren."
+    },
+    "contact": {
+      "title": "Kontaktieren Sie Uns",
+      "content": "Wenn Sie Fragen zu dieser Datenschutzerklärung oder unseren Datenpraktiken haben, kontaktieren Sie uns bitte über die Kontaktseite."
+    }
+  },
+  "guidelinesPage": {
+    "title": "Community-Richtlinien",
+    "subtitle": "Helfen Sie uns, einen sicheren, respektvollen und florierenden Marktplatz für die HAM-Funk-Community zu erhalten",
+    "respect": {
+      "title": "Seien Sie Respektvoll",
+      "content": "Behandeln Sie alle Benutzer mit Höflichkeit und Respekt, unabhängig von Erfahrungsniveau oder Hintergrund.",
+      "rule1": "Verwenden Sie professionelle Sprache in allen Kommunikationen",
+      "rule2": "Respektieren Sie unterschiedliche Meinungen und Ansätze",
+      "rule3": "Vermeiden Sie persönliche Angriffe oder Belästigung"
+    },
+    "honesty": {
+      "title": "Seien Sie Ehrlich",
+      "content": "Ehrlichkeit ist die Grundlage des Vertrauens in unserer Community.",
+      "rule1": "Beschreiben Sie Artikel genau, einschließlich aller Mängel oder Probleme",
+      "rule2": "Verwenden Sie Ihre eigenen Fotos - kopieren Sie keine Bilder aus anderen Quellen",
+      "rule3": "Erfüllen Sie Ihre Verpflichtungen gegenüber Käufern und Verkäufern",
+      "rule4": "Legen Sie alle Modifikationen oder Reparaturen an Ausrüstung offen"
+    },
+    "safety": {
+      "title": "Priorisieren Sie Sicherheit",
+      "content": "Ihre Sicherheit und die Sicherheit anderer ist von größter Bedeutung.",
+      "rule1": "Befolgen Sie unsere Sicherheitstipps für sichere Transaktionen",
+      "rule2": "Melden Sie verdächtige Aktivitäten oder Anzeigen",
+      "rule3": "Teilen Sie niemals sensible persönliche Informationen öffentlich"
+    },
+    "communication": {
+      "title": "Kommunizieren Sie Klar",
+      "content": "Gute Kommunikation verhindert Missverständnisse.",
+      "rule1": "Antworten Sie zeitnah auf Nachrichten und Anfragen",
+      "rule2": "Seien Sie klar über Bedingungen und Erwartungen",
+      "rule3": "Halten Sie Gespräche professionell und themenrelevant"
+    },
+    "prohibited": {
+      "title": "Verbotene Aktivitäten",
+      "item1": "Posten gefälschter, gestohlener oder illegaler Artikel",
+      "item2": "Betrug, Schwindel oder irreführende Anzeigen",
+      "item3": "Belästigung, Drohungen oder Missbrauch",
+      "item4": "Spam oder unaufgeforderte Werbung",
+      "item5": "Versuch, Bewertungen oder Rezensionen zu manipulieren",
+      "item6": "Umgehung von Plattformrichtlinien oder -beschränkungen"
+    },
+    "reporting": {
+      "title": "Meldung von Verstößen",
+      "content": "Wenn Sie auf Inhalte oder Verhalten stoßen, die gegen diese Richtlinien verstoßen, melden Sie dies bitte sofort. Wir prüfen alle Meldungen und ergreifen angemessene Maßnahmen."
+    },
+    "consequences": {
+      "title": "Folgen von Verstößen",
+      "content": "Verstöße gegen diese Richtlinien können führen zu:",
+      "action1": "Verwarnung und Entfernung von Inhalten",
+      "action2": "Vorübergehende Aussetzung von Kontoberechtigungen",
+      "action3": "Dauerhafte Kontokündigung"
+    },
+    "spirit": {
+      "title": "Der Geist des Amateurfunks",
+      "content": "Diese Richtlinien spiegeln die Werte der Amateurfunk-Community wider: Experimentieren, Lernen, Gemeinschaftsdienst und gegenseitiger Respekt. Lassen Sie uns zusammenarbeiten, um diese Traditionen auf unserem Marktplatz zu bewahren."
+    }
+  },
+  "contactPage": {
+    "title": "Kontaktieren Sie Uns",
+    "subtitle": "Nehmen Sie Kontakt mit dem Entwickler auf oder finden Sie hilfreiche Ressourcen",
+    "developer": {
+      "title": "Entwicklerkontakt",
+      "callsign": "Rufzeichen"
+    },
+    "project": {
+      "title": "Über das Projekt",
+      "description": "HAM Radio Marketplace ist ein Open-Source-Projekt, das mit Liebe für die Amateurfunk-Community erstellt wurde. Beiträge, Feedback und Vorschläge sind immer willkommen!",
+      "viewSource": "Quellcode auf GitHub ansehen →"
+    },
+    "support": {
+      "title": "Support",
+      "content": "Für Fragen zur Nutzung der Plattform schauen Sie zunächst in unsere FAQ. Für Fehlerberichte oder Funktionsvorschläge öffnen Sie bitte ein Issue auf GitHub."
+    },
+    "quickLinks": {
+      "title": "Schnelllinks",
+      "reportIssue": "Fehler Melden",
+      "suggestFeature": "Funktion Vorschlagen",
+      "contribute": "Zum Projekt Beitragen"
+    },
+    "beforeContacting": {
+      "title": "Vor dem Kontaktieren",
+      "checkFaq": "Prüfen Sie die FAQ für häufige Fragen",
+      "searchIssues": "Durchsuchen Sie bestehende GitHub-Issues",
+      "readDocs": "Überprüfen Sie die Dokumentation"
+    }
   },
   "metadata": {
     "title": "HAM Radio Marketplace",

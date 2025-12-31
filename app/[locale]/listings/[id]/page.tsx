@@ -1,9 +1,7 @@
 import { CopyIdButton } from "@/components/copy-id-button";
 import { DeleteListingButton } from "@/components/delete-listing-button";
-import { Footer } from "@/components/footer";
 import { IncrementViews } from "@/components/increment-views";
 import { ListingImageGallery } from "@/components/listing-image-gallery";
-import { Navbar } from "@/components/navbar";
 import { ReportListingButton } from "@/components/report-listing-button";
 import { ShareListingButton } from "@/components/share-listing-button";
 import { getCountries } from "@/lib/countries";
@@ -170,11 +168,6 @@ export default async function ListingDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <IncrementViews listingId={listing.id} />
-      <Navbar
-        user={user}
-        profile={currentUserProfile ?? null}
-        locale={locale}
-      />
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Back button */}
@@ -533,7 +526,6 @@ export default async function ListingDetailPage({ params }: Props) {
           </div>
         </div>
       </div>
-      <Footer locale={locale} />
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
 import { Metadata } from "next";
@@ -111,12 +109,6 @@ export default async function PublicProfilePage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar
-        user={user}
-        profile={currentUserProfile ?? null}
-        locale={locale}
-      />
-
       <PublicProfileClient
         profile={profile}
         listings={listings as BrowseListing[]}
@@ -124,7 +116,6 @@ export default async function PublicProfilePage({ params }: Props) {
         isOwnProfile={user?.id === profile.id}
         locale={locale} // ✅ Add locale prop
       />
-      <Footer locale={locale} />
     </div>
   );
 }
