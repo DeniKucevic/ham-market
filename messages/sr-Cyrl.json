@@ -421,31 +421,31 @@
   },
   "footer": {
     "about": {
-      "title": "О Нама",
-      "aboutUs": "О Нама",
-      "howItWorks": "Како Функционише",
+      "title": "О нама",
+      "aboutUs": "О нама",
+      "howItWorks": "Како функционише",
       "contact": "Контакт"
     },
     "help": {
-      "title": "Помоћ и Подршка",
-      "faq": "Често Постављана Питања",
-      "safetyTips": "Савети за Безбедност",
-      "shippingGuide": "Водич за Доставу"
+      "title": "Помоћ и подршка",
+      "faq": "Честа питања",
+      "safetyTips": "Савети за безбедност",
+      "shippingGuide": "Водич за слање"
     },
     "legal": {
       "title": "Правно",
-      "terms": "Услови Коришћења",
-      "privacy": "Политика Приватности",
-      "guidelines": "Смернице Заједнице"
+      "terms": "Услови коришћења",
+      "privacy": "Политика приватности",
+      "guidelines": "Смернице заједнице"
     },
     "developer": {
-      "title": "Програмер",
-      "createdBy": "Креирао",
-      "contact": "Контактирајте Програмера"
+      "title": "Развој",
+      "createdBy": "Направио",
+      "contact": "Контакт"
     },
     "copyright": "Сва права задржана.",
-    "openSource": "Ово је open-source пројекат.",
-    "viewOnGitHub": "Погледајте на GitHub-у"
+    "openSource": "Овај пројекат је отвореног кода.",
+    "viewOnGitHub": "Погледај на GitHub-у"
   },
   "aboutPage": {
     "title": "О HAM Radio Marketplace-у",
@@ -875,7 +875,9 @@
   },
   "pwa": {
     "installTitle": "Инсталирај апликацију",
-    "installDescription": "Инсталирајте HAM Marketplace за брзи приступ",
+    "installDescription": "Додајте HAM Marketplace на почетни екран за брзи приступ",
+    "tapShareButton": "Кликните на дугме за дељење",
+    "selectAddToHomeScreen": "Изаберите 'Додај на почетни екран'",
     "install": "Инсталирај",
     "notNow": "Не сада"
   },

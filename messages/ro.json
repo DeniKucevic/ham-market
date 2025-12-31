@@ -421,31 +421,31 @@
   },
   "footer": {
     "about": {
-      "title": "Despre",
-      "aboutUs": "Despre Noi",
-      "howItWorks": "Cum Funcționează",
+      "title": "Despre noi",
+      "aboutUs": "Despre noi",
+      "howItWorks": "Cum funcționează",
       "contact": "Contact"
     },
     "help": {
-      "title": "Ajutor și Suport",
-      "faq": "Întrebări Frecvente",
-      "safetyTips": "Sfaturi de Siguranță",
-      "shippingGuide": "Ghid de Expediere"
+      "title": "Ajutor și asistență",
+      "faq": "Întrebări frecvente",
+      "safetyTips": "Sfaturi de siguranță",
+      "shippingGuide": "Ghid de livrare"
     },
     "legal": {
       "title": "Legal",
-      "terms": "Termeni și Condiții",
-      "privacy": "Politica de Confidențialitate",
-      "guidelines": "Ghiduri ale Comunității"
+      "terms": "Termeni și condiții",
+      "privacy": "Politica de confidențialitate",
+      "guidelines": "Regulile comunității"
     },
     "developer": {
       "title": "Dezvoltator",
       "createdBy": "Creat de",
-      "contact": "Contactează Dezvoltatorul"
+      "contact": "Contactați dezvoltatorul"
     },
     "copyright": "Toate drepturile rezervate.",
-    "openSource": "Acesta este un proiect open-source.",
-    "viewOnGitHub": "Vezi pe GitHub"
+    "openSource": "Acesta este un proiect open source.",
+    "viewOnGitHub": "Vizualizați pe GitHub"
   },
   "aboutPage": {
     "title": "Despre HAM Radio Marketplace",
@@ -875,7 +875,9 @@
   },
   "pwa": {
     "installTitle": "Instalează aplicația",
-    "installDescription": "Instalează HAM Marketplace pentru acces rapid",
+    "installDescription": "Adaugă HAM Marketplace pe ecranul de pornire pentru acces rapid",
+    "tapShareButton": "Apasă butonul de partajare",
+    "selectAddToHomeScreen": "Selectează 'Adaugă la ecranul de pornire'",
     "install": "Instalează",
     "notNow": "Nu acum"
   },

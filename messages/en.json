@@ -441,10 +441,10 @@
     "developer": {
       "title": "Developer",
       "createdBy": "Created by",
-      "contact": "Contact Developer"
+      "contact": "Contact"
     },
     "copyright": "All rights reserved.",
-    "openSource": "This is an open-source project.",
+    "openSource": "This project is open source.",
     "viewOnGitHub": "View on GitHub"
   },
   "aboutPage": {

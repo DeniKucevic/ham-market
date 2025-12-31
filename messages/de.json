@@ -875,7 +875,9 @@
   },
   "pwa": {
     "installTitle": "App installieren",
-    "installDescription": "Installieren Sie HAM Marketplace für schnellen Zugriff",
+    "installDescription": "Fügen Sie HAM Marketplace zu Ihrem Startbildschirm für schnellen Zugriff hinzu",
+    "tapShareButton": "Tippen Sie auf die Schaltfläche 'Teilen'",
+    "selectAddToHomeScreen": "Wählen Sie 'Zum Startbildschirm'",
     "install": "Installieren",
     "notNow": "Nicht jetzt"
   },

@@ -421,14 +421,14 @@
   },
   "footer": {
     "about": {
-      "title": "Um",
-      "aboutUs": "Um Okkur",
-      "howItWorks": "Hvernig Það Virkar",
-      "contact": "Samband"
+      "title": "Um okkur",
+      "aboutUs": "Um okkur",
+      "howItWorks": "Hvernig það virkar",
+      "contact": "Hafa samband"
     },
     "help": {
-      "title": "Hjálp og Stuðningur",
-      "faq": "Algengar Spurningar",
+      "title": "Hjálp og stuðningur",
+      "faq": "Algengar spurningar",
       "safetyTips": "Öryggisráð",
       "shippingGuide": "Sendingarhandbók"
     },
@@ -436,15 +436,15 @@
       "title": "Lögfræði",
       "terms": "Þjónustuskilmálar",
       "privacy": "Persónuverndarstefna",
-      "guidelines": "Samfélagsviðmiðunarreglur"
+      "guidelines": "Samfélagsreglur"
     },
     "developer": {
       "title": "Forritari",
       "createdBy": "Búið til af",
-      "contact": "Hafa Samband við Forritara"
+      "contact": "Hafa samband"
     },
     "copyright": "Allur réttur áskilinn.",
-    "openSource": "Þetta er opinn uppspretta verkefni.",
+    "openSource": "Þetta verkefni er opinn hugbúnaður.",
     "viewOnGitHub": "Skoða á GitHub"
   },
   "aboutPage": {
@@ -875,7 +875,9 @@
   },
   "pwa": {
     "installTitle": "Setja upp app",
-    "installDescription": "Settu upp HAM Marketplace fyrir skjótan aðgang",
+    "installDescription": "Bættu HAM Marketplace við heimaskjáinn þinn fyrir skjótan aðgang",
+    "tapShareButton": "Ýttu á deilingarhnappinn",
+    "selectAddToHomeScreen": "Veldu 'Bæta við heimaskjá'",
     "install": "Setja upp",
     "notNow": "Ekki núna"
   },

@@ -421,30 +421,30 @@
   },
   "footer": {
     "about": {
-      "title": "За Нас",
-      "aboutUs": "За Нас",
-      "howItWorks": "Как Работи",
+      "title": "За нас",
+      "aboutUs": "За нас",
+      "howItWorks": "Как работи",
       "contact": "Контакт"
     },
     "help": {
-      "title": "Помощ и Поддръжка",
-      "faq": "Често Задавани Въпроси",
-      "safetyTips": "Съвети за Безопасност",
-      "shippingGuide": "Ръководство за Доставка"
+      "title": "Помощ и поддръжка",
+      "faq": "Често задавани въпроси",
+      "safetyTips": "Съвети за безопасност",
+      "shippingGuide": "Ръководство за доставка"
     },
     "legal": {
-      "title": "Правно",
-      "terms": "Условия за Ползване",
-      "privacy": "Политика за Поверителност",
-      "guidelines": "Насоки на Общността"
+      "title": "Правна информация",
+      "terms": "Условия за ползване",
+      "privacy": "Политика за поверителност",
+      "guidelines": "Насоки на общността"
     },
     "developer": {
       "title": "Разработчик",
       "createdBy": "Създадено от",
-      "contact": "Свържете се с Разработчика"
+      "contact": "Контакт"
     },
     "copyright": "Всички права запазени.",
-    "openSource": "Това е проект с отворен код.",
+    "openSource": "Този проект е с отворен код.",
     "viewOnGitHub": "Вижте в GitHub"
   },
   "aboutPage": {
@@ -875,7 +875,9 @@
   },
   "pwa": {
     "installTitle": "Инсталирайте приложението",
-    "installDescription": "Инсталирайте HAM Marketplace за бърз достъп",
+    "installDescription": "Добавете HAM Marketplace към началния екран за бърз достъп",
+    "tapShareButton": "Докоснете бутона за споделяне",
+    "selectAddToHomeScreen": "Изберете 'Добави към началния екран'",
     "install": "Инсталирай",
     "notNow": "Не сега"
   },
