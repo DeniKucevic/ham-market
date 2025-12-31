@@ -873,6 +873,12 @@
       "readDocs": "Farðu yfir skjölin"
     }
   },
+  "pwa": {
+    "installTitle": "Setja upp app",
+    "installDescription": "Settu upp HAM Marketplace fyrir skjótan aðgang",
+    "install": "Setja upp",
+    "notNow": "Ekki núna"
+  },
   "metadata": {
     "title": "HAM Radio Marketplace",
     "appName": "HAM Radio Marketplace",

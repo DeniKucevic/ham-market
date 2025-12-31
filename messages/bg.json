@@ -873,6 +873,12 @@
       "readDocs": "Прегледайте документацията"
     }
   },
+  "pwa": {
+    "installTitle": "Инсталирайте приложението",
+    "installDescription": "Инсталирайте HAM Marketplace за бърз достъп",
+    "install": "Инсталирай",
+    "notNow": "Не сега"
+  },
   "metadata": {
     "title": "HAM Radio Marketplace",
     "appName": "HAM Radio Marketplace",

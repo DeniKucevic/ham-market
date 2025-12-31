@@ -9,6 +9,7 @@ import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
+import { InstallPrompt } from "@/components/install-prompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -127,6 +128,7 @@ export default async function LocaleLayout({
           <main className="flex-1">{children}</main>
           <Footer locale={locale} />
         </div>
+        <InstallPrompt />
       </Providers>
     </div>
   );

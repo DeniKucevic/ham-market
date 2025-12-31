@@ -873,6 +873,12 @@
       "readDocs": "Überprüfen Sie die Dokumentation"
     }
   },
+  "pwa": {
+    "installTitle": "App installieren",
+    "installDescription": "Installieren Sie HAM Marketplace für schnellen Zugriff",
+    "install": "Installieren",
+    "notNow": "Nicht jetzt"
+  },
   "metadata": {
     "title": "HAM Radio Marketplace",
     "appName": "HAM Radio Marketplace",
