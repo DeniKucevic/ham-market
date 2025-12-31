@@ -1,4 +1,5 @@
 import { Footer } from "@/components/footer";
+import { LoadingBar } from "@/components/loading-bar";
 import { Navbar } from "@/components/navbar";
 import { Providers } from "@/components/providers";
 import { locales } from "@/i18n";
@@ -120,6 +121,7 @@ export default async function LocaleLayout({
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <Providers messages={messages} locale={locale}>
+        <LoadingBar />
         <div className="flex min-h-screen flex-col">
           <Navbar user={user} profile={profile} locale={locale} />
           <main className="flex-1">{children}</main>

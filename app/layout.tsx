@@ -15,8 +15,8 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
-        <SecretNeonMode />
         <NewYearCelebration />
+        <SecretNeonMode />
       </body>
     </html>
   );

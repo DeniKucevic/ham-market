@@ -43,7 +43,7 @@ const generateFireworks = (): FireworkItem[] => {
   return Array.from({ length: 8 }, (_, i) => ({
     left: 20 + Math.random() * 60,
     top: 20 + Math.random() * 40,
-    delay: i * 0.8, // Stagger them more
+    delay: i * 0.8,
     particles: Array.from({ length: 12 }, (_, j) => ({
       angle: j * 30,
       color: colors[Math.floor(Math.random() * 6)],
@@ -57,6 +57,7 @@ export function NewYearCelebration() {
   const [isNewYear, setIsNewYear] = useState(false);
   const [showFireworks, setShowFireworks] = useState(false);
   const [forceShow, setForceShow] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   const [confettiData] = useState<ConfettiItem[]>(generateConfetti);
   const [fireworksData] = useState<FireworkItem[]>(generateFireworks);
@@ -75,6 +76,7 @@ export function NewYearCelebration() {
       setShow(true);
       setIsNewYear(true);
       setShowFireworks(true);
+      setDismissed(false);
       console.log("🎉 New Year mode activated! Type hideNewYear() to disable.");
     };
 
@@ -83,6 +85,7 @@ export function NewYearCelebration() {
       setShow(true);
       setIsNewYear(false);
       setShowFireworks(false);
+      setDismissed(false);
       setCountdown("0h 15m 30s");
       console.log(
         "⏰ Countdown mode activated! Type hideNewYear() to disable."
@@ -93,6 +96,7 @@ export function NewYearCelebration() {
       setForceShow(false);
       setShow(false);
       setShowFireworks(false);
+      setDismissed(true);
       console.log("👋 Hidden");
     };
 
@@ -135,45 +139,83 @@ export function NewYearCelebration() {
     return () => clearInterval(interval);
   }, [forceShow]);
 
-  useEffect(() => {
-    if (isNewYear) {
-      document.body.classList.add("new-year-celebration");
-    } else {
-      document.body.classList.remove("new-year-celebration");
-    }
-
-    return () => {
-      document.body.classList.remove("new-year-celebration");
-    };
-  }, [isNewYear]);
-
-  if (!show) return null;
+  if (!show || dismissed) return null;
 
   return (
     <>
-      {/* Main celebration widget */}
-      <div className="fixed bottom-4 right-4 z-50">
+      {/* Bottom banner */}
+      <div
+        style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 50 }}
+      >
         {isNewYear ? (
-          <div className="animate-bounce rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 p-6 shadow-2xl">
-            <div className="text-center">
-              <div className="mb-2 text-5xl animate-pulse">🎉🎊✨</div>
-              <div className="text-2xl font-bold text-white mb-1">
-                Happy New Year 2026!
-              </div>
-              <div className="text-base text-white/90 font-semibold">
-                73 de YU4AIE!
+          <div className="bg-gradient-to-r from-purple-600 to-pink-600 py-2 shadow-lg">
+            <div className="container mx-auto px-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3 flex-1 justify-center">
+                  <div className="text-2xl animate-pulse">🎉🎊✨</div>
+                  <div className="text-center">
+                    <span className="text-lg font-bold text-white">
+                      Happy New Year 2026!
+                    </span>
+                    <span className="text-sm text-white/90 font-semibold ml-2">
+                      73 de YU4AIE!
+                    </span>
+                  </div>
+                  <div className="text-2xl animate-pulse">🎉🎊✨</div>
+                </div>
+                <button
+                  onClick={() => setDismissed(true)}
+                  className="text-white/80 hover:text-white p-1"
+                  aria-label="Close"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
         ) : (
-          <div className="rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 p-4 shadow-2xl">
-            <div className="text-center">
-              <div className="mb-1 text-2xl">🎆</div>
-              <div className="text-sm font-semibold text-white">
-                New Year in:
-              </div>
-              <div className="font-mono text-lg font-bold text-white">
-                {countdown}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 py-2 shadow-lg">
+            <div className="container mx-auto px-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 flex-1 justify-center text-white">
+                  <div className="text-xl">🎆</div>
+                  <span className="text-sm font-semibold">New Year in: </span>
+                  <span className="font-mono text-base font-bold">
+                    {countdown}
+                  </span>
+                  <div className="text-xl">🎆</div>
+                </div>
+                <button
+                  onClick={() => setDismissed(true)}
+                  className="text-white/80 hover:text-white p-1"
+                  aria-label="Close"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -295,20 +337,6 @@ export function NewYearCelebration() {
                 0 0 30px var(--color);
               animation: firework-burst 1.2s ease-out infinite;
               animation-delay: 0.3s;
-            }
-
-            body.new-year-celebration {
-              animation: celebration-glow 2s ease-in-out infinite;
-            }
-
-            @keyframes celebration-glow {
-              0%,
-              100% {
-                filter: brightness(1);
-              }
-              50% {
-                filter: brightness(1.1);
-              }
             }
           `}</style>
         </>
