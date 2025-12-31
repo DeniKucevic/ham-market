@@ -19,3 +19,35 @@ button {
 button:disabled {
   cursor: not-allowed;
 }
+
+/* Hidden neon pink theme */
+.theme-neon-pink {
+  --background: 320 100% 10%;
+  --foreground: 320 100% 95%;
+  --card: 320 80% 15%;
+  --card-foreground: 320 100% 95%;
+  --popover: 320 80% 15%;
+  --popover-foreground: 320 100% 95%;
+  --primary: 320 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 280 100% 50%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 320 50% 30%;
+  --muted-foreground: 320 100% 80%;
+  --accent: 340 100% 60%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 100% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 320 100% 70%;
+  --input: 320 80% 30%;
+  --ring: 320 100% 50%;
+  --radius: 0.5rem;
+
+  /* Neon effects */
+  filter: saturate(1.5) contrast(1.2);
+}
+
+.theme-neon-pink * {
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
