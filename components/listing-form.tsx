@@ -369,11 +369,8 @@ export function ListingForm({ userId, listing, locale }: Props) {
       <div>
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
           {isEditing
-            ? t("addMoreImages").replace(
-                "{count}",
-                String(10 - existingImages.length)
-              )
-            : t("imagesOptional")}
+            ? t("addMoreImages", { count: 10 - existingImages.length })
+            : t("addImages")}
         </label>
         <div className="mt-2">
           <input

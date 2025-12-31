@@ -1,5 +1,6 @@
 "use client";
 
+import { useNotificationCounts } from "@/hooks/use-notification-counts";
 import { getDisplayName } from "@/lib/display-name";
 import { createClient } from "@/lib/supabase/client";
 import { useTranslations } from "next-intl";
@@ -22,6 +23,8 @@ interface Props {
 }
 
 export function Navbar({ user, profile, locale }: Props) {
+  const counts = useNotificationCounts(user?.id);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
@@ -46,32 +49,45 @@ export function Navbar({ user, profile, locale }: Props) {
           >
             HAM Marketplace
           </Link>
-
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex lg:items-center lg:gap-8">
+          <div className="hidden nav:flex nav:items-center nav:gap-8">
             {user && (
               <div className="flex gap-6">
-                <Link
-                  href={`/${locale}`}
-                  className="text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  {t("browse")}
-                </Link>
                 <Link
                   href={`/${locale}/my-listings`}
                   className="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 >
+                  {counts.unratedSales > 0 && (
+                    <span className="mr-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                      {counts.unratedSales}
+                    </span>
+                  )}
                   {t("myListings")}
                 </Link>
                 <Link
                   href={`/${locale}/my-purchases`}
                   className="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 >
+                  {counts.unratedPurchases > 0 && (
+                    <span className="mr-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                      {counts.unratedPurchases}
+                    </span>
+                  )}
                   {t("myPurchases")}
+                </Link>
+                <Link
+                  href={`/${locale}/messages`}
+                  className="text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                >
+                  {counts.unreadMessages > 0 && (
+                    <span className="mr-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                      {counts.unreadMessages}
+                    </span>
+                  )}
+                  {t("messages")}
                 </Link>
               </div>
             )}
-
             <div className="flex items-center gap-4">
               {user && (
                 <>
@@ -163,9 +179,8 @@ export function Navbar({ user, profile, locale }: Props) {
               )}
             </div>
           </div>
-
           {/* Mobile menu button */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 nav:hidden">
             <ThemeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -208,7 +223,7 @@ export function Navbar({ user, profile, locale }: Props) {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden">
+        <div className="nav:hidden">
           <div className="space-y-1 px-4 pb-3 pt-2">
             {user ? (
               <>
@@ -218,25 +233,46 @@ export function Navbar({ user, profile, locale }: Props) {
                   </p>
                 </div>
                 <Link
-                  href={`/${locale}`}
-                  className="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t("browse")}
-                </Link>
-                <Link
                   href={`/${locale}/my-listings`}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                  className="relative block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t("myListings")}
+                  <span className="flex items-center gap-2">
+                    {t("myListings")}
+                    {counts.unratedSales > 0 && (
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                        {counts.unratedSales}
+                      </span>
+                    )}
+                  </span>
                 </Link>
                 <Link
                   href={`/${locale}/my-purchases`}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                  className="relative block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t("myPurchases")}
+                  <span className="flex items-center gap-2">
+                    {t("myPurchases")}
+                    {counts.unratedPurchases > 0 && (
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                        {counts.unratedPurchases}
+                      </span>
+                    )}
+                  </span>
+                </Link>
+                <Link
+                  href={`/${locale}/messages`}
+                  className="relative block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    {t("messages")}
+                    {counts.unreadMessages > 0 && (
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                        {counts.unreadMessages}
+                      </span>
+                    )}
+                  </span>
                 </Link>
                 <Link
                   href={`/${locale}/listings/new`}

@@ -22,7 +22,8 @@
     "viewProfile": "Vezi Profilul",
     "settings": "Setări",
     "signIn": "Autentificare",
-    "signOut": "Deconectare"
+    "signOut": "Deconectare",
+    "messages": "Mesaje"
   },
   "listing": {
     "createListingTitle": "Creează Anunț",
@@ -57,7 +58,17 @@
     "seller": "Vânzător",
     "listingInfo": "Info Anunț"
   },
+  "messages": {
+    "title": "Messages",
+    "loading": "Loading...",
+    "noConversations": "No conversations yet",
+    "selectConversation": "Select a conversation to start messaging",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "messageSeller": "Message Seller"
+  },
   "listingDetail": {
+    "messageSeller": "Message Seller",
     "backToListings": "Înapoi la anunțuri",
     "description": "Descriere",
     "specifications": "Specificații",

@@ -22,7 +22,8 @@
     "viewProfile": "Pogledaj Profil",
     "settings": "Podešavanja",
     "signIn": "Prijavi se",
-    "signOut": "Odjavi se"
+    "signOut": "Odjavi se",
+    "messages": "Poruke"
   },
   "listing": {
     "createListingTitle": "Kreiraj Oglas",
@@ -57,7 +58,17 @@
     "seller": "Prodavac",
     "listingInfo": "Info o Oglasu"
   },
+  "messages": {
+    "title": "Messages",
+    "loading": "Loading...",
+    "noConversations": "No conversations yet",
+    "selectConversation": "Select a conversation to start messaging",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "messageSeller": "Message Seller"
+  },
   "listingDetail": {
+    "messageSeller": "Message Seller",
     "backToListings": "Nazad na oglase",
     "description": "Opis",
     "specifications": "Specifikacije",

@@ -380,6 +380,26 @@ export default async function ListingDetailPage({ params }: Props) {
                         {t("contactSeller")}
                       </h3>
 
+                      <Link
+                        href={`/${locale}/messages?listing=${listing.id}&recipient=${listing.user_id}`}
+                        className="flex w-full items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-500"
+                      >
+                        <svg
+                          className="h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                          />
+                        </svg>
+                        {t("messageSeller")}
+                      </Link>
+
                       {listing.profiles?.show_email &&
                         listing.profiles?.email && (
                           <a

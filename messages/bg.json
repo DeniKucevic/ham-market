@@ -22,7 +22,8 @@
     "viewProfile": "Виж Профил",
     "settings": "Настройки",
     "signIn": "Вход",
-    "signOut": "Изход"
+    "signOut": "Изход",
+    "messages": "Съобщения"
   },
   "listing": {
     "createListingTitle": "Създай Обява",
@@ -57,7 +58,17 @@
     "seller": "Продавач",
     "listingInfo": "Инфо за Обявата"
   },
+  "messages": {
+    "title": "Messages",
+    "loading": "Loading...",
+    "noConversations": "No conversations yet",
+    "selectConversation": "Select a conversation to start messaging",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "messageSeller": "Message Seller"
+  },
   "listingDetail": {
+    "messageSeller": "Message Seller",
     "backToListings": "Обратно към обявите",
     "description": "Описание",
     "specifications": "Спецификации",

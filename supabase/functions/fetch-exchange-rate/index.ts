@@ -22,8 +22,6 @@ serve(async (req) => {
     const data = await response.json();
     const eurToRsd = data.rates.RSD;
 
-    console.log(`Fetched EUR to RSD rate: ${eurToRsd}`);
-
     // Update the rate in database
     const { error } = await supabaseClient.from("app_settings").upsert(
       {

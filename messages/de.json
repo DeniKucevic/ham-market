@@ -22,7 +22,8 @@
     "viewProfile": "Profil Ansehen",
     "settings": "Einstellungen",
     "signIn": "Anmelden",
-    "signOut": "Abmelden"
+    "signOut": "Abmelden",
+    "messages": "Nachrichten"
   },
   "listing": {
     "createListingTitle": "Anzeige Erstellen",
@@ -57,7 +58,17 @@
     "seller": "Verkäufer",
     "listingInfo": "Anzeigeninfo"
   },
+  "messages": {
+    "title": "Messages",
+    "loading": "Loading...",
+    "noConversations": "No conversations yet",
+    "selectConversation": "Select a conversation to start messaging",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "messageSeller": "Message Seller"
+  },
   "listingDetail": {
+    "messageSeller": "Message Seller",
     "backToListings": "Zurück zu den Anzeigen",
     "description": "Beschreibung",
     "specifications": "Spezifikationen",

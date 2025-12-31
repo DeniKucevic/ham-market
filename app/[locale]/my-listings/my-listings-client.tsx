@@ -228,12 +228,15 @@ export function MyListingsClient({
                       />
                     )}
 
-                    <Link
-                      href={`/${locale}/listings/${listing.id}/edit`}
-                      className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-                    >
-                      {tCommon("edit")}
-                    </Link>
+                    {listing.status === "active" && (
+                      <Link
+                        href={`/${locale}/listings/${listing.id}/edit`}
+                        className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                      >
+                        {tCommon("edit")}
+                      </Link>
+                    )}
+                    
                     <DeleteListingButton
                       listingId={listing.id}
                       listingTitle={listing.title}

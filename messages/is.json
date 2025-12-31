@@ -22,7 +22,8 @@
     "viewProfile": "Skoða Prófíl",
     "settings": "Stillingar",
     "signIn": "Skrá inn",
-    "signOut": "Skrá út"
+    "signOut": "Skrá út",
+    "messages": "Skilaboð"
   },
   "listing": {
     "createListingTitle": "Búa til Auglýsingu",
@@ -57,7 +58,17 @@
     "seller": "Seljandi",
     "listingInfo": "Upplýsingar um Auglýsingu"
   },
+  "messages": {
+    "title": "Messages",
+    "loading": "Loading...",
+    "noConversations": "No conversations yet",
+    "selectConversation": "Select a conversation to start messaging",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "messageSeller": "Message Seller"
+  },
   "listingDetail": {
+    "messageSeller": "Message Seller",
     "backToListings": "Til baka í auglýsingar",
     "description": "Lýsing",
     "specifications": "Forskriftir",
