@@ -165,8 +165,39 @@ export default async function ListingDetailPage({ params }: Props) {
     (c) => c.code === listing.profiles?.location_country
   );
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: listing.title,
+    description: listing.description,
+    image: listing.images[0],
+    category: listing.category,
+    brand: listing.manufacturer,
+    model: listing.model,
+    offers: {
+      "@type": "Offer",
+      price: listing.price,
+      priceCurrency: listing.currency,
+      availability:
+        listing.status === "active"
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      itemCondition: `https://schema.org/${
+        listing.condition === "new" ? "NewCondition" : "UsedCondition"
+      }`,
+      seller: {
+        "@type": "Person",
+        name: listing.profiles?.display_name || listing.profiles?.callsign,
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <IncrementViews listingId={listing.id} />
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
