@@ -7,13 +7,13 @@ export default async function HowItWorksPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("howItWorksPage");
+  const t = await getTranslations({ locale, namespace: "howItWorksPage" });
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
         {t("title")}
-      </h1>
+    </h1>
 
       <div className="mt-8 space-y-8">
         {/* For Sellers */}

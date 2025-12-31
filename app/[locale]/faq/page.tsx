@@ -1,7 +1,12 @@
 import { getTranslations } from "next-intl/server";
 
-export default async function FAQPage() {
-  const t = await getTranslations("faqPage");
+export default async function FAQPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "faqPage" });
 
   const faqs = [
     { q: "q1", a: "a1" },

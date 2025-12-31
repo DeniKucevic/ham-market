@@ -118,7 +118,7 @@ interface Props {
 
 export default async function HomePage({ params, searchParams }: Props) {
   const { locale } = await params;
-  const t = await getTranslations("browse");
+  const t = await getTranslations({ locale, namespace: "browse" });
   const searchParamsResolved = await searchParams;
 
   const page = parseInt(searchParamsResolved.page || "1");

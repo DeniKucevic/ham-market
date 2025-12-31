@@ -7,7 +7,7 @@ export default async function AboutPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("aboutPage");
+  const t = await getTranslations({ locale, namespace: "aboutPage" });
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -44,12 +44,12 @@ export default async function AboutPage({
         <p>
           <strong>{t("developer.github")}</strong>{" "}
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/DeniKucevic"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline dark:text-blue-400"
           >
-            github.com/yourusername
+            github.com/DeniKucevic
           </a>
         </p>
 

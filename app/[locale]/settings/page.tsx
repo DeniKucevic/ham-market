@@ -9,7 +9,7 @@ export default async function SettingsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("settings");
+  const t = await getTranslations({ locale, namespace: "settings" });
 
   const supabase = await createClient();
 

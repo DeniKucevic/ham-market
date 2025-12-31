@@ -9,7 +9,7 @@ interface Props {
 
 export default async function EditListingPage({ params }: Props) {
   const { id, locale } = await params;
-  const t = await getTranslations("listing");
+  const t = await getTranslations({ locale, namespace: "listing" });
 
   const supabase = await createClient();
 

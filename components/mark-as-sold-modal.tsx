@@ -39,12 +39,18 @@ export function MarkAsSoldModal({
 
     const searchProfiles = async () => {
       const supabase = createClient();
+
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
       const { data } = await supabase
         .from("profiles")
         .select("id, callsign, display_name")
         .or(
           `callsign.ilike.%${searchQuery}%,display_name.ilike.%${searchQuery}%`
         )
+        .neq("id", user?.id || "")
         .limit(10);
 
       setProfiles(data || []);

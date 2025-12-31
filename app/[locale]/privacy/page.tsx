@@ -1,7 +1,12 @@
 import { getTranslations } from "next-intl/server";
 
-export default async function PrivacyPage() {
-  const t = await getTranslations("privacyPage");
+export default async function PrivacyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "privacyPage" });
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">

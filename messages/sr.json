@@ -89,15 +89,17 @@
     "manageListings": "Upravljajte svojim oglasima"
   },
   "myPurchases": {
-    "noPurchases": "Još nema kupovina",
-    "itemsWillAppear": "Artikli koje kupite će se pojaviti ovde",
-    "browseListings": "Pretraži Oglase",
-    "all": "Sve",
-    "purchased": "Kupljeno",
-    "rateSeller": "Oceni Prodavca",
-    "view": "Pogledaj",
     "title": "Moje Kupovine",
-    "itemsYouBought": "Artikli koje ste kupili"
+    "itemsYouBought": "Predmeti koje ste kupili",
+    "noPurchases": "Nemate kupovina",
+    "startBrowsing": "Počnite pregledati oglase",
+    "browseListing": "Pregledaj Oglase",
+    "showing": "Prikazivanje",
+    "of": "od",
+    "purchases": "kupovina",
+    "soldBy": "Prodao",
+    "rateSeller": "Oceni Prodavca",
+    "viewDetails": "Pogledaj Detalje"
   },
   "auth": {
     "signInTitle": "Prijavite se na svoj nalog",

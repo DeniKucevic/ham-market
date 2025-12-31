@@ -26,7 +26,6 @@ export function RateUserButton({
   useEffect(() => {
     const checkRating = async () => {
       const supabase = createClient();
-
       const { data: existing } = await supabase
         .from("ratings")
         .select("id")
@@ -52,6 +51,12 @@ export function RateUserButton({
     checkRating();
   }, [listingId, ratedUserId, currentUserId]);
 
+  // Add callback to handle successful rating
+  const handleRatingSubmitted = () => {
+    setModalOpen(false);
+    setAlreadyRated(true); // Immediately update the state
+  };
+
   if (alreadyRated) {
     return (
       <span className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400">
@@ -68,13 +73,13 @@ export function RateUserButton({
       >
         {buttonText || t("button")}
       </button>
-
       <RateUserModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         listingId={listingId}
         ratedUserId={ratedUserId}
         ratedUserName={userName}
+        onRatingSubmitted={handleRatingSubmitted}
       />
     </>
   );

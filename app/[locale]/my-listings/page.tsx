@@ -11,7 +11,7 @@ export default async function MyListingsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations("myListings");
+  const t = await getTranslations({ locale, namespace: "myListings" });
 
   const supabase = await createClient();
 

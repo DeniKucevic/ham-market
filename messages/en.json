@@ -89,15 +89,17 @@
     "manageListings": "Manage your listings"
   },
   "myPurchases": {
-    "noPurchases": "No purchases yet",
-    "itemsWillAppear": "Items you buy will appear here",
-    "browseListings": "Browse Listings",
-    "all": "All",
-    "purchased": "Purchased",
-    "rateSeller": "Rate Seller",
-    "view": "View",
     "title": "My Purchases",
-    "itemsYouBought": "Items you have bought"
+    "itemsYouBought": "Items you have purchased",
+    "noPurchases": "No purchases yet",
+    "startBrowsing": "Start browsing listings",
+    "browseListing": "Browse Listings",
+    "showing": "Showing",
+    "of": "of",
+    "purchases": "purchases",
+    "soldBy": "Sold by",
+    "rateSeller": "Rate Seller",
+    "viewDetails": "View Details"
   },
   "auth": {
     "signInTitle": "Sign in to your account",
@@ -401,34 +403,6 @@
   },
   "price": {
     "free": "FREE"
-  },
-  "footer": {
-    "about": {
-      "title": "About",
-      "aboutUs": "About Us",
-      "howItWorks": "How It Works",
-      "contact": "Contact"
-    },
-    "help": {
-      "title": "Help & Support",
-      "faq": "FAQ",
-      "safetyTips": "Safety Tips",
-      "shippingGuide": "Shipping Guide"
-    },
-    "legal": {
-      "title": "Legal",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "guidelines": "Community Guidelines"
-    },
-    "developer": {
-      "title": "Developer",
-      "createdBy": "Created by",
-      "contact": "Contact Developer"
-    },
-    "copyright": "All rights reserved.",
-    "openSource": "This is an open-source project.",
-    "viewOnGitHub": "View on GitHub"
   },
   "footer": {
     "about": {

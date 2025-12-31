@@ -1,29 +1,32 @@
 "use client";
 
 import { ImagePlaceholder } from "@/components/image-placeholder";
+import { Pagination } from "@/components/pagination";
 import { RateUserButton } from "@/components/rate-user-button";
-import { MyListing } from "@/types/listing";
+import type { MyListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
 
 interface Props {
   purchases: MyListing[];
   userId: string;
   locale: string;
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
 }
 
-export function MyPurchasesClient({ purchases, userId, locale }: Props) {
+export function MyPurchasesClient({
+  purchases,
+  userId,
+  locale,
+  currentPage,
+  totalPages,
+  totalCount,
+}: Props) {
   const t = useTranslations("myPurchases");
-
-  const [filter, setFilter] = useState<"all" | "rated" | "not_rated">("all");
-
-  const filteredPurchases = useMemo(() => {
-    if (filter === "all") return purchases;
-    return purchases;
-  }, [purchases, filter]);
 
   if (!purchases || purchases.length === 0) {
     return (
@@ -32,13 +35,13 @@ export function MyPurchasesClient({ purchases, userId, locale }: Props) {
           {t("noPurchases")}
         </h3>
         <p className="mt-2 text-gray-600 dark:text-gray-400">
-          {t("itemsWillAppear")}
+          {t("startBrowsing")}
         </p>
         <Link
           href={`/${locale}`}
           className="mt-4 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500"
         >
-          {t("browseListings")}
+          {t("browseListing")}
         </Link>
       </div>
     );
@@ -46,25 +49,17 @@ export function MyPurchasesClient({ purchases, userId, locale }: Props) {
 
   return (
     <div>
-      {/* Filter tabs */}
-      <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
-        <nav className="-mb-px flex gap-6">
-          <button
-            onClick={() => setFilter("all")}
-            className={`border-b-2 px-1 py-3 text-sm font-medium ${
-              filter === "all"
-                ? "border-blue-500 text-blue-600 dark:text-blue-400"
-                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-            }`}
-          >
-            {t("all")} ({purchases.length})
-          </button>
-        </nav>
+      {/* Header */}
+      <div className="mb-6">
+        <p className="text-gray-600 dark:text-gray-400">
+          {t("showing")} {purchases.length} {t("of")} {totalCount}{" "}
+          {t("purchases")}
+        </p>
       </div>
 
-      {/* Purchases */}
+      {/* Purchases List */}
       <div className="space-y-4">
-        {filteredPurchases.map((purchase) => (
+        {purchases.map((purchase) => (
           <div
             key={purchase.id}
             className="flex gap-4 overflow-hidden rounded-lg bg-white p-4 shadow dark:bg-gray-800"
@@ -79,13 +74,13 @@ export function MyPurchasesClient({ purchases, userId, locale }: Props) {
                   <Image
                     src={purchase.images[0]}
                     alt={purchase.title}
-                    width={400}
-                    height={300}
-                    className="h-48 w-full object-cover"
+                    width={96}
+                    height={96}
+                    className="h-full w-full object-cover"
                     unoptimized
                   />
                 ) : (
-                  <ImagePlaceholder size="lg" />
+                  <ImagePlaceholder size="sm" />
                 )}
               </div>
             </Link>
@@ -100,14 +95,17 @@ export function MyPurchasesClient({ purchases, userId, locale }: Props) {
                   {purchase.title}
                 </Link>
                 <div className="mt-1 flex items-center gap-2">
-                  <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-                    {purchase.category.replace(/_/g, " ")}
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                    {purchase.condition.replace(/_/g, " ")}
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">
-                    {t("purchased")}
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    {t("soldBy")}{" "}
+                    <Link
+                      href={`/${locale}/profile/${
+                        purchase.profiles?.callsign || purchase.user_id
+                      }`}
+                      className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+                    >
+                      {purchase.profiles?.display_name ||
+                        purchase.profiles?.callsign}
+                    </Link>
                   </span>
                 </div>
               </div>
@@ -117,19 +115,20 @@ export function MyPurchasesClient({ purchases, userId, locale }: Props) {
                   {formatPrice(purchase.price, purchase.currency || "EUR")}
                 </p>
                 <div className="flex gap-2">
-                  {/* Rate Seller button */}
-                  <RateUserButton
-                    listingId={purchase.id}
-                    ratedUserId={purchase.user_id}
-                    currentUserId={userId}
-                    buttonText={t("rateSeller")}
-                  />
-
+                  {/* Rate Seller Button */}
+                  {purchase.status === "sold" && purchase.user_id && (
+                    <RateUserButton
+                      listingId={purchase.id}
+                      ratedUserId={purchase.user_id} // Rating the seller
+                      currentUserId={userId}
+                      buttonText={t("rateSeller")}
+                    />
+                  )}
                   <Link
                     href={`/${locale}/listings/${purchase.id}`}
-                    className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                    className="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-500"
                   >
-                    {t("view")}
+                    {t("viewDetails")}
                   </Link>
                 </div>
               </div>
@@ -137,6 +136,13 @@ export function MyPurchasesClient({ purchases, userId, locale }: Props) {
           </div>
         ))}
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-8">
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
+        </div>
+      )}
     </div>
   );
 }

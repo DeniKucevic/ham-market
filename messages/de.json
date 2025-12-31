@@ -89,15 +89,17 @@
     "manageListings": "Verwalten Sie Ihre Anzeigen"
   },
   "myPurchases": {
-    "noPurchases": "Noch keine Käufe",
-    "itemsWillAppear": "Artikel, die Sie kaufen, werden hier angezeigt",
-    "browseListings": "Anzeigen Durchsuchen",
-    "all": "Alle",
-    "purchased": "Gekauft",
-    "rateSeller": "Verkäufer Bewerten",
-    "view": "Ansehen",
     "title": "Meine Käufe",
-    "itemsYouBought": "Artikel, die Sie gekauft haben"
+    "itemsYouBought": "Von Ihnen gekaufte Artikel",
+    "noPurchases": "Noch keine Käufe",
+    "startBrowsing": "Angebote durchsuchen",
+    "browseListing": "Angebote durchsuchen",
+    "showing": "Zeige",
+    "of": "von",
+    "purchases": "Käufe",
+    "soldBy": "Verkauft von",
+    "rateSeller": "Verkäufer bewerten",
+    "viewDetails": "Details anzeigen"
   },
   "auth": {
     "signInTitle": "Melden Sie sich bei Ihrem Konto an",

@@ -120,7 +120,7 @@ interface Props {
 
 export default async function ListingDetailPage({ params }: Props) {
   const { id, locale } = await params;
-  const t = await getTranslations("listingDetail");
+  const t = await getTranslations({ locale, namespace: "listingDetail" });
   const supabase = await createClient();
 
   const {
@@ -536,8 +536,15 @@ export default async function ListingDetailPage({ params }: Props) {
                   </dt>
                   <dd className="text-gray-900 dark:text-white">
                     {listing.created_at
-                      ? new Date(listing.created_at).toLocaleDateString()
-                      : "Unknown"}
+                      ? new Date(listing.created_at).toLocaleDateString(
+                          locale,
+                          {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          }
+                        )
+                      : t("unknown")}
                   </dd>
                 </div>
                 <div className="flex justify-between">

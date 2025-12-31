@@ -11,7 +11,7 @@ export default async function NewListingPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations("listing");
-  const tCommon = await getTranslations("common");
+  const tCommon = await getTranslations({ locale, namespace: "common" });
 
   const supabase = await createClient();
 

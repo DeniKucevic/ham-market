@@ -1,7 +1,12 @@
 import { getTranslations } from "next-intl/server";
 
-export default async function SafetyTipsPage() {
-  const t = await getTranslations("safetyTipsPage");
+export default async function SafetyTipsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "safetyTipsPage" });
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">

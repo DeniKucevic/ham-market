@@ -89,15 +89,17 @@
     "manageListings": "Stjórna auglýsingunum þínum"
   },
   "myPurchases": {
+    "title": "Kaupin Mín",
+    "itemsYouBought": "Hlutir sem þú hefur keypt",
     "noPurchases": "Engin kaup enn",
-    "itemsWillAppear": "Hlutir sem þú kaupir munu birtast hér",
-    "browseListings": "Skoða Auglýsingar",
-    "all": "Allt",
-    "purchased": "Keypt",
+    "startBrowsing": "Byrjaðu að skoða auglýsingar",
+    "browseListing": "Skoða Auglýsingar",
+    "showing": "Sýni",
+    "of": "af",
+    "purchases": "kaup",
+    "soldBy": "Selt af",
     "rateSeller": "Gefa Seljanda Einkunn",
-    "view": "Skoða",
-    "title": "Mín Kaup",
-    "itemsYouBought": "Hlutir sem þú hefur keypt"
+    "viewDetails": "Skoða Nánar"
   },
   "auth": {
     "signInTitle": "Skráðu þig inn á reikninginn þinn",

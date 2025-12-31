@@ -11,6 +11,7 @@ interface Props {
   listingId: string;
   ratedUserId: string;
   ratedUserName: string;
+  onRatingSubmitted: () => void;
 }
 
 export function RateUserModal({
@@ -19,6 +20,7 @@ export function RateUserModal({
   listingId,
   ratedUserId,
   ratedUserName,
+  onRatingSubmitted,
 }: Props) {
   const t = useTranslations("rateUser");
   const router = useRouter();
@@ -31,47 +33,31 @@ export function RateUserModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (rating === 0) return;
+    if (!rating) return;
 
     setLoading(true);
-
     try {
       const supabase = createClient();
       const {
         data: { user },
       } = await supabase.auth.getUser();
 
-      if (!user) {
-        alert(t("mustBeSignedIn"));
-        return;
-      }
+      if (!user) return;
 
       const { error } = await supabase.from("ratings").insert({
         listing_id: listingId,
-        rated_user_id: ratedUserId,
         rater_user_id: user.id,
-        rating,
-        comment: comment || null,
+        rated_user_id: ratedUserId,
+        rating: rating,
+        comment: comment.trim() || null,
       });
 
       if (error) throw error;
 
-      alert(t("successMessage"));
-      onClose();
-      router.refresh();
+      onRatingSubmitted(); // Call the callback instead of just onClose()
     } catch (error) {
       console.error("Rating error:", error);
-      const isDuplicateError = (err: unknown): err is { code: string } =>
-        err !== null &&
-        typeof err === "object" &&
-        "code" in err &&
-        err.code === "23505";
-
-      if (isDuplicateError(error)) {
-        alert(t("alreadyRatedError"));
-      } else {
-        alert(t("errorMessage"));
-      }
+      alert("Failed to submit rating");
     } finally {
       setLoading(false);
     }
@@ -88,7 +74,7 @@ export function RateUserModal({
         <div className="relative w-full max-w-md transform overflow-hidden rounded-lg bg-white p-6 shadow-xl transition-all dark:bg-gray-800">
           <div className="mb-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {t("title").replace("{name}", ratedUserName)}
+              {t("title", { name: ratedUserName })}{" "}
             </h3>
           </div>
 

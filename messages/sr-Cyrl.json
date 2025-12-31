@@ -89,15 +89,17 @@
     "manageListings": "Управљајте својим огласима"
   },
   "myPurchases": {
-    "noPurchases": "Још нема куповина",
-    "itemsWillAppear": "Артикли које купите ће се појавити овде",
-    "browseListings": "Претражи Огласе",
-    "all": "Све",
-    "purchased": "Купљено",
-    "rateSeller": "Оцени Продавца",
-    "view": "Погледај",
     "title": "Моје Куповине",
-    "itemsYouBought": "Артикли које сте купили"
+    "itemsYouBought": "Предмети које сте купили",
+    "noPurchases": "Немате куповина",
+    "startBrowsing": "Почните прегледати огласе",
+    "browseListing": "Прегледај Огласе",
+    "showing": "Приказивање",
+    "of": "од",
+    "purchases": "куповина",
+    "soldBy": "Продао",
+    "rateSeller": "Оцени Продавца",
+    "viewDetails": "Погледај Детаље"
   },
   "auth": {
     "signInTitle": "Пријавите се на свој налог",

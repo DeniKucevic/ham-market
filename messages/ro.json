@@ -89,15 +89,17 @@
     "manageListings": "Gestionează anunțurile tale"
   },
   "myPurchases": {
-    "noPurchases": "Încă nu ai achiziții",
-    "itemsWillAppear": "Articolele pe care le cumperi vor apărea aici",
-    "browseListings": "Răsfoiește Anunțuri",
-    "all": "Toate",
-    "purchased": "Cumpărate",
+    "title": "Achiziţiile Mele",
+    "itemsYouBought": "Articole pe care le-ai cumpărat",
+    "noPurchases": "Nu ai achiziții încă",
+    "startBrowsing": "Începe să răsfoiești anunțuri",
+    "browseListing": "Răsfoiește Anunțuri",
+    "showing": "Se afișează",
+    "of": "din",
+    "purchases": "achiziții",
+    "soldBy": "Vândut de",
     "rateSeller": "Evaluează Vânzătorul",
-    "view": "Vezi",
-    "title": "Achizițiile Mele",
-    "itemsYouBought": "Articole pe care le-ai cumpărat"
+    "viewDetails": "Vezi Detalii"
   },
   "auth": {
     "signInTitle": "Autentifică-te în contul tău",

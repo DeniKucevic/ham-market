@@ -4,16 +4,26 @@ import type { MyListing } from "@/types/listing";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
-export default async function MyPurchasesPage({
-  params,
-}: {
+const ITEMS_PER_PAGE = 12;
+
+interface SearchParams {
+  page?: string;
+}
+
+interface Props {
   params: Promise<{ locale: string }>;
-}) {
+  searchParams: Promise<SearchParams>;
+}
+
+export default async function MyPurchasesPage({ params, searchParams }: Props) {
   const { locale } = await params;
-  const t = await getTranslations("myPurchases");
+  const searchParamsResolved = await searchParams;
+  const t = await getTranslations({ locale, namespace: "myPurchases" });
+
+  const page = parseInt(searchParamsResolved.page || "1");
+  const offset = (page - 1) * ITEMS_PER_PAGE;
 
   const supabase = await createClient();
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -28,8 +38,8 @@ export default async function MyPurchasesPage({
     .eq("id", user.id)
     .single();
 
-  // Fetch items user BOUGHT
-  const { data: purchases } = await supabase
+  // Fetch items user BOUGHT with pagination
+  const query = supabase
     .from("listings")
     .select(
       `
@@ -40,10 +50,19 @@ export default async function MyPurchasesPage({
         location_city,
         location_country
       )
-    `
+    `,
+      { count: "exact" }
     )
     .eq("sold_to", user.id)
     .order("created_at", { ascending: false });
+
+  const { count } = await query;
+  const { data: purchases } = await query.range(
+    offset,
+    offset + ITEMS_PER_PAGE - 1
+  );
+
+  const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -56,11 +75,13 @@ export default async function MyPurchasesPage({
             {t("itemsYouBought")}
           </p>
         </div>
-
         <MyPurchasesClient
           purchases={purchases as MyListing[]}
           userId={user.id}
           locale={locale}
+          currentPage={page}
+          totalPages={totalPages}
+          totalCount={count || 0}
         />
       </main>
     </div>

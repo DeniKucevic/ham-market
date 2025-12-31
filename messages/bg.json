@@ -89,15 +89,17 @@
     "manageListings": "Управлявайте обявите си"
   },
   "myPurchases": {
-    "noPurchases": "Все още няма покупки",
-    "itemsWillAppear": "Артиклите, които купите, ще се появят тук",
-    "browseListings": "Разгледай Обяви",
-    "all": "Всички",
-    "purchased": "Закупено",
-    "rateSeller": "Оценете Продавача",
-    "view": "Виж",
     "title": "Моите Покупки",
-    "itemsYouBought": "Артикли, които сте закупили"
+    "itemsYouBought": "Артикули, които сте закупили",
+    "noPurchases": "Все още няма покупки",
+    "startBrowsing": "Започнете да разглеждате обяви",
+    "browseListing": "Разглеждане на Обяви",
+    "showing": "Показване",
+    "of": "от",
+    "purchases": "покупки",
+    "soldBy": "Продадено от",
+    "rateSeller": "Оценете Продавача",
+    "viewDetails": "Виж Детайли"
   },
   "auth": {
     "signInTitle": "Влезте в акаунта си",
