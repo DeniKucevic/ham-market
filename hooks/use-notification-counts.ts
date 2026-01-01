@@ -13,6 +13,8 @@ type RealtimeMessage = {
 export function useNotificationCounts(userId: string | undefined) {
   const [counts, setCounts] = useState({
     unreadMessages: 0,
+    unratedSales: 0,
+    unratedPurchases: 0,
   });
 
   const fetchCounts = async () => {
@@ -20,19 +22,74 @@ export function useNotificationCounts(userId: string | undefined) {
 
     const supabase = createClient();
 
+    // Fetch unread messages count
     const { count: unreadMessages } = await supabase
       .from("messages")
       .select("*", { count: "exact", head: true })
       .eq("recipient_id", userId)
       .eq("read", false);
 
+    // Fetch unrated sales (items you sold - buyer needs rating)
+    const { data: soldListings } = await supabase
+      .from("listings")
+      .select("id, sold_to")
+      .eq("user_id", userId)
+      .eq("status", "sold")
+      .not("sold_to", "is", null);
+
+    let unratedSalesCount = 0;
+    if (soldListings) {
+      for (const listing of soldListings) {
+        const { count } = await supabase
+          .from("ratings")
+          .select("*", { count: "exact", head: true })
+          .eq("listing_id", listing.id)
+          .eq("rater_user_id", userId)
+          .eq("rated_user_id", listing.sold_to!)
+          .limit(1);
+
+        if (!count || count === 0) {
+          unratedSalesCount++;
+        }
+      }
+    }
+
+    // Fetch unrated purchases (items you bought - seller needs rating)
+    const { data: boughtListings } = await supabase
+      .from("listings")
+      .select("id, user_id")
+      .eq("sold_to", userId)
+      .eq("status", "sold");
+
+    let unratedPurchasesCount = 0;
+    if (boughtListings) {
+      for (const listing of boughtListings) {
+        const { count } = await supabase
+          .from("ratings")
+          .select("*", { count: "exact", head: true })
+          .eq("listing_id", listing.id)
+          .eq("rater_user_id", userId)
+          .eq("rated_user_id", listing.user_id)
+          .limit(1);
+
+        if (!count || count === 0) {
+          unratedPurchasesCount++;
+        }
+      }
+    }
+
     setCounts({
       unreadMessages: unreadMessages || 0,
+      unratedSales: unratedSalesCount,
+      unratedPurchases: unratedPurchasesCount,
     });
 
+    // Update app badge with total
+    const total =
+      (unreadMessages || 0) + unratedSalesCount + unratedPurchasesCount;
     if ("setAppBadge" in navigator) {
-      if (unreadMessages && unreadMessages > 0) {
-        navigator.setAppBadge(unreadMessages);
+      if (total > 0) {
+        navigator.setAppBadge(total);
       } else {
         navigator.clearAppBadge();
       }
