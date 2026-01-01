@@ -55,9 +55,10 @@ export function MessagesClient({
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
+  const [showConversationList, setShowConversationList] = useState(true); // Mobile view toggle
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const messagesContainerRef = useRef<HTMLDivElement>(null); // Add this
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (messagesContainerRef.current) {
@@ -71,7 +72,6 @@ export function MessagesClient({
     const fetchConversations = async () => {
       const supabase = createClient();
 
-      // Get all messages where user is sender or recipient
       const { data: allMessages } = await supabase
         .from("messages")
         .select(
@@ -90,7 +90,6 @@ export function MessagesClient({
         return;
       }
 
-      // Group by listing + other user
       const convMap = new Map<string, Conversation>();
 
       for (const msg of allMessages) {
@@ -145,14 +144,7 @@ export function MessagesClient({
 
       setMessages(data || []);
 
-      // Check which messages should be marked as read
-      const unreadMessages = data?.filter(
-        (m) =>
-          m.sender_id === otherUserId && m.recipient_id === userId && !m.read
-      );
-
-      // Mark messages as read
-      const { data: updated, error } = await supabase
+      const { data: updated } = await supabase
         .from("messages")
         .update({ read: true })
         .eq("listing_id", listingId)
@@ -161,7 +153,6 @@ export function MessagesClient({
         .eq("read", false)
         .select();
 
-      // Trigger a refetch of notification counts
       if (updated && updated.length > 0) {
         window.dispatchEvent(new CustomEvent("messages-read"));
       }
@@ -169,7 +160,6 @@ export function MessagesClient({
 
     fetchMessages();
 
-    // Subscribe to real-time updates
     const supabase = createClient();
     const channel = supabase
       .channel(`messages-${listingId}-${otherUserId}`)
@@ -183,19 +173,16 @@ export function MessagesClient({
         },
         (payload) => {
           const newMsg = payload.new as Message;
-          // Only add if it's part of this conversation
           if (
             (newMsg.sender_id === userId &&
               newMsg.recipient_id === otherUserId) ||
             (newMsg.sender_id === otherUserId && newMsg.recipient_id === userId)
           ) {
             setMessages((prev) => {
-              // Avoid duplicates
               if (prev.find((m) => m.id === newMsg.id)) return prev;
               return [...prev, newMsg];
             });
 
-            // Update the conversation list with new last message
             setConversations((prevConvs) => {
               return prevConvs
                 .map((conv) => {
@@ -206,7 +193,6 @@ export function MessagesClient({
                     return {
                       ...conv,
                       last_message: newMsg,
-                      // Increment unread count if it's from the other user and you're not viewing it
                       unread_count:
                         newMsg.sender_id === otherUserId
                           ? conv.unread_count + 1
@@ -216,7 +202,6 @@ export function MessagesClient({
                   return conv;
                 })
                 .sort((a, b) => {
-                  // Sort by last message time (newest first)
                   const aTime = new Date(
                     a.last_message.created_at || 0
                   ).getTime();
@@ -227,14 +212,12 @@ export function MessagesClient({
                 });
             });
 
-            // Mark as read if you're the recipient and conversation is selected
             if (newMsg.recipient_id === userId) {
               supabase
                 .from("messages")
                 .update({ read: true })
                 .eq("id", newMsg.id);
 
-              // Update conversation to mark unread count as 0 since we're viewing it
               setConversations((prevConvs) => {
                 return prevConvs.map((conv) => {
                   if (
@@ -277,12 +260,16 @@ export function MessagesClient({
       .single();
 
     if (data && !error) {
-      // Add the message to the UI immediately
       setMessages((prev) => [...prev, data as Message]);
     }
 
     setNewMessage("");
     setSending(false);
+  };
+
+  const handleBackToConversations = () => {
+    setShowConversationList(true);
+    setSelectedConversation(null);
   };
 
   if (loading) {
@@ -291,8 +278,12 @@ export function MessagesClient({
 
   return (
     <div className="grid h-[calc(100vh-200px)] grid-cols-1 gap-4 overflow-hidden rounded-lg bg-white shadow dark:bg-gray-800 md:grid-cols-3">
-      {/* Conversations List */}
-      <div className="border-r border-gray-200 dark:border-gray-700 md:col-span-1">
+      {/* Conversations List - Hidden on mobile when conversation selected */}
+      <div
+        className={`${
+          showConversationList ? "block" : "hidden"
+        } border-r border-gray-200 dark:border-gray-700 md:col-span-1 md:block`}
+      >
         <div className="h-full overflow-y-auto">
           {conversations.length === 0 ? (
             <div className="p-4 text-center text-gray-500 dark:text-gray-400">
@@ -302,11 +293,15 @@ export function MessagesClient({
             conversations.map((conv) => (
               <button
                 key={`${conv.listing_id}-${conv.other_user_id}`}
-                onClick={() =>
+                onClick={() => {
                   setSelectedConversation(
                     `${conv.listing_id}|${conv.other_user_id}`
-                  )
-                }
+                  );
+                  // Hide list on mobile when selecting conversation
+                  if (window.innerWidth < 768) {
+                    setShowConversationList(false);
+                  }
+                }}
                 className={`w-full border-b border-gray-200 p-4 text-left hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700 ${
                   selectedConversation ===
                   `${conv.listing_id}|${conv.other_user_id}`
@@ -327,7 +322,7 @@ export function MessagesClient({
                     </p>
                   </div>
                   {conv.unread_count > 0 && (
-                    <span className="ml-2 flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
+                    <span className="ml-2 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
                       {conv.unread_count}
                     </span>
                   )}
@@ -338,14 +333,59 @@ export function MessagesClient({
         </div>
       </div>
 
-      {/* Messages Thread */}
-      <div className="flex flex-col md:col-span-2 min-h-0">
+      {/* Messages Thread - Show on mobile when conversation selected */}
+      <div
+        className={`${
+          showConversationList ? "hidden" : "flex"
+        } min-h-0 flex-col md:col-span-2 md:flex`}
+      >
         {selectedConversation ? (
           <>
+            {/* Header with back button on mobile */}
+            <div className="flex items-center border-b border-gray-200 p-4 dark:border-gray-700 md:hidden">
+              <button
+                onClick={handleBackToConversations}
+                className="mr-3 text-blue-600 dark:text-blue-400"
+              >
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+              <div className="flex-1">
+                {(() => {
+                  const conv = conversations.find(
+                    (c) =>
+                      `${c.listing_id}|${c.other_user_id}` ===
+                      selectedConversation
+                  );
+                  return (
+                    <>
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {getDisplayName(conv?.other_user, "User")}
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {conv?.listing?.title || "Listing"}
+                      </p>
+                    </>
+                  );
+                })()}
+              </div>
+            </div>
+
             {/* Messages */}
             <div
               ref={messagesContainerRef}
-              className="flex-1 overflow-y-auto p-4 min-h-0"
+              className="min-h-0 flex-1 overflow-y-auto p-4"
             >
               <div className="space-y-4">
                 {messages.map((msg) => (
@@ -356,13 +396,13 @@ export function MessagesClient({
                     }`}
                   >
                     <div
-                      className={`max-w-xs rounded-lg px-4 py-2 ${
+                      className={`max-w-[85%] rounded-lg px-4 py-2 md:max-w-xs ${
                         msg.sender_id === userId
                           ? "bg-blue-600 text-white"
                           : "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
                       }`}
                     >
-                      <p>{msg.content}</p>
+                      <p className="break-words">{msg.content}</p>
                       <p
                         className={`mt-1 text-xs ${
                           msg.sender_id === userId
@@ -379,12 +419,11 @@ export function MessagesClient({
                     </div>
                   </div>
                 ))}
-                {/* Invisible div for auto-scroll */}
                 <div ref={messagesEndRef} />
               </div>
             </div>
 
-            {/* Message Input - Add flex-shrink-0 to prevent it from shrinking */}
+            {/* Message Input */}
             <form
               onSubmit={handleSendMessage}
               className="flex-shrink-0 border-t border-gray-200 p-4 dark:border-gray-700"
