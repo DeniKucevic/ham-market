@@ -2,6 +2,7 @@ import { CopyIdButton } from "@/components/copy-id-button";
 import { DeleteListingButton } from "@/components/delete-listing-button";
 import { IncrementViews } from "@/components/increment-views";
 import { ListingImageGallery } from "@/components/listing-image-gallery";
+import { PhoneContact } from "@/components/phone-contact";
 import { ReportListingButton } from "@/components/report-listing-button";
 import { ShareListingButton } from "@/components/share-listing-button";
 import { getCountries } from "@/lib/countries";
@@ -425,25 +426,7 @@ export default async function ListingDetailPage({ params }: Props) {
 
                       {listing.profiles?.show_phone &&
                         listing.profiles?.phone && (
-                          <a
-                            href={`tel:${listing.profiles.phone}`}
-                            className="flex items-center gap-2 text-sm text-blue-600 hover:underline dark:text-blue-400"
-                          >
-                            <svg
-                              className="h-4 w-4"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                              />
-                            </svg>
-                            {listing.profiles.phone}
-                          </a>
+                          <PhoneContact phone={listing.profiles.phone} />
                         )}
 
                       {!listing.profiles?.show_email &&

@@ -3,6 +3,8 @@
 import { ImagePlaceholder } from "@/components/image-placeholder";
 import { Pagination } from "@/components/pagination";
 import { RateUserButton } from "@/components/rate-user-button";
+import { ViewToggle } from "@/components/view-toggle";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import type { MyListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
 import { useTranslations } from "next-intl";
@@ -27,6 +29,10 @@ export function MyPurchasesClient({
   totalCount,
 }: Props) {
   const t = useTranslations("myPurchases");
+  const [viewMode, setViewMode, viewMounted] = useLocalStorage<"grid" | "list">(
+    "purchases-view-mode",
+    "list"
+  );
 
   if (!purchases || purchases.length === 0) {
     return (
@@ -49,93 +55,167 @@ export function MyPurchasesClient({
 
   return (
     <div>
-      {/* Header */}
-      <div className="mb-6">
+      {/* Header with View Toggle */}
+      <div className="mb-6 flex items-center justify-between">
         <p className="text-gray-600 dark:text-gray-400">
           {t("showing")} {purchases.length} {t("of")} {totalCount}{" "}
           {t("purchases")}
         </p>
+        {viewMounted && <ViewToggle value={viewMode} onChange={setViewMode} />}
       </div>
 
-      {/* Purchases List */}
-      <div className="space-y-4">
-        {purchases.map((purchase) => (
-          <div
-            key={purchase.id}
-            className="flex gap-4 overflow-hidden rounded-lg bg-white p-4 shadow dark:bg-gray-800"
-          >
-            {/* Image */}
-            <Link
-              href={`/${locale}/listings/${purchase.id}`}
-              className="flex-shrink-0"
+      {/* List View */}
+      {viewMounted && viewMode === "list" && (
+        <div className="space-y-4">
+          {purchases.map((purchase) => (
+            <div
+              key={purchase.id}
+              className="flex gap-4 overflow-hidden rounded-lg bg-white p-4 shadow dark:bg-gray-800"
             >
-              <div className="h-24 w-24 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
-                {purchase.images && purchase.images.length > 0 ? (
-                  <Image
-                    src={purchase.images[0]}
-                    alt={purchase.title}
-                    width={96}
-                    height={96}
-                    className="h-full w-full object-cover"
-                    unoptimized
-                  />
-                ) : (
-                  <ImagePlaceholder size="sm" />
-                )}
-              </div>
-            </Link>
+              {/* Image */}
+              <Link
+                href={`/${locale}/listings/${purchase.id}`}
+                className="flex-shrink-0"
+              >
+                <div className="h-24 w-24 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
+                  {purchase.images && purchase.images.length > 0 ? (
+                    <Image
+                      src={purchase.images[0]}
+                      alt={purchase.title}
+                      width={96}
+                      height={96}
+                      className="h-full w-full object-cover"
+                      unoptimized
+                    />
+                  ) : (
+                    <ImagePlaceholder size="sm" />
+                  )}
+                </div>
+              </Link>
 
-            {/* Content */}
-            <div className="flex flex-1 flex-col justify-between">
-              <div>
+              {/* Content */}
+              <div className="flex flex-1 flex-col justify-between">
+                <div>
+                  <Link
+                    href={`/${locale}/listings/${purchase.id}`}
+                    className="text-lg font-semibold text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                  >
+                    {purchase.title}
+                  </Link>
+                  <div className="mt-1 flex items-center gap-2">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      {t("soldBy")}{" "}
+                      <Link
+                        href={`/${locale}/profile/${
+                          purchase.profiles?.callsign || purchase.user_id
+                        }`}
+                        className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+                      >
+                        {purchase.profiles?.display_name ||
+                          purchase.profiles?.callsign}
+                      </Link>
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-2 flex items-center justify-between">
+                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                    {formatPrice(purchase.price, purchase.currency || "EUR")}
+                  </p>
+                  <div className="flex gap-2">
+                    {purchase.status === "sold" && purchase.user_id && (
+                      <RateUserButton
+                        listingId={purchase.id}
+                        ratedUserId={purchase.user_id}
+                        currentUserId={userId}
+                        buttonText={t("rateSeller")}
+                      />
+                    )}
+                    <Link
+                      href={`/${locale}/listings/${purchase.id}`}
+                      className="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-500"
+                    >
+                      {t("viewDetails")}
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Grid View */}
+      {viewMounted && viewMode === "grid" && (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {purchases.map((purchase) => (
+            <div
+              key={purchase.id}
+              className="overflow-hidden rounded-lg bg-white shadow dark:bg-gray-800"
+            >
+              <Link href={`/${locale}/listings/${purchase.id}`}>
+                <div className="aspect-square w-full overflow-hidden bg-gray-100 dark:bg-gray-700">
+                  {purchase.images && purchase.images.length > 0 ? (
+                    <Image
+                      src={purchase.images[0]}
+                      alt={purchase.title}
+                      width={400}
+                      height={400}
+                      className="h-full w-full object-cover transition-transform hover:scale-105"
+                      unoptimized
+                    />
+                  ) : (
+                    <ImagePlaceholder size="lg" />
+                  )}
+                </div>
+              </Link>
+
+              <div className="p-4">
                 <Link
                   href={`/${locale}/listings/${purchase.id}`}
-                  className="text-lg font-semibold text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                  className="line-clamp-2 text-lg font-semibold text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
                 >
                   {purchase.title}
                 </Link>
-                <div className="mt-1 flex items-center gap-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">
-                    {t("soldBy")}{" "}
-                    <Link
-                      href={`/${locale}/profile/${
-                        purchase.profiles?.callsign || purchase.user_id
-                      }`}
-                      className="font-medium text-blue-600 hover:underline dark:text-blue-400"
-                    >
-                      {purchase.profiles?.display_name ||
-                        purchase.profiles?.callsign}
-                    </Link>
-                  </span>
-                </div>
-              </div>
 
-              <div className="mt-2 flex items-center justify-between">
-                <p className="text-lg font-bold text-gray-900 dark:text-white">
+                <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  {t("soldBy")}{" "}
+                  <Link
+                    href={`/${locale}/profile/${
+                      purchase.profiles?.callsign || purchase.user_id
+                    }`}
+                    className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+                  >
+                    {purchase.profiles?.display_name ||
+                      purchase.profiles?.callsign}
+                  </Link>
+                </div>
+
+                <p className="mt-3 text-xl font-bold text-gray-900 dark:text-white">
                   {formatPrice(purchase.price, purchase.currency || "EUR")}
                 </p>
-                <div className="flex gap-2">
-                  {/* Rate Seller Button */}
+
+                <div className="mt-4 flex flex-col gap-2">
                   {purchase.status === "sold" && purchase.user_id && (
                     <RateUserButton
                       listingId={purchase.id}
-                      ratedUserId={purchase.user_id} // Rating the seller
+                      ratedUserId={purchase.user_id}
                       currentUserId={userId}
                       buttonText={t("rateSeller")}
                     />
                   )}
                   <Link
                     href={`/${locale}/listings/${purchase.id}`}
-                    className="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-500"
+                    className="block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-500"
                   >
                     {t("viewDetails")}
                   </Link>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Pagination */}
       {totalPages > 1 && (

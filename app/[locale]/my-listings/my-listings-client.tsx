@@ -6,6 +6,8 @@ import { ImagePlaceholder } from "@/components/image-placeholder";
 import { MarkAsSoldButton } from "@/components/mark-as-sold-button";
 import { Pagination } from "@/components/pagination";
 import { RateUserButton } from "@/components/rate-user-button";
+import { ViewToggle } from "@/components/view-toggle";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 import { createClient } from "@/lib/supabase/client";
 import { BrowseListing, MyListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
@@ -37,6 +39,10 @@ export function MyListingsClient({
   const tCommon = useTranslations("common");
 
   const [filter, setFilter] = useState<"all" | "active" | "sold">("all");
+  const [viewMode, setViewMode, viewMounted] = useLocalStorage<"grid" | "list">(
+    "my-listings-view-mode",
+    "list"
+  );
 
   // Delete modal state
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -66,7 +72,6 @@ export function MyListingsClient({
     try {
       const supabase = createClient();
 
-      // Delete images from storage first
       if (listingToDelete.images && listingToDelete.images.length > 0) {
         for (const imageUrl of listingToDelete.images) {
           const urlParts = imageUrl.split("/listing-images/");
@@ -77,7 +82,6 @@ export function MyListingsClient({
         }
       }
 
-      // Delete listing from database
       const { error } = await supabase
         .from("listings")
         .delete()
@@ -119,12 +123,17 @@ export function MyListingsClient({
   return (
     <>
       <div>
-        <div className="mb-6">
+        {/* Header */}
+        <div className="mb-6 flex items-center justify-between">
           <p className="text-gray-600 dark:text-gray-400">
             {t("showing")} {safeListings.length} {t("of")} {totalCount}{" "}
             {t("listings")}
           </p>
+          {viewMounted && (
+            <ViewToggle value={viewMode} onChange={setViewMode} />
+          )}
         </div>
+
         {/* Filter tabs */}
         <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
           <nav className="-mb-px flex gap-6">
@@ -161,44 +170,127 @@ export function MyListingsClient({
           </nav>
         </div>
 
-        {/* Listings */}
-        <div className="space-y-4">
-          {filteredListings.map((listing) => (
-            <div
-              key={listing.id}
-              className="flex gap-4 overflow-hidden rounded-lg bg-white p-4 shadow dark:bg-gray-800"
-            >
-              {/* Image */}
-              <Link
-                href={`/${locale}/listings/${listing.id}`}
-                className="flex-shrink-0"
+        {/* List View */}
+        {viewMounted && viewMode === "list" && (
+          <div className="space-y-4">
+            {filteredListings.map((listing) => (
+              <div
+                key={listing.id}
+                className="flex gap-4 overflow-hidden rounded-lg bg-white p-4 shadow dark:bg-gray-800"
               >
-                <div className="h-24 w-24 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
-                  {listing.images && listing.images.length > 0 ? (
-                    <Image
-                      src={listing.images[0]}
-                      alt={listing.title}
-                      width={400}
-                      height={300}
-                      className="h-48 w-full object-cover"
-                      unoptimized
-                    />
-                  ) : (
-                    <ImagePlaceholder size="lg" />
-                  )}
-                </div>
-              </Link>
+                <Link
+                  href={`/${locale}/listings/${listing.id}`}
+                  className="flex-shrink-0"
+                >
+                  <div className="h-24 w-24 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
+                    {listing.images && listing.images.length > 0 ? (
+                      <Image
+                        src={listing.images[0]}
+                        alt={listing.title}
+                        width={96}
+                        height={96}
+                        className="h-full w-full object-cover"
+                        unoptimized
+                      />
+                    ) : (
+                      <ImagePlaceholder size="sm" />
+                    )}
+                  </div>
+                </Link>
 
-              {/* Content */}
-              <div className="flex flex-1 flex-col justify-between">
-                <div>
+                <div className="flex flex-1 flex-col justify-between">
+                  <div>
+                    <Link
+                      href={`/${locale}/listings/${listing.id}`}
+                      className="text-lg font-semibold text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                    >
+                      {listing.title}
+                    </Link>
+                    <div className="mt-1 flex items-center gap-2">
+                      <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                        {listing.category.replace(/_/g, " ")}
+                      </span>
+                      <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                        {listing.condition.replace(/_/g, " ")}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-2 flex items-center justify-between">
+                    <p className="text-lg font-bold text-gray-900 dark:text-white">
+                      {formatPrice(listing.price, listing.currency || "EUR")}
+                    </p>
+                    <div className="flex gap-2">
+                      {listing.status === "active" && (
+                        <MarkAsSoldButton
+                          listingId={listing.id}
+                          listingTitle={listing.title}
+                        />
+                      )}
+                      {listing.status === "sold" && listing.sold_to && (
+                        <RateUserButton
+                          listingId={listing.id}
+                          ratedUserId={listing.sold_to}
+                          currentUserId={userId}
+                        />
+                      )}
+                      {listing.status === "active" && (
+                        <Link
+                          href={`/${locale}/listings/${listing.id}/edit`}
+                          className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                        >
+                          {tCommon("edit")}
+                        </Link>
+                      )}
+                      <DeleteListingButton
+                        listingId={listing.id}
+                        listingTitle={listing.title}
+                        images={listing.images}
+                        userId={userId}
+                        variant="inline"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Grid View */}
+        {viewMounted && viewMode === "grid" && (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredListings.map((listing) => (
+              <div
+                key={listing.id}
+                className="overflow-hidden rounded-lg bg-white shadow dark:bg-gray-800"
+              >
+                <Link href={`/${locale}/listings/${listing.id}`}>
+                  <div className="aspect-square w-full overflow-hidden bg-gray-100 dark:bg-gray-700">
+                    {listing.images && listing.images.length > 0 ? (
+                      <Image
+                        src={listing.images[0]}
+                        alt={listing.title}
+                        width={400}
+                        height={400}
+                        className="h-full w-full object-cover transition-transform hover:scale-105"
+                        unoptimized
+                      />
+                    ) : (
+                      <ImagePlaceholder size="lg" />
+                    )}
+                  </div>
+                </Link>
+
+                <div className="p-4">
                   <Link
                     href={`/${locale}/listings/${listing.id}`}
-                    className="text-lg font-semibold text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                    className="line-clamp-2 text-lg font-semibold text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
                   >
                     {listing.title}
                   </Link>
-                  <div className="mt-1 flex items-center gap-2">
+
+                  <div className="mt-2 flex gap-2">
                     <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
                       {listing.category.replace(/_/g, " ")}
                     </span>
@@ -206,20 +298,26 @@ export function MyListingsClient({
                       {listing.condition.replace(/_/g, " ")}
                     </span>
                   </div>
-                </div>
 
-                <div className="mt-2 flex items-center justify-between">
-                  <p className="text-lg font-bold text-gray-900 dark:text-white">
+                  <p className="mt-3 text-xl font-bold text-gray-900 dark:text-white">
                     {formatPrice(listing.price, listing.currency || "EUR")}
                   </p>
-                  <div className="flex gap-2">
-                    {listing.status === "active" && (
-                      <MarkAsSoldButton
-                        listingId={listing.id}
-                        listingTitle={listing.title}
-                      />
-                    )}
 
+                  <div className="mt-4 flex flex-col gap-2">
+                    {listing.status === "active" && (
+                      <>
+                        <MarkAsSoldButton
+                          listingId={listing.id}
+                          listingTitle={listing.title}
+                        />
+                        <Link
+                          href={`/${locale}/listings/${listing.id}/edit`}
+                          className="block rounded-md bg-gray-100 px-3 py-2 text-center text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                        >
+                          {tCommon("edit")}
+                        </Link>
+                      </>
+                    )}
                     {listing.status === "sold" && listing.sold_to && (
                       <RateUserButton
                         listingId={listing.id}
@@ -227,16 +325,6 @@ export function MyListingsClient({
                         currentUserId={userId}
                       />
                     )}
-
-                    {listing.status === "active" && (
-                      <Link
-                        href={`/${locale}/listings/${listing.id}/edit`}
-                        className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-                      >
-                        {tCommon("edit")}
-                      </Link>
-                    )}
-                    
                     <DeleteListingButton
                       listingId={listing.id}
                       listingTitle={listing.title}
@@ -246,18 +334,17 @@ export function MyListingsClient({
                     />
                   </div>
                 </div>
-                {totalPages > 1 && (
-                  <div className="mt-8">
-                    <Pagination
-                      currentPage={currentPage}
-                      totalPages={totalPages}
-                    />
-                  </div>
-                )}
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="mt-8">
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
+          </div>
+        )}
       </div>
 
       <DeleteListingModal

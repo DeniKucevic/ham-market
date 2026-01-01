@@ -7,7 +7,6 @@ import { PublicProfileClient } from "./public-profile-client";
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { identifier, locale } = await params;
   const supabase = await createClient();
-
   const { data: profile } = await supabase
     .from("profiles")
     .select("callsign, display_name, rating, total_sales, location_country")
@@ -38,10 +37,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 interface Props {
   params: Promise<{ identifier: string; locale: string }>;
+  searchParams: Promise<{ page?: string }>;
 }
 
-export default async function PublicProfilePage({ params }: Props) {
+const LISTINGS_PER_PAGE = 12;
+
+export default async function PublicProfilePage({
+  params,
+  searchParams,
+}: Props) {
   const { locale, identifier } = await params;
+  const { page } = await searchParams;
+
+  const currentPage = parseInt(page || "1");
+  const offset = (currentPage - 1) * LISTINGS_PER_PAGE;
+
   const supabase = await createClient();
 
   const {
@@ -85,7 +95,8 @@ export default async function PublicProfilePage({ params }: Props) {
     notFound();
   }
 
-  const { data: listings } = await supabase
+  // Fetch listings with pagination
+  const { data: listings, count } = await supabase
     .from("listings")
     .select(
       `
@@ -96,17 +107,20 @@ export default async function PublicProfilePage({ params }: Props) {
         location_city,
         location_country
       )
-    `
+    `,
+      { count: "exact" }
     )
     .eq("user_id", profile.id)
     .eq("status", "active")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .range(offset, offset + LISTINGS_PER_PAGE - 1);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <PublicProfileClient
         profile={profile}
-        listings={listings as BrowseListing[]}
+        initialListings={(listings as BrowseListing[]) || []}
+        totalListings={count || 0}
         isLoggedIn={!!user}
         isOwnProfile={user?.id === profile.id}
         locale={locale}

@@ -2,6 +2,7 @@
 
 import { ListingGridCard } from "@/components/listing-grid-card";
 import { ListingListCard } from "@/components/listing-list-card";
+import { Pagination } from "@/components/pagination";
 import { RatingSkeleton } from "@/components/rating-skeleton";
 import { RespondToRatingModal } from "@/components/respond-to-rating-modal";
 import { ViewMode, ViewToggle } from "@/components/view-toggle";
@@ -13,6 +14,7 @@ import { Database } from "@/types/database";
 import { BrowseListing } from "@/types/listing";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
@@ -37,10 +39,12 @@ type Rating = {
 };
 
 const RATINGS_PER_PAGE = 2;
+const LISTINGS_PER_PAGE = 12;
 
 interface Props {
   profile: Profile;
-  listings: BrowseListing[];
+  initialListings: BrowseListing[];
+  totalListings: number;
   isLoggedIn: boolean;
   isOwnProfile: boolean;
   locale: string;
@@ -48,12 +52,15 @@ interface Props {
 
 export function PublicProfileClient({
   profile,
-  listings,
+  initialListings,
+  totalListings,
   isLoggedIn,
   isOwnProfile,
   locale,
 }: Props) {
   const t = useTranslations("profile");
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const countries = getCountries(locale);
   const userCountry = countries.find(
     (c) => c.code === profile.location_country
@@ -63,6 +70,7 @@ export function PublicProfileClient({
     "listings-view-mode",
     "grid"
   );
+
   const [ratings, setRatings] = useState<Rating[]>([]);
   const [ratingsPage, setRatingsPage] = useState(1);
   const [totalRatings, setTotalRatings] = useState(0);
@@ -72,7 +80,50 @@ export function PublicProfileClient({
   const [loadingRatings, setLoadingRatings] = useState(true);
   const [respondModalOpen, setRespondModalOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
-  const [refreshTrigger, setRefreshTrigger] = useState(0); // Add this
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  // Listings pagination
+  const currentListingsPage = parseInt(searchParams.get("page") || "1");
+  const totalListingsPages = Math.ceil(totalListings / LISTINGS_PER_PAGE);
+  const [listings, setListings] = useState<BrowseListing[]>(initialListings);
+  const [loadingListings, setLoadingListings] = useState(false);
+
+  // Fetch listings when page changes
+  useEffect(() => {
+    const fetchListings = async () => {
+      if (currentListingsPage === 1) {
+        setListings(initialListings);
+        return;
+      }
+
+      setLoadingListings(true);
+      const supabase = createClient();
+      const offset = (currentListingsPage - 1) * LISTINGS_PER_PAGE;
+
+      const { data } = await supabase
+        .from("listings")
+        .select(
+          `
+          *,
+          profiles!listings_user_id_fkey (
+            callsign,
+            display_name,
+            location_city,
+            location_country
+          )
+        `
+        )
+        .eq("user_id", profile.id)
+        .eq("status", "active")
+        .order("created_at", { ascending: false })
+        .range(offset, offset + LISTINGS_PER_PAGE - 1);
+
+      setListings((data as BrowseListing[]) || []);
+      setLoadingListings(false);
+    };
+
+    fetchListings();
+  }, [currentListingsPage, profile.id, initialListings]);
 
   useEffect(() => {
     const fetchRatings = async () => {
@@ -147,11 +198,11 @@ export function PublicProfileClient({
     fetchRatings();
   }, [profile.id, ratingsPage, ratingFilter, sortBy, refreshTrigger]);
 
-  const totalPages = Math.ceil(totalRatings / RATINGS_PER_PAGE);
+  const totalRatingsPages = Math.ceil(totalRatings / RATINGS_PER_PAGE);
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Profile Header */}
+      {/* Profile Header - keep as is */}
       <div className="mb-8 rounded-lg bg-white p-8 shadow dark:bg-gray-800">
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -204,7 +255,7 @@ export function PublicProfileClient({
 
               <div>
                 <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {listings.length}
+                  {totalListings}
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   {t("activeListings")}
@@ -271,7 +322,7 @@ export function PublicProfileClient({
         </div>
       </div>
 
-      {/* Reviews Section */}
+      {/* Reviews Section - keep as is with existing pagination */}
       {unfilteredCount > 0 && (
         <div className="mb-8 rounded-lg bg-white p-8 shadow dark:bg-gray-800">
           <div className="mb-6 flex items-center justify-between">
@@ -287,7 +338,7 @@ export function PublicProfileClient({
                   setRatingFilter(
                     e.target.value ? parseInt(e.target.value) : null
                   );
-                  setRatingsPage(1); // Reset to page 1
+                  setRatingsPage(1);
                 }}
                 className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               >
@@ -303,7 +354,7 @@ export function PublicProfileClient({
                 value={sortBy}
                 onChange={(e) => {
                   setSortBy(e.target.value as SortOption);
-                  setRatingsPage(1); // Reset to page 1
+                  setRatingsPage(1);
                 }}
                 className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               >
@@ -449,8 +500,8 @@ export function PublicProfileClient({
                 ))}
               </div>
 
-              {/* Pagination */}
-              {totalPages > 1 && (
+              {/* Ratings Pagination */}
+              {totalRatingsPages > 1 && (
                 <div className="mt-6 flex items-center justify-center gap-2">
                   <button
                     onClick={() => setRatingsPage((p) => Math.max(1, p - 1))}
@@ -461,14 +512,14 @@ export function PublicProfileClient({
                   </button>
 
                   <span className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
-                    {t("page")} {ratingsPage} {t("of")} {totalPages}
+                    {t("page")} {ratingsPage} {t("of")} {totalRatingsPages}
                   </span>
 
                   <button
                     onClick={() =>
-                      setRatingsPage((p) => Math.min(totalPages, p + 1))
+                      setRatingsPage((p) => Math.min(totalRatingsPages, p + 1))
                     }
-                    disabled={ratingsPage === totalPages}
+                    disabled={ratingsPage === totalRatingsPages}
                     className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     {t("next")}
@@ -480,15 +531,15 @@ export function PublicProfileClient({
         </div>
       )}
 
-      {/* Listings Section */}
+      {/* Listings Section with Pagination */}
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-          {isOwnProfile ? t("yourListings") : t("listings")} ({listings.length})
+          {isOwnProfile ? t("yourListings") : t("listings")} ({totalListings})
         </h2>
         {viewMounted && <ViewToggle value={viewMode} onChange={setViewMode} />}
       </div>
 
-      {listings.length === 0 && (
+      {totalListings === 0 && (
         <div className="rounded-lg border-2 border-dashed border-gray-300 p-12 text-center dark:border-gray-600">
           <p className="text-gray-600 dark:text-gray-400">
             {isOwnProfile ? t("youHaveNoListings") : t("noActiveListings")}
@@ -504,27 +555,45 @@ export function PublicProfileClient({
         </div>
       )}
 
-      {viewMounted && listings.length > 0 && viewMode === "grid" && (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {listings.map((listing) => (
-            <ListingGridCard
-              key={listing.id}
-              listing={listing}
-              locale={locale}
-            />
-          ))}
+      {loadingListings ? (
+        <div className="text-center text-gray-600 dark:text-gray-400">
+          Loading...
         </div>
+      ) : (
+        <>
+          {viewMounted && listings.length > 0 && viewMode === "grid" && (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {listings.map((listing) => (
+                <ListingGridCard
+                  key={listing.id}
+                  listing={listing}
+                  locale={locale}
+                />
+              ))}
+            </div>
+          )}
+
+          {viewMounted && listings.length > 0 && viewMode === "list" && (
+            <div className="space-y-4">
+              {listings.map((listing) => (
+                <ListingListCard
+                  key={listing.id}
+                  listing={listing}
+                  locale={locale}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
 
-      {viewMounted && listings.length > 0 && viewMode === "list" && (
-        <div className="space-y-4">
-          {listings.map((listing) => (
-            <ListingListCard
-              key={listing.id}
-              listing={listing}
-              locale={locale}
-            />
-          ))}
+      {/* Listings Pagination */}
+      {totalListingsPages > 1 && (
+        <div className="mt-8">
+          <Pagination
+            currentPage={currentListingsPage}
+            totalPages={totalListingsPages}
+          />
         </div>
       )}
 
@@ -539,7 +608,7 @@ export function PublicProfileClient({
           ratingComment={selectedRating.comment}
           raterName={getDisplayName(selectedRating.profiles ?? null, "User")}
           ratingStars={selectedRating.rating}
-          onResponseSubmitted={() => setRefreshTrigger((prev) => prev + 1)} // Trigger refetch
+          onResponseSubmitted={() => setRefreshTrigger((prev) => prev + 1)}
         />
       )}
     </main>
