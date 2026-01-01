@@ -419,6 +419,10 @@
   "price": {
     "free": "FREE"
   },
+  "banner": {
+    "gotGear": "Got HAM radio gear to sell?",
+    "signInToSell": "Sign in to create a listing"
+  },
   "footer": {
     "about": {
       "title": "About",
@@ -426,6 +430,7 @@
       "howItWorks": "How It Works",
       "contact": "Contact"
     },
+
     "help": {
       "title": "Help & Support",
       "faq": "FAQ",

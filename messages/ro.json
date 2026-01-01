@@ -419,6 +419,10 @@
   "price": {
     "free": "GRATUIT"
   },
+  "banner": {
+    "gotGear": "Aveți echipament radioamator de vânzare?",
+    "signInToSell": "Conectați-vă pentru a crea o anunț"
+  },
   "footer": {
     "about": {
       "title": "Despre noi",

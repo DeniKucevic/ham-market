@@ -1,3 +1,5 @@
+import { CreateListingBanner } from "@/components/create-listing-banner";
+import { CreateListingFAB } from "@/components/create-listing-fab";
 import { Footer } from "@/components/footer";
 import { InstallPrompt } from "@/components/install-prompt";
 import { LoadingBar } from "@/components/loading-bar";
@@ -128,9 +130,11 @@ export default async function LocaleLayout({
         <LoadingBar />
         <div className="flex min-h-screen flex-col">
           <Navbar user={user} profile={profile} locale={locale} />
+          {!user && <CreateListingBanner locale={locale} />}
           <main className="flex-1">{children}</main>
           <Footer locale={locale} />
         </div>
+        {user && <CreateListingFAB locale={locale} />}
         <InstallPrompt />
       </Providers>
     </div>

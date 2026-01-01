@@ -2,6 +2,7 @@ import { getCountries } from "@/lib/countries";
 import { getDisplayName } from "@/lib/display-name";
 import type { BrowseListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
+import Image from "next/image";
 import { ImagePlaceholder } from "./image-placeholder";
 import { LoadingLink } from "./loading-link";
 
@@ -23,11 +24,15 @@ export function ListingGridCard({ listing, locale }: Props) {
       {/* Image */}
       <div className="aspect-square overflow-hidden bg-gray-100 dark:bg-gray-700">
         {listing.images && listing.images.length > 0 ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={listing.images[0]}
             alt={listing.title}
-            className="h-full w-full object-cover"
+            width={400}
+            height={400}
+            loading="lazy"
+            quality={75}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="h-full w-full object-cover transition-transform group-hover:scale-105"
           />
         ) : (
           <ImagePlaceholder size="lg" />

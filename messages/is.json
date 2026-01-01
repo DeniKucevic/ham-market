@@ -419,6 +419,10 @@
   "price": {
     "free": "ÓKEYPIS"
   },
+  "banner": {
+    "gotGear": "Ertu með útvarpsáhugamannabúnað til sölu?",
+    "signInToSell": "Skráðu þig inn til að búa til auglýsingu"
+  },
   "footer": {
     "about": {
       "title": "Um okkur",

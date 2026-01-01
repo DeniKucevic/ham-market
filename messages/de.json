@@ -419,6 +419,10 @@
   "price": {
     "free": "KOSTENLOS"
   },
+  "banner": {
+    "gotGear": "Haben Sie Amateurfunkausrüstung zu verkaufen?",
+    "signInToSell": "Melden Sie sich an, um eine Anzeige zu erstellen"
+  },
   "footer": {
     "about": {
       "title": "Über",

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { ImagePlaceholder } from "./image-placeholder";
 
@@ -58,11 +59,16 @@ export function ListingImageGallery({ images, title }: Props) {
         className="relative mb-4 h-96 cursor-pointer overflow-hidden rounded-lg bg-white dark:bg-gray-800"
         onClick={() => setIsLightboxOpen(true)}
       >
-        <img
+        <Image
           src={images[selectedImage]}
           alt={title}
+          width={800}
+          height={600}
+          priority
+          quality={85}
+          sizes="(max-width: 768px) 100vw, 800px"
           className="h-full w-full object-contain transition-transform hover:scale-105"
-        />
+        />{" "}
         {/* Zoom icon hint */}
         <div className="absolute right-4 top-4 rounded-full bg-black/50 p-2">
           <svg
@@ -94,9 +100,14 @@ export function ListingImageGallery({ images, title }: Props) {
                   : "hover:opacity-75"
               }`}
             >
-              <img
+              <Image
                 src={img}
                 alt={`${title} ${index + 1}`}
+                width={100}
+                height={100}
+                loading="lazy"
+                quality={60}
+                sizes="100px"
                 className="h-full w-full object-cover"
               />
             </button>
@@ -163,6 +174,7 @@ export function ListingImageGallery({ images, title }: Props) {
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={images[selectedImage]}
               alt={`${title} - Image ${selectedImage + 1}`}

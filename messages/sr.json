@@ -419,6 +419,10 @@
   "price": {
     "free": "BESPLATNO"
   },
+  "banner": {
+    "gotGear": "Imate radio amatersku opremu za prodaju?",
+    "signInToSell": "Prijavite se da kreirate oglas"
+  },
   "footer": {
     "about": {
       "title": "O nama",

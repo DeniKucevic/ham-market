@@ -337,8 +337,10 @@ export function ListingForm({ userId, listing, locale }: Props) {
                   alt={`Existing ${index + 1}`}
                   width={300}
                   height={300}
+                  loading="lazy"
+                  quality={75}
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 300px"
                   className="h-32 w-full rounded-lg object-cover"
-                  unoptimized
                 />
                 <button
                   type="button"

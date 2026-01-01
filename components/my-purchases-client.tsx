@@ -84,8 +84,10 @@ export function MyPurchasesClient({
                       alt={purchase.title}
                       width={96}
                       height={96}
+                      loading="lazy"
+                      quality={75}
+                      sizes="96px"
                       className="h-full w-full object-cover"
-                      unoptimized
                     />
                   ) : (
                     <ImagePlaceholder size="sm" />
@@ -161,8 +163,10 @@ export function MyPurchasesClient({
                       alt={purchase.title}
                       width={400}
                       height={400}
+                      loading="lazy"
+                      quality={75}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="h-full w-full object-cover transition-transform hover:scale-105"
-                      unoptimized
                     />
                   ) : (
                     <ImagePlaceholder size="lg" />

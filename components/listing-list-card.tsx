@@ -28,10 +28,12 @@ export function ListingListCard({ listing, locale }: Props) {
           <Image
             src={listing.images[0]}
             alt={listing.title}
-            width={400}
-            height={300}
-            className="h-48 w-full object-cover"
-            unoptimized
+            width={128}
+            height={128}
+            loading="lazy"
+            quality={75}
+            sizes="128px"
+            className="h-full w-full object-cover"
           />
         ) : (
           <ImagePlaceholder size="lg" />
