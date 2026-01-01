@@ -13,28 +13,30 @@ export function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
 
-  // Initialize browser detection in state
-  const [isIOSSafari] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-    const isSafari =
-      /Safari/.test(navigator.userAgent) &&
-      !/CriOS|FxiOS|EdgiOS/.test(navigator.userAgent);
-    return isIOS && isSafari;
-  });
-
-  const [isStandalone] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return (
-      window.matchMedia("(display-mode: standalone)").matches ||
-      (window.navigator as Navigator & { standalone?: boolean }).standalone ===
-        true
-    );
-  });
-
+  // Check if installed or dismissed - all in initial state
   const [showPrompt, setShowPrompt] = useState(() => {
     if (typeof window === "undefined") return false;
 
+    // Check if already installed (multiple methods for better detection)
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as Navigator & { standalone?: boolean }).standalone ===
+        true ||
+      document.referrer.includes("android-app://");
+
+    if (isStandalone) {
+      // Mark as installed
+      localStorage.setItem("pwa-installed", "true");
+      return false;
+    }
+
+    // Check if user manually installed (stored flag)
+    const installed = localStorage.getItem("pwa-installed");
+    if (installed) {
+      return false;
+    }
+
+    // Check if dismissed recently
     const dismissed = localStorage.getItem("pwa-install-dismissed");
     if (dismissed) {
       const dismissedTime = parseInt(dismissed);
@@ -44,21 +46,16 @@ export function InstallPrompt() {
       }
     }
 
-    // Check for iOS Safari and show prompt if conditions are met
+    return false; // Will be set to true by beforeinstallprompt
+  });
+
+  const [isIOSSafari] = useState(() => {
+    if (typeof window === "undefined") return false;
     const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
     const isSafari =
       /Safari/.test(navigator.userAgent) &&
       !/CriOS|FxiOS|EdgiOS/.test(navigator.userAgent);
-    const standalone =
-      window.matchMedia("(display-mode: standalone)").matches ||
-      (window.navigator as Navigator & { standalone?: boolean }).standalone ===
-        true;
-
-    if (isIOS && isSafari && !standalone && !dismissed) {
-      return true;
-    }
-
-    return false;
+    return isIOS && isSafari;
   });
 
   useEffect(() => {
@@ -66,12 +63,30 @@ export function InstallPrompt() {
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setShowPrompt(true);
+
+      // Check if not dismissed and not installed
+      const dismissed = localStorage.getItem("pwa-install-dismissed");
+      const installed = localStorage.getItem("pwa-installed");
+
+      if (!dismissed && !installed) {
+        setShowPrompt(true);
+      }
     };
 
     window.addEventListener("beforeinstallprompt", handler);
 
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    // Listen for successful installation
+    const installHandler = () => {
+      localStorage.setItem("pwa-installed", "true");
+      setShowPrompt(false);
+    };
+
+    window.addEventListener("appinstalled", installHandler);
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("appinstalled", installHandler);
+    };
   }, []);
 
   const handleInstall = async () => {
@@ -83,6 +98,7 @@ export function InstallPrompt() {
     if (outcome === "accepted") {
       setDeferredPrompt(null);
       setShowPrompt(false);
+      localStorage.setItem("pwa-installed", "true");
       localStorage.setItem("pwa-install-dismissed", Date.now().toString());
     }
   };
@@ -92,7 +108,7 @@ export function InstallPrompt() {
     localStorage.setItem("pwa-install-dismissed", Date.now().toString());
   };
 
-  if (!showPrompt || isStandalone) return null;
+  if (!showPrompt) return null;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md md:left-auto">
