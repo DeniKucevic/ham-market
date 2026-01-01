@@ -91,7 +91,7 @@ export function HeroSearch({ initialQuery = "" }: Props) {
 
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="mx-auto mt-8 max-w-2xl">
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <div className="relative flex-1">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
                   <svg
@@ -139,13 +139,12 @@ export function HeroSearch({ initialQuery = "" }: Props) {
               </div>
               <button
                 type="submit"
-                className="rounded-lg bg-white px-8 py-4 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-600"
+                className="rounded-lg bg-white px-8 py-4 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 dark:bg-blue-700 dark:text-white dark:hover:bg-blue-600 w-full sm:w-auto"
               >
                 {t("searchButton")}
               </button>
             </div>
           </form>
-
           {/* Show active search or popular searches */}
           {query ? (
             <div className="mt-6">
