@@ -105,6 +105,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: {
       canonical: `https://ham-market.vercel.app/${locale}/listings/${id}`,
+      languages: {
+        en: `https://ham-market.vercel.app/en/listings/${id}`,
+        sr: `https://ham-market.vercel.app/sr/listings/${id}`,
+        "sr-Cyrl": `https://ham-market.vercel.app/sr-Cyrl/listings/${id}`,
+        is: `https://ham-market.vercel.app/is/listings/${id}`,
+        bg: `https://ham-market.vercel.app/bg/listings/${id}`,
+        ro: `https://ham-market.vercel.app/ro/listings/${id}`,
+        de: `https://ham-market.vercel.app/de/listings/${id}`,
+      },
     },
     robots: {
       index: true,
@@ -123,6 +132,8 @@ interface Props {
 
 export default async function ListingDetailPage({ params }: Props) {
   const { id, locale } = await params;
+  const baseUrl = "https://ham-market.vercel.app";
+
   const t = await getTranslations({ locale, namespace: "listingDetail" });
   const supabase = await createClient();
 
@@ -195,11 +206,40 @@ export default async function ListingDetailPage({ params }: Props) {
     },
   };
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${baseUrl}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: listing.category.replace(/_/g, " "),
+        item: `${baseUrl}/${locale}/?category=${listing.category}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: listing.title,
+        item: `${baseUrl}/${locale}/listings/${id}`,
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       <IncrementViews listingId={listing.id} />
 

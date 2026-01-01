@@ -99,11 +99,13 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://ham-market.vercel.app/${locale}`,
       languages: {
-        en: `https://ham-market.vercel.app/en`,
-        sr: `https://ham-market.vercel.app/sr`,
-        "sr-Cyrl": `https://ham-market.vercel.app/sr-Cyrl`,
-        is: `https://ham-market.vercel.app/is`,
-        bg: `https://ham-market.vercel.app/bg`,
+        en: "https://ham-market.vercel.app/en",
+        sr: "https://ham-market.vercel.app/sr",
+        "sr-Cyrl": "https://ham-market.vercel.app/sr-Cyrl",
+        is: "https://ham-market.vercel.app/is",
+        bg: "https://ham-market.vercel.app/bg",
+        ro: "https://ham-market.vercel.app/ro",
+        de: "https://ham-market.vercel.app/de",
       },
     },
     robots: {
