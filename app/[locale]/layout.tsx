@@ -1,4 +1,5 @@
 import { Footer } from "@/components/footer";
+import { InstallPrompt } from "@/components/install-prompt";
 import { LoadingBar } from "@/components/loading-bar";
 import { Navbar } from "@/components/navbar";
 import { Providers } from "@/components/providers";
@@ -9,7 +10,7 @@ import { getTranslations } from "next-intl/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
-import { InstallPrompt } from "@/components/install-prompt";
+import { NotificationTitle } from "./notification-title";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -96,6 +97,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
 
   if (!locales.includes(locale as (typeof locales)[number])) {
     notFound();
@@ -122,6 +124,7 @@ export default async function LocaleLayout({
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <Providers messages={messages} locale={locale}>
+        <NotificationTitle userId={user?.id} baseTitle={t("title")} />
         <LoadingBar />
         <div className="flex min-h-screen flex-col">
           <Navbar user={user} profile={profile} locale={locale} />

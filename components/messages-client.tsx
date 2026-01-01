@@ -135,7 +135,9 @@ export function MessagesClient({
 
       const { data } = await supabase
         .from("messages")
-        .select("*")
+        .select(
+          "id, listing_id, sender_id, recipient_id, content, read, created_at"
+        )
         .eq("listing_id", listingId)
         .or(
           `and(sender_id.eq.${userId},recipient_id.eq.${otherUserId}),and(sender_id.eq.${otherUserId},recipient_id.eq.${userId})`
