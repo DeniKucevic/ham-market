@@ -4,6 +4,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PublicProfileClient } from "./public-profile-client";
 
+export const revalidate = 180;
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { identifier, locale } = await params;
   const supabase = await createClient();

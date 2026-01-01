@@ -6,6 +6,8 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { BrowseListingsClient } from "../../components/browse-listings-client";
 
+export const revalidate = 60;
+
 const ITEMS_PER_PAGE = 24;
 
 const VALID_CATEGORIES = [

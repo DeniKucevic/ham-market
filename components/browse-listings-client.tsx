@@ -9,7 +9,7 @@ import { useLocalStorage } from "@/hooks/use-local-storage";
 import type { BrowseListing } from "@/types/listing";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { ListingGridSkeleton, ListingListSkeleton } from "./listing-skeleton";
 
@@ -46,6 +46,9 @@ export function BrowseListingsClient({
 }: Props) {
   const t = useTranslations("browse");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
   const [isPending, startTransition] = useTransition();
 
   const [viewMode, setViewMode, viewMounted] = useLocalStorage<"grid" | "list">(
@@ -64,10 +67,8 @@ export function BrowseListingsClient({
   const [sortBy, setSortBy] = useState(initialSort);
   const [country, setCountry] = useState(initialCountry);
 
-  // Debounce timer
   const debounceTimer = useRef<NodeJS.Timeout>(null);
 
-  // Update URL with filter params (debounced for text inputs)
   const updateFilters = useCallback(
     (
       newParams?: {
@@ -83,7 +84,7 @@ export function BrowseListingsClient({
       immediate = false
     ) => {
       const doUpdate = () => {
-        const params = new URLSearchParams();
+        const params = new URLSearchParams(searchParams);
 
         const search =
           newParams?.search !== undefined ? newParams.search : searchQuery;
@@ -107,6 +108,8 @@ export function BrowseListingsClient({
           newParams?.country !== undefined ? newParams.country : country;
         const sort = newParams?.sort !== undefined ? newParams.sort : sortBy;
 
+        params.forEach((_, key) => params.delete(key));
+
         if (search) params.set("search", search);
         if (cat) params.set("category", cat);
         if (cond.length > 0) params.set("condition", cond.join(","));
@@ -116,26 +119,29 @@ export function BrowseListingsClient({
         if (ctry) params.set("country", ctry);
         if (sort !== "newest") params.set("sort", sort);
 
+        const newUrl = `${pathname}?${params.toString()}`;
+        window.history.replaceState(null, "", newUrl);
+
         startTransition(() => {
-          router.push(`/${locale}?${params.toString()}`, { scroll: false });
+          router.push(`${pathname}?${params.toString()}`, { scroll: false });
         });
       };
 
       if (immediate) {
-        // Clear any pending debounce
         if (debounceTimer.current) {
           clearTimeout(debounceTimer.current);
         }
         doUpdate();
       } else {
-        // Debounce for 500ms
         if (debounceTimer.current) {
           clearTimeout(debounceTimer.current);
         }
-        debounceTimer.current = setTimeout(doUpdate, 1000);
+        debounceTimer.current = setTimeout(doUpdate, 300); // Also changed to 300ms
       }
     },
     [
+      searchParams,
+      pathname,
       searchQuery,
       selectedCategory,
       selectedCondition,
@@ -144,7 +150,6 @@ export function BrowseListingsClient({
       priceCurrency,
       country,
       sortBy,
-      locale,
       router,
     ]
   );

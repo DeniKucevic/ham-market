@@ -3,6 +3,7 @@ import { getDisplayName } from "@/lib/display-name";
 import type { BrowseListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
 import Image from "next/image";
+import { memo } from "react";
 import { ImagePlaceholder } from "./image-placeholder";
 import { LoadingLink } from "./loading-link";
 
@@ -11,11 +12,15 @@ interface Props {
   locale?: string;
 }
 
-export function ListingGridCard({ listing, locale }: Props) {
+export const ListingGridCard = memo(function ListingGridCard({
+  listing,
+  locale,
+}: Props) {
   const countries = getCountries(locale ?? "en");
   const country = countries.find(
     (c) => c.code === listing.profiles?.location_country
   );
+
   return (
     <LoadingLink
       href={`/listings/${listing.id}`}
@@ -38,7 +43,6 @@ export function ListingGridCard({ listing, locale }: Props) {
           <ImagePlaceholder size="lg" />
         )}
       </div>
-
       {/* Content */}
       <div className="p-4">
         <h3 className="line-clamp-2 text-lg font-semibold text-gray-900 dark:text-white">
@@ -74,7 +78,6 @@ export function ListingGridCard({ listing, locale }: Props) {
             </span>
           </div>
         )}
-
         <div className="mt-2 flex items-center gap-2">
           <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
             {listing.category.replace(/_/g, " ")}
@@ -83,7 +86,6 @@ export function ListingGridCard({ listing, locale }: Props) {
             {listing.condition.replace(/_/g, " ")}
           </span>
         </div>
-
         <div className="mt-3 flex items-center justify-between">
           <p
             className={`text-xl font-bold ${
@@ -101,4 +103,4 @@ export function ListingGridCard({ listing, locale }: Props) {
       </div>
     </LoadingLink>
   );
-}
+});

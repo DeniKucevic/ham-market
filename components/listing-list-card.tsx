@@ -3,6 +3,7 @@ import { getDisplayName } from "@/lib/display-name";
 import { BrowseListing } from "@/types/listing";
 import { formatPrice } from "@/utils/currency";
 import Image from "next/image";
+import { memo } from "react";
 import { ImagePlaceholder } from "./image-placeholder";
 import { LoadingLink } from "./loading-link";
 
@@ -11,7 +12,10 @@ interface Props {
   locale?: string;
 }
 
-export function ListingListCard({ listing, locale }: Props) {
+export const ListingListCard = memo(function ListingListCard({
+  listing,
+  locale,
+}: Props) {
   const countries = getCountries(locale ?? "en");
   const country = countries.find(
     (c) => c.code === listing.profiles?.location_country
@@ -124,4 +128,4 @@ export function ListingListCard({ listing, locale }: Props) {
       </div>
     </LoadingLink>
   );
-}
+});
