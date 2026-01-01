@@ -309,6 +309,7 @@
     "popular": "Популарно:"
   },
   "listingForm": {
+    "addImages": "Додајте слике",
     "currentImages": "Тренутне Слике",
     "addMoreImages": "Додај Још Слика (Опционо - max {count} више)",
     "imagesOptional": "Слике (Опционо - max 10)",

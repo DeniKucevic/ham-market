@@ -309,6 +309,7 @@
     "popular": "Beliebt:"
   },
   "listingForm": {
+    "addImages": "Bilder hinzufügen",
     "currentImages": "Aktuelle Bilder",
     "addMoreImages": "Weitere Bilder Hinzufügen (Optional - max. {count} weitere)",
     "imagesOptional": "Bilder (Optional - max. 10)",

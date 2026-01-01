@@ -309,6 +309,7 @@
     "popular": "Vinsælt:"
   },
   "listingForm": {
+    "addImages": "Bæta við myndum",
     "currentImages": "Núverandi Myndir",
     "addMoreImages": "Bæta við Fleiri Myndum (Valfrjálst - hámark {count} fleiri)",
     "imagesOptional": "Myndir (Valfrjálst - hámark 10)",

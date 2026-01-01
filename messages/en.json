@@ -309,6 +309,7 @@
     "popular": "Popular:"
   },
   "listingForm": {
+    "addImages": "Add images",
     "currentImages": "Current Images",
     "addMoreImages": "Add More Images (Optional - max {count} more)",
     "imagesOptional": "Images (Optional - max 10)",

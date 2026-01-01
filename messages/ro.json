@@ -309,6 +309,7 @@
     "popular": "Popular:"
   },
   "listingForm": {
+    "addImages": "Adăugați imagini",
     "currentImages": "Imagini Curente",
     "addMoreImages": "Adaugă Mai Multe Imagini (Opțional - max {count} în plus)",
     "imagesOptional": "Imagini (Opțional - max 10)",
