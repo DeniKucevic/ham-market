@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // Build image URL
   const imageUrl = listing.images?.[0]
-    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/listings/${listing.images[0]}`
+    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/listing-images/${listing.images[0]}`
     : null;
 
   // Build a good title with location
