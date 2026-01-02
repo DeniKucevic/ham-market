@@ -36,5 +36,31 @@ export async function updateSession(
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Check if accessing admin routes
+  const pathname = request.nextUrl.pathname;
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const isAdminRoute = pathSegments.includes("admin");
+
+  if (isAdminRoute) {
+    // Not logged in - redirect to sign in
+    if (!user) {
+      const locale = pathSegments[0] || "en";
+      return NextResponse.redirect(new URL(`/${locale}/sign-in`, request.url));
+    }
+
+    // Check if user is admin
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    // Not admin - redirect to home
+    if (profile?.role !== "admin") {
+      const locale = pathSegments[0] || "en";
+      return NextResponse.redirect(new URL(`/${locale}`, request.url));
+    }
+  }
+
   return supabaseResponse;
 }

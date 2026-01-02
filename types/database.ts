@@ -238,6 +238,7 @@ export type Database = {
           phone: string | null;
           qth_locator: string | null;
           rating: number | null;
+          role: string | null;
           show_email: boolean | null;
           show_phone: boolean | null;
           total_purchases: number | null;
@@ -259,6 +260,7 @@ export type Database = {
           phone?: string | null;
           qth_locator?: string | null;
           rating?: number | null;
+          role?: string | null;
           show_email?: boolean | null;
           show_phone?: boolean | null;
           total_purchases?: number | null;
@@ -280,6 +282,7 @@ export type Database = {
           phone?: string | null;
           qth_locator?: string | null;
           rating?: number | null;
+          role?: string | null;
           show_email?: boolean | null;
           show_phone?: boolean | null;
           total_purchases?: number | null;
@@ -369,6 +372,7 @@ export type Database = {
       };
       reports: {
         Row: {
+          admin_notes: string | null;
           created_at: string | null;
           description: string | null;
           id: string;
@@ -380,6 +384,7 @@ export type Database = {
           status: string | null;
         };
         Insert: {
+          admin_notes?: string | null;
           created_at?: string | null;
           description?: string | null;
           id?: string;
@@ -391,6 +396,7 @@ export type Database = {
           status?: string | null;
         };
         Update: {
+          admin_notes?: string | null;
           created_at?: string | null;
           description?: string | null;
           id?: string;

@@ -18,6 +18,7 @@ interface Props {
   profile?: {
     callsign: string;
     display_name: string | null;
+    role?: string | null; // Add role
   } | null;
   locale: string;
 }
@@ -29,6 +30,8 @@ export function Navbar({ user, profile, locale }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const t = useTranslations("nav");
+
+  const isAdmin = profile?.role === "admin";
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -86,6 +89,14 @@ export function Navbar({ user, profile, locale }: Props) {
                   )}
                   {t("messages")}
                 </Link>
+                {isAdmin && (
+                  <Link
+                    href={`/${locale}/admin`}
+                    className="text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
+                  >
+                    👑 Admin
+                  </Link>
+                )}
               </div>
             )}
             <div className="flex items-center gap-4">
@@ -150,6 +161,18 @@ export function Navbar({ user, profile, locale }: Props) {
                           >
                             {t("settings")}
                           </Link>
+                          {isAdmin && (
+                            <>
+                              <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                              <Link
+                                href={`/${locale}/admin`}
+                                className="block px-4 py-2 text-sm text-purple-600 hover:bg-gray-100 dark:text-purple-400 dark:hover:bg-gray-700"
+                                onClick={() => setDropdownOpen(false)}
+                              >
+                                👑 Admin Panel
+                              </Link>
+                            </>
+                          )}
                           <hr className="my-1 border-gray-200 dark:border-gray-700" />
                           <button
                             onClick={handleSignOut}
@@ -288,6 +311,15 @@ export function Navbar({ user, profile, locale }: Props) {
                     )}
                   </span>
                 </Link>
+                {isAdmin && (
+                  <Link
+                    href={`/${locale}/admin`}
+                    className="block px-3 py-2 text-base font-medium text-purple-600 hover:bg-gray-100 dark:text-purple-400 dark:hover:bg-gray-700"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    👑 Admin Panel
+                  </Link>
+                )}
                 <Link
                   href={`/${locale}/listings/new`}
                   className="block px-3 py-2 text-base font-medium text-blue-600 hover:bg-gray-100 dark:text-blue-400 dark:hover:bg-gray-700"
