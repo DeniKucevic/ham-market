@@ -2,7 +2,6 @@ import { CopyIdButton } from "@/components/copy-id-button";
 import { DeleteListingButton } from "@/components/delete-listing-button";
 import { IncrementViews } from "@/components/increment-views";
 import { ListingImageGallery } from "@/components/listing-image-gallery";
-import { PhoneContact } from "@/components/phone-contact";
 import { ReportListingButton } from "@/components/report-listing-button";
 import { ShareListingButton } from "@/components/share-listing-button";
 import { getCountries } from "@/lib/countries";
@@ -416,13 +415,14 @@ export default async function ListingDetailPage({ params }: Props) {
               )}
               {/* Contact Seller */}
               {!isOwner && (
-                <div className="mt-6 space-y-2">
+                <div className="mt-6 space-y-3">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                    {t("contactSeller")}
+                  </h3>
+
                   {user ? (
                     <>
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-                        {t("contactSeller")}
-                      </h3>
-
+                      {/* Message button - primary action */}
                       <Link
                         href={`/${locale}/messages?listing=${listing.id}&recipient=${listing.user_id}`}
                         className="flex w-full items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-500"
@@ -443,14 +443,15 @@ export default async function ListingDetailPage({ params }: Props) {
                         {t("messageSeller")}
                       </Link>
 
+                      {/* Email button - secondary action */}
                       {listing.profiles?.show_email &&
                         listing.profiles?.email && (
                           <a
                             href={`mailto:${listing.profiles.email}?subject=Inquiry: ${listing.title}`}
-                            className="flex items-center gap-2 text-sm text-blue-600 hover:underline dark:text-blue-400"
+                            className="flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                           >
                             <svg
-                              className="h-4 w-4"
+                              className="h-5 w-5"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -462,13 +463,32 @@ export default async function ListingDetailPage({ params }: Props) {
                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                               />
                             </svg>
-                            {listing.profiles.email}
+                            {t("sendEmail")}
                           </a>
                         )}
 
+                      {/* Phone button - secondary action */}
                       {listing.profiles?.show_phone &&
                         listing.profiles?.phone && (
-                          <PhoneContact phone={listing.profiles.phone} />
+                          <a
+                            href={`tel:${listing.profiles.phone}`}
+                            className="flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                          >
+                            <svg
+                              className="h-5 w-5"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                              />
+                            </svg>
+                            {t("callSeller")}
+                          </a>
                         )}
 
                       {!listing.profiles?.show_email &&

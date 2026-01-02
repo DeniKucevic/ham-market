@@ -61,6 +61,7 @@
   "messages": {
     "title": "Nachrichten",
     "loading": "Laden...",
+    "startConversation": "Senden Sie eine Nachricht, um das Gespräch zu beginnen",
     "noConversations": "Noch keine Unterhaltungen",
     "selectConversation": "Wählen Sie eine Unterhaltung aus, um Nachrichten zu beginnen",
     "typeMessage": "Nachricht eingeben...",
@@ -68,6 +69,8 @@
     "messageSeller": "Nachricht an Verkäufer"
   },
   "listingDetail": {
+    "sendEmail": "E-Mail senden",
+    "callSeller": "Verkäufer anrufen",
     "messageSeller": "Nachricht an Verkäufer",
     "backToListings": "Zurück zu den Anzeigen",
     "description": "Beschreibung",
@@ -880,9 +883,9 @@
   },
   "pwa": {
     "installTitle": "App installieren",
-    "installDescription": "Fügen Sie HAM Marketplace zu Ihrem Startbildschirm für schnellen Zugriff hinzu",
-    "tapShareButton": "Tippen Sie auf die Schaltfläche 'Teilen'",
-    "selectAddToHomeScreen": "Wählen Sie 'Zum Startbildschirm'",
+    "installDescription": "Fügen Sie HAM Marketplace zu Ihrem Startbildschirm hinzu für schnellen Zugriff",
+    "tapShareButton": "Tippen Sie auf die Teilen-Schaltfläche",
+    "selectAddToHomeScreen": "Wählen Sie 'Zum Home-Bildschirm'",
     "install": "Installieren",
     "notNow": "Nicht jetzt"
   },

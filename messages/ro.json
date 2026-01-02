@@ -61,6 +61,7 @@
   "messages": {
     "title": "Mesaje",
     "loading": "Se încarcă...",
+    "startConversation": "Trimite un mesaj pentru a începe conversația",
     "noConversations": "Încă nu există conversații",
     "selectConversation": "Selectați o conversație pentru a începe mesajele",
     "typeMessage": "Scrieți un mesaj...",
@@ -68,6 +69,8 @@
     "messageSeller": "Trimite mesaj vânzătorului"
   },
   "listingDetail": {
+    "sendEmail": "Trimite email",
+    "callSeller": "Sună vânzătorul",
     "messageSeller": "Trimite mesaj vânzătorului",
     "backToListings": "Înapoi la anunțuri",
     "description": "Descriere",
@@ -880,7 +883,7 @@
   },
   "pwa": {
     "installTitle": "Instalează aplicația",
-    "installDescription": "Adaugă HAM Marketplace pe ecranul de pornire pentru acces rapid",
+    "installDescription": "Adaugă HAM Marketplace pe ecranul principal pentru acces rapid",
     "tapShareButton": "Apasă butonul de partajare",
     "selectAddToHomeScreen": "Selectează 'Adaugă la ecranul de pornire'",
     "install": "Instalează",

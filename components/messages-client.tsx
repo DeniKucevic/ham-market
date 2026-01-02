@@ -25,7 +25,7 @@ type Conversation = {
   listing: {
     title: string;
   } | null;
-  last_message: Message;
+  last_message: Message | null;
   unread_count: number;
 };
 
@@ -55,7 +55,7 @@ export function MessagesClient({
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
-  const [showConversationList, setShowConversationList] = useState(true); // Mobile view toggle
+  const [showConversationList, setShowConversationList] = useState(true);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -117,12 +117,52 @@ export function MessagesClient({
         }
       }
 
-      setConversations(Array.from(convMap.values()));
+      const conversationsArray = Array.from(convMap.values());
+
+      // If we have initial params for a new conversation, fetch that user/listing info
+      if (initialListingId && initialRecipientId) {
+        const existingConv = conversationsArray.find(
+          (c) =>
+            c.listing_id === initialListingId &&
+            c.other_user_id === initialRecipientId
+        );
+
+        // If conversation doesn't exist yet, create a placeholder
+        if (!existingConv) {
+          const { data: recipientProfile } = await supabase
+            .from("profiles")
+            .select("callsign, display_name")
+            .eq("id", initialRecipientId)
+            .single();
+
+          const { data: listing } = await supabase
+            .from("listings")
+            .select("title")
+            .eq("id", initialListingId)
+            .single();
+
+          conversationsArray.unshift({
+            listing_id: initialListingId,
+            other_user_id: initialRecipientId,
+            other_user: recipientProfile,
+            listing: listing,
+            last_message: null,
+            unread_count: 0,
+          });
+
+          // Auto-hide conversation list on mobile
+          if (window.innerWidth < 768) {
+            setShowConversationList(false);
+          }
+        }
+      }
+
+      setConversations(conversationsArray);
       setLoading(false);
     };
 
     fetchConversations();
-  }, [userId]);
+  }, [userId, initialListingId, initialRecipientId]);
 
   // Fetch messages for selected conversation
   useEffect(() => {
@@ -146,17 +186,20 @@ export function MessagesClient({
 
       setMessages(data || []);
 
-      const { data: updated } = await supabase
-        .from("messages")
-        .update({ read: true })
-        .eq("listing_id", listingId)
-        .eq("sender_id", otherUserId)
-        .eq("recipient_id", userId)
-        .eq("read", false)
-        .select();
+      // Only mark as read if there are messages
+      if (data && data.length > 0) {
+        const { data: updated } = await supabase
+          .from("messages")
+          .update({ read: true })
+          .eq("listing_id", listingId)
+          .eq("sender_id", otherUserId)
+          .eq("recipient_id", userId)
+          .eq("read", false)
+          .select();
 
-      if (updated && updated.length > 0) {
-        window.dispatchEvent(new CustomEvent("messages-read"));
+        if (updated && updated.length > 0) {
+          window.dispatchEvent(new CustomEvent("messages-read"));
+        }
       }
     };
 
@@ -204,12 +247,12 @@ export function MessagesClient({
                   return conv;
                 })
                 .sort((a, b) => {
-                  const aTime = new Date(
-                    a.last_message.created_at || 0
-                  ).getTime();
-                  const bTime = new Date(
-                    b.last_message.created_at || 0
-                  ).getTime();
+                  const aTime = a.last_message?.created_at
+                    ? new Date(a.last_message.created_at).getTime()
+                    : 0;
+                  const bTime = b.last_message?.created_at
+                    ? new Date(b.last_message.created_at).getTime()
+                    : 0;
                   return bTime - aTime;
                 });
             });
@@ -280,7 +323,7 @@ export function MessagesClient({
 
   return (
     <div className="grid h-[calc(100vh-200px)] grid-cols-1 gap-4 overflow-hidden rounded-lg bg-white shadow dark:bg-gray-800 md:grid-cols-3">
-      {/* Conversations List - Hidden on mobile when conversation selected */}
+      {/* Conversations List */}
       <div
         className={`${
           showConversationList ? "block" : "hidden"
@@ -299,7 +342,6 @@ export function MessagesClient({
                   setSelectedConversation(
                     `${conv.listing_id}|${conv.other_user_id}`
                   );
-                  // Hide list on mobile when selecting conversation
                   if (window.innerWidth < 768) {
                     setShowConversationList(false);
                   }
@@ -319,9 +361,11 @@ export function MessagesClient({
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       {conv.listing?.title || "Listing"}
                     </p>
-                    <p className="mt-1 truncate text-sm text-gray-500 dark:text-gray-500">
-                      {conv.last_message.content}
-                    </p>
+                    {conv.last_message && (
+                      <p className="mt-1 truncate text-sm text-gray-500 dark:text-gray-500">
+                        {conv.last_message.content}
+                      </p>
+                    )}
                   </div>
                   {conv.unread_count > 0 && (
                     <span className="ml-2 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
@@ -335,7 +379,7 @@ export function MessagesClient({
         </div>
       </div>
 
-      {/* Messages Thread - Show on mobile when conversation selected */}
+      {/* Messages Thread */}
       <div
         className={`${
           showConversationList ? "hidden" : "flex"
@@ -389,40 +433,51 @@ export function MessagesClient({
               ref={messagesContainerRef}
               className="min-h-0 flex-1 overflow-y-auto p-4"
             >
-              <div className="space-y-4">
-                {messages.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className={`flex ${
-                      msg.sender_id === userId ? "justify-end" : "justify-start"
-                    }`}
-                  >
+              {messages.length === 0 ? (
+                <div className="flex h-full items-center justify-center text-gray-500 dark:text-gray-400">
+                  <p>{t("startConversation")}</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {messages.map((msg) => (
                     <div
-                      className={`max-w-[85%] rounded-lg px-4 py-2 md:max-w-xs ${
+                      key={msg.id}
+                      className={`flex ${
                         msg.sender_id === userId
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
+                          ? "justify-end"
+                          : "justify-start"
                       }`}
                     >
-                      <p className="break-words">{msg.content}</p>
-                      <p
-                        className={`mt-1 text-xs ${
+                      <div
+                        className={`max-w-[85%] rounded-lg px-4 py-2 md:max-w-xs ${
                           msg.sender_id === userId
-                            ? "text-blue-200"
-                            : "text-gray-500 dark:text-gray-400"
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white"
                         }`}
                       >
-                        {msg.created_at &&
-                          new Date(msg.created_at).toLocaleTimeString(locale, {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                      </p>
+                        <p className="break-words">{msg.content}</p>
+                        <p
+                          className={`mt-1 text-xs ${
+                            msg.sender_id === userId
+                              ? "text-blue-200"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
+                        >
+                          {msg.created_at &&
+                            new Date(msg.created_at).toLocaleTimeString(
+                              locale,
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-                <div ref={messagesEndRef} />
-              </div>
+                  ))}
+                  <div ref={messagesEndRef} />
+                </div>
+              )}
             </div>
 
             {/* Message Input */}

@@ -61,6 +61,7 @@
   "messages": {
     "title": "Messages",
     "loading": "Loading...",
+    "startConversation": "Send a message to start the conversation",
     "noConversations": "No conversations yet",
     "selectConversation": "Select a conversation to start messaging",
     "typeMessage": "Type a message...",
@@ -68,6 +69,8 @@
     "messageSeller": "Message Seller"
   },
   "listingDetail": {
+    "sendEmail": "Send Email",
+    "callSeller": "Call Seller",
     "messageSeller": "Message Seller",
     "backToListings": "Back to listings",
     "description": "Description",
@@ -881,7 +884,9 @@
   },
   "pwa": {
     "installTitle": "Install App",
-    "installDescription": "Install HAM Marketplace for quick access",
+    "installDescription": "Add HAM Marketplace to your home screen for quick access",
+    "tapShareButton": "Tap the share button",
+    "selectAddToHomeScreen": "Select 'Add to Home Screen'",
     "install": "Install",
     "notNow": "Not now"
   },

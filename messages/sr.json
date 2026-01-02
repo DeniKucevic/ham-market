@@ -61,6 +61,7 @@
   "messages": {
     "title": "Poruke",
     "loading": "Učitavanje...",
+    "startConversation": "Pošaljite poruku da započnete razgovor",
     "noConversations": "Još nema razgovora",
     "selectConversation": "Izaberite razgovor da počnete poruke",
     "typeMessage": "Unesite poruku...",
@@ -68,6 +69,8 @@
     "messageSeller": "Pošalji poruku prodavcu"
   },
   "listingDetail": {
+    "sendEmail": "Pošalji email",
+    "callSeller": "Pozovi prodavca",
     "messageSeller": "Pošalji poruku prodavcu",
     "backToListings": "Nazad na oglase",
     "description": "Opis",
@@ -880,9 +883,9 @@
   },
   "pwa": {
     "installTitle": "Instaliraj aplikaciju",
-    "installDescription": "Dodajte HAM Marketplace na početni ekran za brzi pristup",
-    "tapShareButton": "Kliknite na dugme za deljenje",
-    "selectAddToHomeScreen": "Izaberite 'Dodaj na početni ekran'",
+    "installDescription": "Dodaj HAM Marketplace na početni ekran za brz pristup",
+    "tapShareButton": "Dodirni dugme za deljenje",
+    "selectAddToHomeScreen": "Izaberi 'Dodaj na početni ekran'",
     "install": "Instaliraj",
     "notNow": "Ne sada"
   },

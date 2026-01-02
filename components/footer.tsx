@@ -2,13 +2,70 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface Props {
   locale: string;
 }
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
 export function Footer({ locale }: Props) {
   const t = useTranslations("footer");
+  const tPwa = useTranslations("pwa");
+
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
+  const [showInstallButton, setShowInstallButton] = useState(false);
+
+  useEffect(() => {
+    // Check if already installed
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as Navigator & { standalone?: boolean }).standalone ===
+        true ||
+      document.referrer.includes("android-app://");
+
+    if (isStandalone) {
+      return;
+    }
+
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+      setShowInstallButton(true);
+    };
+
+    window.addEventListener("beforeinstallprompt", handler);
+
+    const installHandler = () => {
+      setShowInstallButton(false);
+      localStorage.setItem("pwa-installed", "true");
+    };
+
+    window.addEventListener("appinstalled", installHandler);
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("appinstalled", installHandler);
+    };
+  }, []);
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+
+    if (outcome === "accepted") {
+      localStorage.setItem("pwa-installed", "true");
+      setDeferredPrompt(null);
+      setShowInstallButton(false);
+    }
+  };
 
   return (
     <footer className="border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -170,6 +227,29 @@ export function Footer({ locale }: Props) {
                   {t("developer.contact")}
                 </a>
               </p>
+
+              {/* Install App Button */}
+              {showInstallButton && (
+                <button
+                  onClick={handleInstall}
+                  className="mt-2 flex items-center gap-2 rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-500 transition-colors"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                    />
+                  </svg>
+                  {tPwa("install")}
+                </button>
+              )}
             </div>
           </div>
         </div>

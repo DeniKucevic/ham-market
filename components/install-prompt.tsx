@@ -59,20 +59,26 @@ export function InstallPrompt() {
   });
 
   useEffect(() => {
-    // For other browsers, wait for beforeinstallprompt
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
 
-      // Check if not dismissed and not installed
       const dismissed = localStorage.getItem("pwa-install-dismissed");
       const installed = localStorage.getItem("pwa-installed");
 
-      if (!dismissed && !installed) {
+      // Check if dismissed recently (within 7 days)
+      let recentlyDismissed = false;
+      if (dismissed) {
+        const dismissedTime = parseInt(dismissed);
+        const sevenDays = 7 * 24 * 60 * 60 * 1000;
+        recentlyDismissed = Date.now() - dismissedTime < sevenDays;
+      }
+
+      if (!recentlyDismissed && !installed) {
         setShowPrompt(true);
       }
     };
-
+    
     window.addEventListener("beforeinstallprompt", handler);
 
     // Listen for successful installation

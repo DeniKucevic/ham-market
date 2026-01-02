@@ -61,6 +61,7 @@
   "messages": {
     "title": "Съобщения",
     "loading": "Зареждане...",
+    "startConversation": "Изпратете съобщение, за да започнете разговора",
     "noConversations": "Все още няма разговори",
     "selectConversation": "Изберете разговор, за да започнете съобщения",
     "typeMessage": "Напишете съобщение...",
@@ -68,6 +69,8 @@
     "messageSeller": "Изпратете съобщение на продавача"
   },
   "listingDetail": {
+    "sendEmail": "Изпрати имейл",
+    "callSeller": "Обади се на продавача",
     "messageSeller": "Изпратете съобщение на продавача",
     "backToListings": "Обратно към обявите",
     "description": "Описание",
@@ -879,10 +882,10 @@
     }
   },
   "pwa": {
-    "installTitle": "Инсталирайте приложението",
-    "installDescription": "Добавете HAM Marketplace към началния екран за бърз достъп",
-    "tapShareButton": "Докоснете бутона за споделяне",
-    "selectAddToHomeScreen": "Изберете 'Добави към началния екран'",
+    "installTitle": "Инсталирай приложението",
+    "installDescription": "Добави HAM Marketplace към началния екран за бърз достъп",
+    "tapShareButton": "Натисни бутона за споделяне",
+    "selectAddToHomeScreen": "Избери 'Добави към началния екран'",
     "install": "Инсталирай",
     "notNow": "Не сега"
   },
