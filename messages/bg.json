@@ -125,7 +125,7 @@
     "email": "Имейл",
     "password": "Парола",
     "callsignOptional": "Позивна (Незадължително)",
-    "displayNameOptional": "Име за Показване (незадължително)",
+    "displayName": "Име за Показване",
     "emailPlaceholder": "вие@пример.com",
     "callsignPlaceholder": "YU4AIE",
     "displayNamePlaceholder": "Brixi",

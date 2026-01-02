@@ -125,7 +125,7 @@
     "email": "Email",
     "password": "Parolă",
     "callsignOptional": "Indicativ (Opțional)",
-    "displayNameOptional": "Nume de Afișare (opțional)",
+    "displayName": "Nume de Afișare",
     "emailPlaceholder": "tu@exemplu.ro",
     "callsignPlaceholder": "YU4AIE",
     "displayNamePlaceholder": "Brixi",

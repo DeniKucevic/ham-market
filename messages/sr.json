@@ -125,7 +125,7 @@
     "email": "Email",
     "password": "Lozinka",
     "callsignOptional": "Pozivni Znak (Opciono)",
-    "displayNameOptional": "Ime za Prikaz (opciono)",
+    "displayName": "Ime za Prikaz",
     "emailPlaceholder": "vas@primer.com",
     "callsignPlaceholder": "YU4AIE",
     "displayNamePlaceholder": "Brixi",

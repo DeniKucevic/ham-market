@@ -125,7 +125,7 @@
     "email": "Email",
     "password": "Password",
     "callsignOptional": "Callsign (Optional)",
-    "displayNameOptional": "Display Name (optional)",
+    "displayName": "Display Name",
     "emailPlaceholder": "you@example.com",
     "callsignPlaceholder": "YU4AIE",
     "displayNamePlaceholder": "Brixi",

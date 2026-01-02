@@ -125,7 +125,7 @@
     "email": "Email",
     "password": "Лозинка",
     "callsignOptional": "Позивни Знак (Опционо)",
-    "displayNameOptional": "Име за Приказ (опционо)",
+    "displayName": "Име за Приказ",
     "emailPlaceholder": "vas@primer.com",
     "callsignPlaceholder": "YU4AIE",
     "displayNamePlaceholder": "Brixi",

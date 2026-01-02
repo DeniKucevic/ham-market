@@ -156,7 +156,7 @@ export default function SignUpPage() {
                   htmlFor="display_name"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                 >
-                  {t("displayNameOptional")}
+                  {t("displayName")}
                 </label>
                 <input
                   id="display_name"

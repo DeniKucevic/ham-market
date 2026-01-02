@@ -125,7 +125,7 @@
     "email": "Tölvupóstur",
     "password": "Lykilorð",
     "callsignOptional": "Kallmerki (Valfrjálst)",
-    "displayNameOptional": "Birtingarnafn (valfrjálst)",
+    "displayName": "Birtingarnafn",
     "emailPlaceholder": "þú@dæmi.is",
     "callsignPlaceholder": "YU4AIE",
     "displayNamePlaceholder": "Brixi",
