@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/admin/", "/messages/"], // Ne želimo privatne poruke u pretrazi
+      disallow: ["/api/", "/admin/", "/messages/"],
     },
-    sitemap: "https://ham-market.vercel.app/sitemap.xml",
+    sitemap: "https://hamtrade.net/sitemap.xml",
   };
 }

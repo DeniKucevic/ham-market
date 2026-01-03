@@ -93,7 +93,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630 }] : [],
       type: "website",
       locale: locale,
-      url: `https://ham-market.vercel.app/${locale}/listings/${id}`,
+      url: `https://hamtrade.net/${locale}/listings/${id}`,
       siteName: "HAM Radio Marketplace",
     },
     twitter: {
@@ -103,15 +103,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: imageUrl ? [imageUrl] : [],
     },
     alternates: {
-      canonical: `https://ham-market.vercel.app/${locale}/listings/${id}`,
+      canonical: `https://hamtrade.net/${locale}/listings/${id}`,
       languages: {
-        en: `https://ham-market.vercel.app/en/listings/${id}`,
-        sr: `https://ham-market.vercel.app/sr/listings/${id}`,
-        "sr-Cyrl": `https://ham-market.vercel.app/sr-Cyrl/listings/${id}`,
-        is: `https://ham-market.vercel.app/is/listings/${id}`,
-        bg: `https://ham-market.vercel.app/bg/listings/${id}`,
-        ro: `https://ham-market.vercel.app/ro/listings/${id}`,
-        de: `https://ham-market.vercel.app/de/listings/${id}`,
+        en: `https://hamtrade.net/en/listings/${id}`,
+        sr: `https://hamtrade.net/sr/listings/${id}`,
+        "sr-Cyrl": `https://hamtrade.net/sr-Cyrl/listings/${id}`,
+        is: `https://hamtrade.net/is/listings/${id}`,
+        bg: `https://hamtrade.net/bg/listings/${id}`,
+        ro: `https://hamtrade.net/ro/listings/${id}`,
+        de: `https://hamtrade.net/de/listings/${id}`,
       },
     },
     robots: {
@@ -131,7 +131,7 @@ interface Props {
 
 export default async function ListingDetailPage({ params }: Props) {
   const { id, locale } = await params;
-  const baseUrl = "https://ham-market.vercel.app";
+  const baseUrl = "https://hamtrade.net";
 
   const t = await getTranslations({ locale, namespace: "listingDetail" });
   const supabase = await createClient();
