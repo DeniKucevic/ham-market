@@ -1,7 +1,7 @@
 "use client";
-
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface Props {
   locale: string;
@@ -9,6 +9,22 @@ interface Props {
 
 export function CreateListingFAB({ locale }: Props) {
   const t = useTranslations("nav");
+  const pathname = usePathname();
+
+  // Hide on these specific paths
+  const hideOnPaths = [
+    `/${locale}/listings/new`,
+    // Also hide on edit pages (pattern: /locale/listings/[id]/edit)
+  ];
+
+  // Check if current path matches any hide pattern
+  const shouldHide = 
+    hideOnPaths.some(path => pathname === path) || 
+    (pathname.includes("/listings/") && pathname.endsWith("/edit"));
+
+  if (shouldHide) {
+    return null;
+  }
 
   return (
     <Link
