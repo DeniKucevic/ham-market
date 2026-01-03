@@ -2,7 +2,10 @@ import { HeroSearch } from "@/components/hero-search";
 import { getCountryFromIP } from "@/lib/geolocation";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
-import { getExchangeRate, normalizeToEur } from "@/utils/currency-server";
+import {
+  getExchangeRates,
+  normalizeToEur
+} from "@/utils/currency-server";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { BrowseListingsClient } from "../../components/browse-listings-client";
@@ -228,25 +231,55 @@ export default async function HomePage({ params, searchParams }: Props) {
   }
 
   if (minPrice || maxPrice) {
-    const exchangeRate = await getExchangeRate();
+    const rates = await getExchangeRates();
 
     if (minPrice) {
       const minPriceNum = parseFloat(minPrice);
 
-      // Convert to both currencies for filtering
+      // Convert to all currencies for filtering
       if (priceCurrency === "EUR") {
-        // User searching in EUR: show EUR >= minPrice OR RSD >= minPrice*rate
-        const minPriceRSD = minPriceNum * exchangeRate;
+        const minPriceRSD = minPriceNum * rates.eurToRsd;
+        const minPriceUSD = minPriceNum / rates.usdToEur;
+        const minPriceGBP = minPriceNum / rates.gbpToEur;
+
         query = query.or(
           `and(currency.eq.EUR,price.gte.${minPriceNum}),` +
-            `and(currency.eq.RSD,price.gte.${minPriceRSD})`
+            `and(currency.eq.RSD,price.gte.${minPriceRSD}),` +
+            `and(currency.eq.USD,price.gte.${minPriceUSD}),` +
+            `and(currency.eq.GBP,price.gte.${minPriceGBP})`
         );
-      } else {
-        // User searching in RSD: show RSD >= minPrice OR EUR >= minPrice/rate
-        const minPriceEUR = minPriceNum / exchangeRate;
+      } else if (priceCurrency === "RSD") {
+        const minPriceEUR = minPriceNum / rates.eurToRsd;
+        const minPriceUSD = minPriceNum / rates.eurToRsd / rates.usdToEur;
+        const minPriceGBP = minPriceNum / rates.eurToRsd / rates.gbpToEur;
+
         query = query.or(
           `and(currency.eq.RSD,price.gte.${minPriceNum}),` +
-            `and(currency.eq.EUR,price.gte.${minPriceEUR})`
+            `and(currency.eq.EUR,price.gte.${minPriceEUR}),` +
+            `and(currency.eq.USD,price.gte.${minPriceUSD}),` +
+            `and(currency.eq.GBP,price.gte.${minPriceGBP})`
+        );
+      } else if (priceCurrency === "USD") {
+        const minPriceEUR = minPriceNum * rates.usdToEur;
+        const minPriceRSD = minPriceNum * rates.usdToEur * rates.eurToRsd;
+        const minPriceGBP = (minPriceNum * rates.usdToEur) / rates.gbpToEur;
+
+        query = query.or(
+          `and(currency.eq.USD,price.gte.${minPriceNum}),` +
+            `and(currency.eq.EUR,price.gte.${minPriceEUR}),` +
+            `and(currency.eq.RSD,price.gte.${minPriceRSD}),` +
+            `and(currency.eq.GBP,price.gte.${minPriceGBP})`
+        );
+      } else if (priceCurrency === "GBP") {
+        const minPriceEUR = minPriceNum * rates.gbpToEur;
+        const minPriceRSD = minPriceNum * rates.gbpToEur * rates.eurToRsd;
+        const minPriceUSD = (minPriceNum * rates.gbpToEur) / rates.usdToEur;
+
+        query = query.or(
+          `and(currency.eq.GBP,price.gte.${minPriceNum}),` +
+            `and(currency.eq.EUR,price.gte.${minPriceEUR}),` +
+            `and(currency.eq.RSD,price.gte.${minPriceRSD}),` +
+            `and(currency.eq.USD,price.gte.${minPriceUSD})`
         );
       }
     }
@@ -255,16 +288,48 @@ export default async function HomePage({ params, searchParams }: Props) {
       const maxPriceNum = parseFloat(maxPrice);
 
       if (priceCurrency === "EUR") {
-        const maxPriceRSD = maxPriceNum * exchangeRate;
+        const maxPriceRSD = maxPriceNum * rates.eurToRsd;
+        const maxPriceUSD = maxPriceNum / rates.usdToEur;
+        const maxPriceGBP = maxPriceNum / rates.gbpToEur;
+
         query = query.or(
           `and(currency.eq.EUR,price.lte.${maxPriceNum}),` +
-            `and(currency.eq.RSD,price.lte.${maxPriceRSD})`
+            `and(currency.eq.RSD,price.lte.${maxPriceRSD}),` +
+            `and(currency.eq.USD,price.lte.${maxPriceUSD}),` +
+            `and(currency.eq.GBP,price.lte.${maxPriceGBP})`
         );
-      } else {
-        const maxPriceEUR = maxPriceNum / exchangeRate;
+      } else if (priceCurrency === "RSD") {
+        const maxPriceEUR = maxPriceNum / rates.eurToRsd;
+        const maxPriceUSD = maxPriceNum / rates.eurToRsd / rates.usdToEur;
+        const maxPriceGBP = maxPriceNum / rates.eurToRsd / rates.gbpToEur;
+
         query = query.or(
           `and(currency.eq.RSD,price.lte.${maxPriceNum}),` +
-            `and(currency.eq.EUR,price.lte.${maxPriceEUR})`
+            `and(currency.eq.EUR,price.lte.${maxPriceEUR}),` +
+            `and(currency.eq.USD,price.lte.${maxPriceUSD}),` +
+            `and(currency.eq.GBP,price.lte.${maxPriceGBP})`
+        );
+      } else if (priceCurrency === "USD") {
+        const maxPriceEUR = maxPriceNum * rates.usdToEur;
+        const maxPriceRSD = maxPriceNum * rates.usdToEur * rates.eurToRsd;
+        const maxPriceGBP = (maxPriceNum * rates.usdToEur) / rates.gbpToEur;
+
+        query = query.or(
+          `and(currency.eq.USD,price.lte.${maxPriceNum}),` +
+            `and(currency.eq.EUR,price.lte.${maxPriceEUR}),` +
+            `and(currency.eq.RSD,price.lte.${maxPriceRSD}),` +
+            `and(currency.eq.GBP,price.lte.${maxPriceGBP})`
+        );
+      } else if (priceCurrency === "GBP") {
+        const maxPriceEUR = maxPriceNum * rates.gbpToEur;
+        const maxPriceRSD = maxPriceNum * rates.gbpToEur * rates.eurToRsd;
+        const maxPriceUSD = (maxPriceNum * rates.gbpToEur) / rates.usdToEur;
+
+        query = query.or(
+          `and(currency.eq.GBP,price.lte.${maxPriceNum}),` +
+            `and(currency.eq.EUR,price.lte.${maxPriceEUR}),` +
+            `and(currency.eq.RSD,price.lte.${maxPriceRSD}),` +
+            `and(currency.eq.USD,price.lte.${maxPriceUSD})`
         );
       }
     }
@@ -314,26 +379,24 @@ export default async function HomePage({ params, searchParams }: Props) {
     );
   }
 
-  // Handle price sorting with currency normalization
   if (isPriceSorting && filteredListings.length > 0) {
-    const exchangeRate = await getExchangeRate();
+    const rates = await getExchangeRates();
 
     filteredListings.sort((a, b) => {
       const priceA = normalizeToEur(
         a.price,
-        a.currency as "EUR" | "RSD",
-        exchangeRate
+        a.currency as "EUR" | "RSD" | "USD" | "GBP",
+        rates
       );
       const priceB = normalizeToEur(
         b.price,
-        b.currency as "EUR" | "RSD",
-        exchangeRate
+        b.currency as "EUR" | "RSD" | "USD" | "GBP",
+        rates
       );
 
       return sortBy === "price_low" ? priceA - priceB : priceB - priceA;
     });
   }
-
   const totalPages = Math.ceil((count || 0) / ITEMS_PER_PAGE);
 
   return (

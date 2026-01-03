@@ -14,6 +14,8 @@ import { AutocompleteInput } from "./autocomplete-input";
 
 const CURRENCIES = [
   { value: "EUR", label: "€ EUR" },
+  { value: "USD", label: "$ USD" },
+  { value: "GBP", label: "£ GBP" },
   { value: "RSD", label: "RSD / дин" },
 ];
 

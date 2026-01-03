@@ -171,8 +171,21 @@ export function ListingsFilters({
             {(minPrice || maxPrice) && (
               <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                 {t("priceRange")}: {minPrice || "0"}
-                {priceCurrency === "EUR" ? "€" : " RSD"} - {maxPrice || "∞"}
-                {priceCurrency === "EUR" ? "€" : " RSD"}
+                {priceCurrency === "EUR"
+                  ? "€"
+                  : priceCurrency === "USD"
+                  ? "$"
+                  : priceCurrency === "GBP"
+                  ? "£"
+                  : " RSD"}{" "}
+                - {maxPrice || "∞"}
+                {priceCurrency === "EUR"
+                  ? "€"
+                  : priceCurrency === "USD"
+                  ? "$"
+                  : priceCurrency === "GBP"
+                  ? "£"
+                  : " RSD"}
                 <button
                   onClick={() => {
                     onMinPriceChange("");
@@ -307,6 +320,8 @@ export function ListingsFilters({
             className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
           >
             <option value="EUR">EUR (€)</option>
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
             <option value="RSD">RSD (дин)</option>
           </select>
         </div>

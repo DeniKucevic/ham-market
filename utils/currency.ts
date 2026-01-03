@@ -1,7 +1,3 @@
-/**
- * Format price with currency symbol based on locale
- * Client-safe - no server dependencies
- */
 export const formatPrice = (
   price: number,
   currency: string,
@@ -25,9 +21,9 @@ export const formatPrice = (
     }
   }
 
-  if (currency === "EUR") {
-    return `€${formattedNumber}`;
-  }
+  if (currency === "EUR") return `€${formattedNumber}`;
+  if (currency === "USD") return `$${formattedNumber}`;
+  if (currency === "GBP") return `£${formattedNumber}`;
 
   return `${currency}${formattedNumber}`;
 };
