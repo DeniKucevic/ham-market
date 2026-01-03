@@ -217,6 +217,17 @@ export function ListingForm({ userId, listing, locale }: Props) {
       const formData = new FormData(e.currentTarget);
       const supabase = createClient();
 
+      // Check if user is admin
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", userId)
+        .single();
+
+      const isAdmin = profile?.role === "admin";
+      const isEditingOthersListing =
+        isEditing && listing && listing.user_id !== userId;
+
       // Upload new images
       const newImageUrls: string[] = [];
       for (const file of newImageFiles) {
@@ -276,17 +287,37 @@ export function ListingForm({ userId, listing, locale }: Props) {
       const validated = CreateListingSchema.parse(listingData);
 
       if (isEditing) {
-        // Update
-        const { error: dbError } = await supabase
-          .from("listings")
-          .update(validated)
-          .eq("id", listing.id)
-          .eq("user_id", userId);
+        // UPDATE
+        if (isAdmin && isEditingOthersListing) {
+          // Admin editing someone else's listing - use API route
+          const response = await fetch("/api/admin/update-listing", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              listingId: listing.id,
+              updates: validated,
+            }),
+          });
 
-        if (dbError) throw dbError;
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || "Failed to update listing");
+          }
+        } else {
+          // Regular user update
+          const { error: dbError } = await supabase
+            .from("listings")
+            .update(validated)
+            .eq("id", listing.id)
+            .eq("user_id", userId);
+
+          if (dbError) throw dbError;
+        }
+
         router.push(`/${locale}/listings/${listing.id}`);
+        router.refresh();
       } else {
-        // Create
+        // CREATE
         const { error: dbError, data: newListing } = await supabase
           .from("listings")
           .insert({ ...validated, user_id: userId })
@@ -295,9 +326,8 @@ export function ListingForm({ userId, listing, locale }: Props) {
 
         if (dbError) throw dbError;
         router.push(`/${locale}/listings/${newListing.id}`);
+        router.refresh();
       }
-
-      router.refresh();
     } catch (err: unknown) {
       console.error("Listing error:", err);
       if (err instanceof ZodError) {

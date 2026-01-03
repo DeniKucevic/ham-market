@@ -176,84 +176,106 @@ export function MyListingsClient({
             {filteredListings.map((listing) => (
               <div
                 key={listing.id}
-                className="flex gap-4 overflow-hidden rounded-lg bg-white p-4 shadow dark:bg-gray-800"
+                className="overflow-hidden rounded-lg bg-white shadow dark:bg-gray-800"
               >
-                <Link
-                  href={`/${locale}/listings/${listing.id}`}
-                  className="flex-shrink-0"
-                >
-                  <div className="h-24 w-24 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
-                    {listing.images && listing.images.length > 0 ? (
-                      <Image
-                        src={listing.images[0]}
-                        alt={listing.title}
-                        width={96}
-                        height={96}
-                        loading="lazy"
-                        quality={75}
-                        sizes="96px"
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <ImagePlaceholder size="sm" />
-                    )}
-                  </div>
-                </Link>
-
-                <div className="flex flex-1 flex-col justify-between">
-                  <div>
-                    <Link
-                      href={`/${locale}/listings/${listing.id}`}
-                      className="text-lg font-semibold text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
-                    >
-                      {listing.title}
-                    </Link>
-                    <div className="mt-1 flex items-center gap-2">
-                      <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-                        {listing.category.replace(/_/g, " ")}
-                      </span>
-                      <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
-                        {listing.condition.replace(/_/g, " ")}
-                      </span>
+                <div className="flex gap-4 p-4">
+                  <Link
+                    href={`/${locale}/listings/${listing.id}`}
+                    className="flex-shrink-0"
+                  >
+                    <div className="h-24 w-24 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
+                      {listing.images && listing.images.length > 0 ? (
+                        <Image
+                          src={listing.images[0]}
+                          alt={listing.title}
+                          width={96}
+                          height={96}
+                          loading="lazy"
+                          quality={75}
+                          sizes="96px"
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <ImagePlaceholder size="sm" />
+                      )}
                     </div>
-                  </div>
+                  </Link>
 
-                  <div className="mt-2 flex items-center justify-between">
-                    <p className="text-lg font-bold text-gray-900 dark:text-white">
-                      {formatPrice(listing.price, listing.currency || "EUR")}
-                    </p>
-                    <div className="flex gap-2">
-                      {listing.status === "active" && (
-                        <MarkAsSoldButton
+                  <div className="flex flex-1 flex-col justify-between">
+                    <div>
+                      <Link
+                        href={`/${locale}/listings/${listing.id}`}
+                        className="text-lg font-semibold text-gray-900 hover:text-blue-600 dark:text-white dark:hover:text-blue-400"
+                      >
+                        {listing.title}
+                      </Link>
+                      <div className="mt-1 flex items-center gap-2">
+                        <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                          {listing.category.replace(/_/g, " ")}
+                        </span>
+                        <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                          {listing.condition.replace(/_/g, " ")}
+                        </span>
+                        {listing.status === "hidden" && (
+                          <span className="inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-800 dark:bg-orange-900/30 dark:text-orange-400">
+                            Hidden
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-2 flex items-center justify-between">
+                      <p className="text-lg font-bold text-gray-900 dark:text-white">
+                        {formatPrice(listing.price, listing.currency || "EUR")}
+                      </p>
+                      <div className="flex gap-2">
+                        {listing.status === "active" && (
+                          <MarkAsSoldButton
+                            listingId={listing.id}
+                            listingTitle={listing.title}
+                          />
+                        )}
+                        {listing.status === "sold" && listing.sold_to && (
+                          <RateUserButton
+                            listingId={listing.id}
+                            ratedUserId={listing.sold_to}
+                            currentUserId={userId}
+                          />
+                        )}
+                        {listing.status === "active" && (
+                          <Link
+                            href={`/${locale}/listings/${listing.id}/edit`}
+                            className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                          >
+                            {tCommon("edit")}
+                          </Link>
+                        )}
+                        <DeleteListingButton
                           listingId={listing.id}
                           listingTitle={listing.title}
+                          images={listing.images}
+                          userId={userId}
+                          variant="inline"
                         />
-                      )}
-                      {listing.status === "sold" && listing.sold_to && (
-                        <RateUserButton
-                          listingId={listing.id}
-                          ratedUserId={listing.sold_to}
-                          currentUserId={userId}
-                        />
-                      )}
-                      {listing.status === "active" && (
-                        <Link
-                          href={`/${locale}/listings/${listing.id}/edit`}
-                          className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-                        >
-                          {tCommon("edit")}
-                        </Link>
-                      )}
-                      <DeleteListingButton
-                        listingId={listing.id}
-                        listingTitle={listing.title}
-                        images={listing.images}
-                        userId={userId}
-                        variant="inline"
-                      />
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Admin Notes Warning */}
+                {listing.status === "hidden" && listing.admin_notes && (
+                  <div className="border-t border-orange-200 bg-orange-50 p-4 dark:border-orange-900/30 dark:bg-orange-900/20">
+                    <p className="text-xs font-semibold text-orange-800 dark:text-orange-400">
+                      ⚠️ Listing Hidden by Admin
+                    </p>
+                    <p className="mt-1 text-sm text-orange-700 dark:text-orange-300">
+                      {listing.admin_notes}
+                    </p>
+                    <p className="mt-2 text-xs text-orange-600 dark:text-orange-400">
+                      Please edit your listing to address this issue.
+                    </p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -301,11 +323,28 @@ export function MyListingsClient({
                     <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
                       {listing.condition.replace(/_/g, " ")}
                     </span>
+                    {listing.status === "hidden" && (
+                      <span className="inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-800 dark:bg-orange-900/30 dark:text-orange-400">
+                        Hidden
+                      </span>
+                    )}
                   </div>
 
                   <p className="mt-3 text-xl font-bold text-gray-900 dark:text-white">
                     {formatPrice(listing.price, listing.currency || "EUR")}
                   </p>
+
+                  {/* Admin Notes Warning */}
+                  {listing.status === "hidden" && listing.admin_notes && (
+                    <div className="mt-3 rounded-lg border-l-4 border-orange-500 bg-orange-50 p-3 dark:bg-orange-900/20">
+                      <p className="text-xs font-semibold text-orange-800 dark:text-orange-400">
+                        ⚠️ Hidden by Admin
+                      </p>
+                      <p className="mt-1 text-xs text-orange-700 dark:text-orange-300">
+                        {listing.admin_notes}
+                      </p>
+                    </div>
+                  )}
 
                   <div className="mt-4 flex flex-col gap-2">
                     {listing.status === "active" && (

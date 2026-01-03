@@ -27,6 +27,8 @@ export default async function EditListingPage({ params }: Props) {
     .eq("id", user.id)
     .single();
 
+  const isAdmin = profile?.role === "admin";
+
   // Fetch listing
   const { data: listing, error } = await supabase
     .from("listings")
@@ -39,7 +41,8 @@ export default async function EditListingPage({ params }: Props) {
   }
 
   // Security check - only owner can edit
-  if (listing.user_id !== user.id) {
+  if (listing.user_id !== user.id && !isAdmin) {
+    // UPDATE THIS LINE
     redirect(`/${locale}`);
   }
 

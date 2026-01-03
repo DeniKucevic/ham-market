@@ -67,6 +67,7 @@ export type Database = {
       }
       listings: {
         Row: {
+          admin_notes: string | null
           base_price_eur: number | null
           category: Database["public"]["Enums"]["listing_category"]
           condition: Database["public"]["Enums"]["item_condition"]
@@ -96,6 +97,7 @@ export type Database = {
           year_manufactured: number | null
         }
         Insert: {
+          admin_notes?: string | null
           base_price_eur?: number | null
           category: Database["public"]["Enums"]["listing_category"]
           condition: Database["public"]["Enums"]["item_condition"]
@@ -125,6 +127,7 @@ export type Database = {
           year_manufactured?: number | null
         }
         Update: {
+          admin_notes?: string | null
           base_price_eur?: number | null
           category?: Database["public"]["Enums"]["listing_category"]
           condition?: Database["public"]["Enums"]["item_condition"]
@@ -1453,7 +1456,13 @@ export type Database = {
         | "tools"
         | "books_manuals"
         | "other"
-      listing_status: "draft" | "active" | "sold" | "expired" | "removed"
+      listing_status:
+        | "draft"
+        | "active"
+        | "sold"
+        | "expired"
+        | "removed"
+        | "hidden"
     }
     CompositeTypes: {
       geometry_dump: {
@@ -1609,7 +1618,14 @@ export const Constants = {
         "books_manuals",
         "other",
       ],
-      listing_status: ["draft", "active", "sold", "expired", "removed"],
+      listing_status: [
+        "draft",
+        "active",
+        "sold",
+        "expired",
+        "removed",
+        "hidden",
+      ],
     },
   },
 } as const

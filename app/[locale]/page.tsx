@@ -1,3 +1,4 @@
+import { FeaturedListings } from "@/components/featured-listings"; // ADD THIS LINE
 import { HeroSearch } from "@/components/hero-search";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
@@ -134,7 +135,6 @@ export default async function HomePage({ params, searchParams }: Props) {
   const minPrice = searchParamsResolved.min_price || "";
   const maxPrice = searchParamsResolved.max_price || "";
   const priceCurrency = searchParamsResolved.price_currency || "EUR";
-
   const country = searchParamsResolved.country || "";
   const sortBy = searchParamsResolved.sort || "newest";
 
@@ -147,6 +147,29 @@ export default async function HomePage({ params, searchParams }: Props) {
 
   const { data: profile } = user
     ? await supabase.from("profiles").select("*").eq("id", user.id).single()
+    : { data: null };
+
+  // ADD THIS SECTION - Featured listings
+  const showFeatured = page === 1 && !searchQuery && !category && !country;
+  const { data: featuredListings } = showFeatured
+    ? await supabase
+        .from("listings")
+        .select(
+          `
+          *,
+          profiles!listings_user_id_fkey (
+            callsign,
+            display_name,
+            location_city,
+            location_country,
+            rating
+          )
+        `
+        )
+        .eq("status", "active")
+        .eq("featured", true)
+        .order("created_at", { ascending: false })
+        .limit(6)
     : { data: null };
 
   // Build query with all filters
@@ -191,7 +214,6 @@ export default async function HomePage({ params, searchParams }: Props) {
     query = query.in("condition", validConditions);
   }
 
-  // Price filters
   if (minPrice || maxPrice) {
     const exchangeRate = await getExchangeRate();
 
@@ -297,7 +319,6 @@ export default async function HomePage({ params, searchParams }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
       <HeroSearch initialQuery={searchQuery} />
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -306,6 +327,14 @@ export default async function HomePage({ params, searchParams }: Props) {
             {t("browseListings")}
           </h1>
         </div>
+
+        {/* ADD THIS - Featured Listings */}
+        {showFeatured && featuredListings && featuredListings.length > 0 && (
+          <FeaturedListings
+            listings={featuredListings as BrowseListing[]}
+            locale={locale}
+          />
+        )}
 
         <BrowseListingsClient
           listings={filteredListings as BrowseListing[]}
@@ -317,7 +346,7 @@ export default async function HomePage({ params, searchParams }: Props) {
           initialConditions={conditions}
           initialMinPrice={minPrice}
           initialMaxPrice={maxPrice}
-          initialPriceCurrency={priceCurrency} // ADD THIS
+          initialPriceCurrency={priceCurrency}
           initialCountry={country}
           initialSort={sortBy}
           locale={locale}

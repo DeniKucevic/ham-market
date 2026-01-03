@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Pagination } from "../pagination";
 
 interface User {
   id: string;
@@ -21,9 +22,17 @@ interface User {
 
 interface Props {
   users: User[];
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
 }
 
-export function UsersAdminClient({ users }: Props) {
+export function UsersAdminClient({
+  users,
+  currentPage,
+  totalPages,
+  totalCount,
+}: Props) {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
@@ -69,6 +78,15 @@ export function UsersAdminClient({ users }: Props) {
 
   return (
     <div>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          Users Management
+        </h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-400">
+          Showing {users.length} of {totalCount} total users (Page {currentPage}{" "}
+          of {totalPages}) - {adminCount} admins
+        </p>
+      </div>
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Users Management
@@ -194,6 +212,11 @@ export function UsersAdminClient({ users }: Props) {
           </table>
         </div>
       </div>
+      {totalPages > 1 && (
+        <div className="mt-8">
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
+        </div>
+      )}
     </div>
   );
 }

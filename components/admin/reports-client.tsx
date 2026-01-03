@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Pagination } from "../pagination";
 
 interface Report {
   id: string;
@@ -32,9 +33,17 @@ interface Report {
 
 interface Props {
   reports: Report[];
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
 }
 
-export function ReportsClient({ reports }: Props) {
+export function ReportsClient({
+  reports,
+  currentPage,
+  totalPages,
+  totalCount,
+}: Props) {
   const router = useRouter();
   const [filter, setFilter] = useState<"all" | "pending" | "reviewed">("all");
   const [selectedReport, setSelectedReport] = useState<Report | null>(null);
@@ -91,9 +100,7 @@ export function ReportsClient({ reports }: Props) {
         for (const imageUrl of listing.images) {
           const urlParts = imageUrl.split("/listing-images/");
           if (urlParts.length === 2) {
-            await supabase.storage
-              .from("listing-images")
-              .remove([urlParts[1]]);
+            await supabase.storage.from("listing-images").remove([urlParts[1]]);
           }
         }
       }
@@ -117,11 +124,24 @@ export function ReportsClient({ reports }: Props) {
     setLoading(false);
   };
 
-  const pendingCount = reports.filter((r: Report) => r.status === "pending").length;
-  const reviewedCount = reports.filter((r: Report) => r.status === "reviewed").length;
+  const pendingCount = reports.filter(
+    (r: Report) => r.status === "pending"
+  ).length;
+  const reviewedCount = reports.filter(
+    (r: Report) => r.status === "reviewed"
+  ).length;
 
   return (
     <div>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          Reports Management
+        </h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-400">
+          Showing {reports.length} of {totalCount} total reports (Page{" "}
+          {currentPage} of {totalPages})
+        </p>
+      </div>
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Reports Management
@@ -171,9 +191,7 @@ export function ReportsClient({ reports }: Props) {
       <div className="space-y-4">
         {filteredReports.length === 0 ? (
           <div className="rounded-lg bg-white p-8 text-center shadow dark:bg-gray-800">
-            <p className="text-gray-500 dark:text-gray-400">
-              No reports found
-            </p>
+            <p className="text-gray-500 dark:text-gray-400">No reports found</p>
           </div>
         ) : (
           filteredReports.map((report: Report) => (
@@ -194,7 +212,8 @@ export function ReportsClient({ reports }: Props) {
                       {report.status}
                     </span>
                     <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {report.created_at && new Date(report.created_at).toLocaleDateString()}
+                      {report.created_at &&
+                        new Date(report.created_at).toLocaleDateString()}
                     </span>
                   </div>
 
@@ -245,8 +264,7 @@ export function ReportsClient({ reports }: Props) {
                   {report.reviewed_at && report.reviewer && (
                     <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                       Reviewed by:{" "}
-                      {report.reviewer.display_name ||
-                        report.reviewer.callsign}{" "}
+                      {report.reviewer.display_name || report.reviewer.callsign}{" "}
                       on {new Date(report.reviewed_at).toLocaleDateString()}
                     </p>
                   )}
@@ -277,6 +295,11 @@ export function ReportsClient({ reports }: Props) {
               </div>
             </div>
           ))
+        )}
+        {totalPages > 1 && (
+          <div className="mt-8">
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
+          </div>
         )}
       </div>
 
