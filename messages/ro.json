@@ -276,7 +276,9 @@
     "activeFilters": "Filtre Active",
     "allCountries": "Toate Țările",
     "searchCountries": "Caută țări...",
-    "condition": "Stare"
+    "condition": "Stare",
+    "filters": "Filtre",
+    "applyFilters": "Aplică filtre"
   },
   "autocomplete": {
     "typeToSuggest": "Tastează cel puțin 2 caractere pentru sugestii",

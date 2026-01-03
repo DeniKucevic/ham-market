@@ -236,6 +236,8 @@ export default async function ListingDetailPage({ params }: Props) {
     ],
   };
 
+  console.log("Image URL:", listing.images?.[0]);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <script

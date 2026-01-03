@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import { FilterDrawer } from "./filter-drawer";
 import { ListingGridSkeleton, ListingListSkeleton } from "./listing-skeleton";
 
 interface Props {
@@ -52,6 +53,7 @@ export function BrowseListingsClient({
   const pathname = usePathname();
 
   const [isPending, startTransition] = useTransition();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const [viewMode, setViewMode, viewMounted] = useLocalStorage<"grid" | "list">(
     "listings-view-mode",
@@ -187,10 +189,17 @@ export function BrowseListingsClient({
     };
   }, []);
 
+  const activeFilterCount = [
+    selectedCategory,
+    ...selectedCondition,
+    minPrice || maxPrice ? "price" : "",
+    country,
+  ].filter(Boolean).length;
+
   return (
     <div className="grid gap-6 lg:grid-cols-4">
-      {/* Sidebar Filters */}
-      <aside className="lg:col-span-1">
+      {/* Desktop Sidebar - Hidden on mobile */}
+      <aside className="hidden lg:block lg:col-span-1">
         <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
           <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
             {t("filters")}
@@ -199,42 +208,42 @@ export function BrowseListingsClient({
             searchQuery={searchQuery}
             onSearchChange={(value) => {
               setSearchQuery(value);
-              updateFilters({ search: value }, false); // Debounced
+              updateFilters({ search: value }, false);
             }}
             selectedCategory={selectedCategory}
             onCategoryChange={(value) => {
               setSelectedCategory(value);
-              updateFilters({ category: value }, true); // Immediate
+              updateFilters({ category: value }, true);
             }}
             selectedCondition={selectedCondition}
             onConditionChange={(value) => {
               setSelectedCondition(value);
-              updateFilters({ condition: value }, true); // Immediate
+              updateFilters({ condition: value }, true);
             }}
             minPrice={minPrice}
             maxPrice={maxPrice}
             onMinPriceChange={(value) => {
               setMinPrice(value);
-              updateFilters({ minPrice: value }, false); // Debounced
+              updateFilters({ minPrice: value }, false);
             }}
             onMaxPriceChange={(value) => {
               setMaxPrice(value);
-              updateFilters({ maxPrice: value }, false); // Debounced
+              updateFilters({ maxPrice: value }, false);
             }}
             priceCurrency={priceCurrency}
             onPriceCurrencyChange={(value) => {
               setPriceCurrency(value);
-              updateFilters({ priceCurrency: value }, true); // Immediate
+              updateFilters({ priceCurrency: value }, true);
             }}
             country={country}
             onCountryChange={(value) => {
               setCountry(value);
-              updateFilters({ country: value }, true); // Immediate
+              updateFilters({ country: value }, true);
             }}
             sortBy={sortBy}
             onSortChange={(value) => {
               setSortBy(value);
-              updateFilters({ sort: value }, true); // Immediate
+              updateFilters({ sort: value }, true);
             }}
             onClearFilters={clearFilters}
             locale={locale}
@@ -242,10 +251,93 @@ export function BrowseListingsClient({
         </div>
       </aside>
 
+      {/* Mobile Filter Drawer */}
+      <FilterDrawer
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+      >
+        <ListingsFilters
+          searchQuery={searchQuery}
+          onSearchChange={(value) => {
+            setSearchQuery(value);
+            updateFilters({ search: value }, false);
+          }}
+          selectedCategory={selectedCategory}
+          onCategoryChange={(value) => {
+            setSelectedCategory(value);
+            updateFilters({ category: value }, true);
+          }}
+          selectedCondition={selectedCondition}
+          onConditionChange={(value) => {
+            setSelectedCondition(value);
+            updateFilters({ condition: value }, true);
+          }}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          onMinPriceChange={(value) => {
+            setMinPrice(value);
+            updateFilters({ minPrice: value }, false);
+          }}
+          onMaxPriceChange={(value) => {
+            setMaxPrice(value);
+            updateFilters({ maxPrice: value }, false);
+          }}
+          priceCurrency={priceCurrency}
+          onPriceCurrencyChange={(value) => {
+            setPriceCurrency(value);
+            updateFilters({ priceCurrency: value }, true);
+          }}
+          country={country}
+          onCountryChange={(value) => {
+            setCountry(value);
+            updateFilters({ country: value }, true);
+          }}
+          sortBy={sortBy}
+          onSortChange={(value) => {
+            setSortBy(value);
+            updateFilters({ sort: value }, true);
+          }}
+          onClearFilters={clearFilters}
+          locale={locale}
+        />
+      </FilterDrawer>
+
       {/* Main Content */}
       <div className="lg:col-span-3">
-        {/* Header with view toggle */}
-        <div className="mb-6 flex items-center justify-between">
+        {/* Mobile Filter Button & Sort */}
+        <div className="mb-6 flex items-center justify-between gap-3 lg:hidden">
+          <button
+            onClick={() => setIsFilterOpen(true)}
+            className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          >
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              />
+            </svg>
+            {t("filters")}
+            {activeFilterCount > 0 && (
+              <span className="rounded-full bg-blue-600 px-2 py-0.5 text-xs font-semibold text-white">
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
+
+          {viewMounted && (
+            <ViewToggle value={viewMode} onChange={setViewMode} />
+          )}
+        </div>
+
+        {/* Desktop Header with view toggle */}
+        <div className="mb-6 hidden items-center justify-between lg:flex">
           <p className="text-gray-600 dark:text-gray-400">
             {t("showing")} {listings.length} {t("of")} {totalCount}{" "}
             {t("listings")}
@@ -254,6 +346,12 @@ export function BrowseListingsClient({
             <ViewToggle value={viewMode} onChange={setViewMode} />
           )}
         </div>
+
+        {/* Mobile results count */}
+        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400 lg:hidden">
+          {t("showing")} {listings.length} {t("of")} {totalCount}{" "}
+          {t("listings")}
+        </p>
 
         {/* No results */}
         {(!listings || listings.length === 0) && (

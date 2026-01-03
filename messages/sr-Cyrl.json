@@ -276,7 +276,9 @@
     "activeFilters": "Активни Филтери",
     "allCountries": "Све Земље",
     "searchCountries": "Претражи земље...",
-    "condition": "Стање"
+    "condition": "Стање",
+    "filters": "Филтери",
+    "applyFilters": "Примени филтере"
   },
   "autocomplete": {
     "typeToSuggest": "Откуцајте најмање 2 карактера за предлоге",

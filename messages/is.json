@@ -276,7 +276,9 @@
     "activeFilters": "Virkar Síur",
     "allCountries": "Öll Lönd",
     "searchCountries": "Leita að löndum...",
-    "condition": "Ástand"
+    "condition": "Ástand",
+    "filters": "Síur",
+    "applyFilters": "Nota síur"
   },
   "autocomplete": {
     "typeToSuggest": "Sláðu inn að minnsta kosti 2 stafi til að sjá tillögur",

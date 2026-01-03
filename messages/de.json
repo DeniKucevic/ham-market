@@ -276,7 +276,9 @@
     "activeFilters": "Aktive Filter",
     "allCountries": "Alle Länder",
     "searchCountries": "Länder suchen...",
-    "condition": "Zustand"
+    "condition": "Zustand",
+    "filters": "Filter",
+    "applyFilters": "Filter anwenden"
   },
   "autocomplete": {
     "typeToSuggest": "Geben Sie mindestens 2 Zeichen ein, um Vorschläge zu sehen",

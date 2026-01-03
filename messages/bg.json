@@ -276,7 +276,9 @@
     "activeFilters": "Активни Филтри",
     "allCountries": "Всички Държави",
     "searchCountries": "Търсене на държави...",
-    "condition": "Състояние"
+    "condition": "Състояние",
+    "filters": "Филтри",
+    "applyFilters": "Приложи филтри"
   },
   "autocomplete": {
     "typeToSuggest": "Въведете поне 2 знака, за да видите предложения",
