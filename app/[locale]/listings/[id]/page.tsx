@@ -47,10 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  // Build image URL
-  const imageUrl = listing.images?.[0]
-    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/listing-images/${listing.images[0]}`
-    : null;
+  const imageUrl = listing.images?.[0] || null;
 
   // Build a good title with location
   const title =
@@ -90,7 +87,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: title,
       description: description,
-      images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630 }] : [],
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: listing.title,
+            },
+          ]
+        : [],
       type: "website",
       locale: locale,
       url: `https://hamtrade.net/${locale}/listings/${id}`,
@@ -183,7 +189,7 @@ export default async function ListingDetailPage({ params }: Props) {
     "@type": "Product",
     name: listing.title,
     description: listing.description,
-    image: listing.images[0],
+    image: listing.images?.[0] || undefined,
     category: listing.category,
     brand: listing.manufacturer,
     model: listing.model,
