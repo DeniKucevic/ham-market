@@ -3,7 +3,7 @@
 import { ViewToggle } from "@/components/view-toggle";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Pagination } from "../pagination";
 
@@ -33,6 +33,11 @@ interface Props {
   currentPage: number;
   totalPages: number;
   totalCount: number;
+  activeCount: number;
+  soldCount: number;
+  hiddenCount: number;
+  featuredCount: number;
+  statusFilter: string;
 }
 
 export function ListingsAdminClient({
@@ -41,11 +46,15 @@ export function ListingsAdminClient({
   currentPage,
   totalPages,
   totalCount,
+  activeCount,
+  soldCount,
+  hiddenCount,
+  featuredCount,
+  statusFilter,
 }: Props) {
   const router = useRouter();
-  const [filter, setFilter] = useState<
-    "all" | "active" | "sold" | "hidden" | "featured"
-  >("all");
+  const pathname = usePathname();
+  const [filter, setFilter] = useState<string>("all");
   const [loading, setLoading] = useState(false);
   const [hideModal, setHideModal] = useState<Listing | null>(null);
   const [hideReason, setHideReason] = useState("");
@@ -54,14 +63,14 @@ export function ListingsAdminClient({
     "grid"
   );
 
-  const filteredListings = listings.filter((listing: Listing) => {
-    if (filter === "all") return true;
-    if (filter === "active") return listing.status === "active";
-    if (filter === "sold") return listing.status === "sold";
-    if (filter === "hidden") return listing.status === "hidden";
-    if (filter === "featured") return listing.featured === true;
-    return true;
-  });
+  const handleFilterChange = (newFilter: string) => {
+    setFilter(newFilter);
+    const params = new URLSearchParams();
+    if (newFilter !== "all") params.set("status", newFilter);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const filteredListings = listings;
 
   const handleToggleFeatured = async (
     listingId: string,
@@ -169,17 +178,6 @@ export function ListingsAdminClient({
     }
   };
 
-  const activeCount = listings.filter(
-    (l: Listing) => l.status === "active"
-  ).length;
-  const soldCount = listings.filter((l: Listing) => l.status === "sold").length;
-  const hiddenCount = listings.filter(
-    (l: Listing) => l.status === "hidden"
-  ).length;
-  const featuredCount = listings.filter(
-    (l: Listing) => l.featured === true
-  ).length;
-
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -199,7 +197,7 @@ export function ListingsAdminClient({
       <div className="mb-6 border-b border-gray-200 dark:border-gray-700">
         <nav className="-mb-px flex gap-6">
           <button
-            onClick={() => setFilter("all")}
+            onClick={() => handleFilterChange("all")}
             className={`border-b-2 px-1 py-3 text-sm font-medium ${
               filter === "all"
                 ? "border-blue-500 text-blue-600 dark:text-blue-400"
@@ -209,7 +207,7 @@ export function ListingsAdminClient({
             All ({listings.length})
           </button>
           <button
-            onClick={() => setFilter("active")}
+            onClick={() => handleFilterChange("active")}
             className={`border-b-2 px-1 py-3 text-sm font-medium ${
               filter === "active"
                 ? "border-blue-500 text-blue-600 dark:text-blue-400"
@@ -219,7 +217,7 @@ export function ListingsAdminClient({
             Active ({activeCount})
           </button>
           <button
-            onClick={() => setFilter("sold")}
+            onClick={() => handleFilterChange("sold")}
             className={`border-b-2 px-1 py-3 text-sm font-medium ${
               filter === "sold"
                 ? "border-blue-500 text-blue-600 dark:text-blue-400"
@@ -229,7 +227,7 @@ export function ListingsAdminClient({
             Sold ({soldCount})
           </button>
           <button
-            onClick={() => setFilter("hidden")}
+            onClick={() => handleFilterChange("hidden")}
             className={`border-b-2 px-1 py-3 text-sm font-medium ${
               filter === "hidden"
                 ? "border-blue-500 text-blue-600 dark:text-blue-400"
@@ -239,7 +237,7 @@ export function ListingsAdminClient({
             Hidden ({hiddenCount})
           </button>
           <button
-            onClick={() => setFilter("featured")}
+            onClick={() => handleFilterChange("featured")}
             className={`border-b-2 px-1 py-3 text-sm font-medium ${
               filter === "featured"
                 ? "border-blue-500 text-blue-600 dark:text-blue-400"

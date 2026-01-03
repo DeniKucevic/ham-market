@@ -24,7 +24,11 @@ export const ListingGridCard = memo(function ListingGridCard({
   return (
     <LoadingLink
       href={`/listings/${listing.id}`}
-      className="group relative block overflow-hidden rounded-lg bg-white shadow transition-shadow hover:shadow-lg dark:bg-gray-800"
+      className={`group relative block overflow-hidden rounded-lg bg-white shadow transition-shadow hover:shadow-lg dark:bg-gray-800 ${
+        listing.featured
+          ? "ring-2 ring-purple-500 shadow-xl shadow-purple-100 dark:shadow-purple-900/50"
+          : ""
+      }`}
     >
       {/* Image */}
       <div className="aspect-square overflow-hidden bg-gray-100 dark:bg-gray-700">

@@ -2,6 +2,7 @@
 
 import { DeleteListingButton } from "@/components/delete-listing-button";
 import { DeleteListingModal } from "@/components/delete-listing-modal";
+import { HideListingButton } from "@/components/hide-listing-button";
 import { ImagePlaceholder } from "@/components/image-placeholder";
 import { MarkAsSoldButton } from "@/components/mark-as-sold-button";
 import { Pagination } from "@/components/pagination";
@@ -230,9 +231,23 @@ export function MyListingsClient({
                       </p>
                       <div className="flex gap-2">
                         {listing.status === "active" && (
-                          <MarkAsSoldButton
+                          <>
+                            <MarkAsSoldButton
+                              listingId={listing.id}
+                              listingTitle={listing.title}
+                            />
+                            <HideListingButton
+                              listingId={listing.id}
+                              listingTitle={listing.title}
+                              isHidden={false}
+                            />
+                          </>
+                        )}
+                        {listing.status === "hidden" && (
+                          <HideListingButton
                             listingId={listing.id}
                             listingTitle={listing.title}
+                            isHidden={true}
                           />
                         )}
                         {listing.status === "sold" && listing.sold_to && (
@@ -242,7 +257,8 @@ export function MyListingsClient({
                             currentUserId={userId}
                           />
                         )}
-                        {listing.status === "active" && (
+                        {(listing.status === "active" ||
+                          listing.status === "hidden") && (
                           <Link
                             href={`/${locale}/listings/${listing.id}/edit`}
                             className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"

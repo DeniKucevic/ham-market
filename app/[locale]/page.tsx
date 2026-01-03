@@ -1,4 +1,3 @@
-import { FeaturedListings } from "@/components/featured-listings"; // ADD THIS LINE
 import { HeroSearch } from "@/components/hero-search";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
@@ -149,7 +148,6 @@ export default async function HomePage({ params, searchParams }: Props) {
     ? await supabase.from("profiles").select("*").eq("id", user.id).single()
     : { data: null };
 
-  // ADD THIS SECTION - Featured listings
   const showFeatured = page === 1 && !searchQuery && !category && !country;
   const { data: featuredListings } = showFeatured
     ? await supabase
@@ -264,16 +262,22 @@ export default async function HomePage({ params, searchParams }: Props) {
   if (!isPriceSorting) {
     switch (sortBy) {
       case "oldest":
-        query = query.order("created_at", { ascending: true });
+        query = query
+          .order("featured", { ascending: false, nullsFirst: false })
+          .order("created_at", { ascending: true });
         break;
       case "newest":
       default:
-        query = query.order("created_at", { ascending: false });
+        query = query
+          .order("featured", { ascending: false, nullsFirst: false })
+          .order("created_at", { ascending: false });
         break;
     }
   } else {
     // For price sorting, order by created_at for consistent pagination
-    query = query.order("created_at", { ascending: false });
+    query = query
+      .order("featured", { ascending: false, nullsFirst: false })
+      .order("created_at", { ascending: false });
   }
 
   // Get count first
@@ -327,14 +331,6 @@ export default async function HomePage({ params, searchParams }: Props) {
             {t("browseListings")}
           </h1>
         </div>
-
-        {/* ADD THIS - Featured Listings */}
-        {showFeatured && featuredListings && featuredListings.length > 0 && (
-          <FeaturedListings
-            listings={featuredListings as BrowseListing[]}
-            locale={locale}
-          />
-        )}
 
         <BrowseListingsClient
           listings={filteredListings as BrowseListing[]}
