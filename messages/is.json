@@ -189,6 +189,8 @@
     "subtitle": "Stjórna prófílupplýsingum þínum og friðhelgisstillingum"
   },
   "settingsForm": {
+    "confirmPassword": "Staðfestu lykilorð",
+    "confirmPasswordPlaceholder": "Sláðu inn nýja lykilorðið aftur",
     "validationError": "Villa við staðfestingu",
     "updateError": "Mistókst að uppfæra prófíl",
     "successMessage": "Prófíll uppfærður með góðum árangri!",

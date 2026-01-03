@@ -189,6 +189,8 @@
     "subtitle": "Gestionează informațiile profilului și setările de confidențialitate"
   },
   "settingsForm": {
+    "confirmPassword": "Confirmă parola",
+    "confirmPasswordPlaceholder": "Reintroduceți noua parolă",
     "validationError": "Eroare de validare",
     "updateError": "Actualizarea profilului a eșuat",
     "successMessage": "Profil actualizat cu succes!",

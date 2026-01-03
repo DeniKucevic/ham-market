@@ -10,7 +10,6 @@ export default async function SettingsPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "settings" });
-
   const supabase = await createClient();
 
   const {
@@ -38,11 +37,11 @@ export default async function SettingsPage({
             {t("subtitle")}
           </p>
         </div>
-
         {profile && (
           <ProfileSettingsForm
             profile={profile}
             userId={user.id}
+            userEmail={user.email || ""}
             locale={locale}
           />
         )}

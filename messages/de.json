@@ -189,6 +189,8 @@
     "subtitle": "Verwalten Sie Ihre Profilinformationen und Datenschutzeinstellungen"
   },
   "settingsForm": {
+    "confirmPassword": "Passwort bestätigen",
+    "confirmPasswordPlaceholder": "Geben Sie Ihr neues Passwort erneut ein",
     "validationError": "Validierungsfehler",
     "updateError": "Aktualisierung des Profils fehlgeschlagen",
     "successMessage": "Profil erfolgreich aktualisiert!",

@@ -1,4 +1,5 @@
 import { HeroSearch } from "@/components/hero-search";
+import { getCountryFromIP } from "@/lib/geolocation";
 import { createClient } from "@/lib/supabase/server";
 import { BrowseListing } from "@/types/listing";
 import { getExchangeRate, normalizeToEur } from "@/utils/currency-server";
@@ -134,7 +135,6 @@ export default async function HomePage({ params, searchParams }: Props) {
   const minPrice = searchParamsResolved.min_price || "";
   const maxPrice = searchParamsResolved.max_price || "";
   const priceCurrency = searchParamsResolved.price_currency || "EUR";
-  const country = searchParamsResolved.country || "";
   const sortBy = searchParamsResolved.sort || "newest";
 
   const offset = (page - 1) * ITEMS_PER_PAGE;
@@ -147,6 +147,21 @@ export default async function HomePage({ params, searchParams }: Props) {
   const { data: profile } = user
     ? await supabase.from("profiles").select("*").eq("id", user.id).single()
     : { data: null };
+
+  let defaultCountry = "";
+
+  if (searchParamsResolved.country) {
+    // User manually selected a country via URL
+    defaultCountry = searchParamsResolved.country;
+  } else if (profile?.location_country) {
+    // User has set their country in profile
+    defaultCountry = profile.location_country;
+  } else {
+    // Detect from IP
+    defaultCountry = await getCountryFromIP();
+  }
+
+  const country = defaultCountry;
 
   const showFeatured = page === 1 && !searchQuery && !category && !country;
   const { data: featuredListings } = showFeatured
@@ -346,6 +361,7 @@ export default async function HomePage({ params, searchParams }: Props) {
           initialCountry={country}
           initialSort={sortBy}
           locale={locale}
+          defaultCountry={defaultCountry}
         />
       </main>
     </div>

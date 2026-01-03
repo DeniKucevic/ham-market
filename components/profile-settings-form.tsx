@@ -14,10 +14,16 @@ type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 interface Props {
   profile: Profile;
   userId: string;
+  userEmail: string;
   locale: string;
 }
 
-export function ProfileSettingsForm({ profile, userId, locale }: Props) {
+export function ProfileSettingsForm({
+  profile,
+  userId,
+  userEmail,
+  locale,
+}: Props) {
   const router = useRouter();
   const t = useTranslations("settingsForm");
   const tCommon = useTranslations("common");
@@ -46,6 +52,14 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
 
       // Get new password if provided
       const newPassword = formData.get("new_password") as string;
+      const confirmPassword = formData.get("confirm_password") as string; // Add this
+
+      // Validate password match
+      if (newPassword && newPassword.trim().length > 0) {
+        if (newPassword !== confirmPassword) {
+          throw new Error(t("passwordMismatch"));
+        }
+      }
 
       const profileData = {
         display_name: formData.get("display_name") as string,
@@ -221,7 +235,8 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
               id="email"
               name="email"
               maxLength={255}
-              defaultValue={profile?.email || ""}
+              defaultValue={profile?.email || userEmail} // Use userEmail as fallback
+              autoComplete="off" // Prevent browser autofill
               className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
               placeholder={t("emailPlaceholder")}
             />
@@ -230,7 +245,7 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
                 <input
                   type="checkbox"
                   name="show_email"
-                  defaultChecked={profile?.show_email || false}
+                  defaultChecked={profile?.show_email ?? true} // Default to true
                   className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
                 />
                 <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">
@@ -342,7 +357,7 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
         </p>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 border-t border-gray-200 pt-6 dark:border-gray-700">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white">
           {t("changePassword")}
         </h3>
@@ -354,12 +369,27 @@ export function ProfileSettingsForm({ profile, userId, locale }: Props) {
           <input
             type="password"
             name="new_password"
+            autoComplete="new-password"
             className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
             placeholder={t("newPasswordPlaceholder")}
           />
           <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
             {t("passwordHelp")}
           </p>
+        </div>
+
+        {/* Add Confirm Password Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            {t("confirmPassword")}
+          </label>
+          <input
+            type="password"
+            name="confirm_password"
+            autoComplete="new-password"
+            className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+            placeholder={t("confirmPasswordPlaceholder")}
+          />
         </div>
       </div>
 

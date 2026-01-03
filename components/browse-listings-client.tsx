@@ -27,6 +27,7 @@ interface Props {
   initialCountry?: string;
   initialSort?: string;
   locale: string;
+  defaultCountry: string;
 }
 
 export function BrowseListingsClient({
@@ -43,6 +44,7 @@ export function BrowseListingsClient({
   initialCountry = "",
   initialSort = "newest",
   locale,
+  defaultCountry,
 }: Props) {
   const t = useTranslations("browse");
   const router = useRouter();
@@ -162,14 +164,21 @@ export function BrowseListingsClient({
     setMaxPrice("");
     setPriceCurrency("EUR");
     setSortBy("newest");
-    setCountry("");
+    setCountry(defaultCountry);
+
+    const params = new URLSearchParams();
+    if (defaultCountry) {
+      params.set("country", defaultCountry);
+    }
 
     startTransition(() => {
-      router.push(`/${locale}`, { scroll: false });
+      router.push(
+        `/${locale}${params.toString() ? `?${params.toString()}` : ""}`,
+        { scroll: false }
+      );
     });
   };
 
-  // Cleanup debounce timer
   useEffect(() => {
     return () => {
       if (debounceTimer.current) {

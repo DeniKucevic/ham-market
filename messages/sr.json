@@ -189,6 +189,8 @@
     "subtitle": "Upravljajte informacijama profila i podešavanjima privatnosti"
   },
   "settingsForm": {
+    "confirmPassword": "Potvrdite lozinku",
+    "confirmPasswordPlaceholder": "Ponovo unesite novu lozinku",
     "validationError": "Greška validacije",
     "updateError": "Ažuriranje profila nije uspelo",
     "successMessage": "Profil uspešno ažuriran!",

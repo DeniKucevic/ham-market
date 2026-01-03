@@ -189,6 +189,8 @@
     "subtitle": "Manage your profile information and privacy settings"
   },
   "settingsForm": {
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Re-enter your new password",
     "validationError": "Validation error",
     "updateError": "Failed to update profile",
     "successMessage": "Profile updated successfully!",
